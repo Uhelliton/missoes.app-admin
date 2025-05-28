@@ -1,0 +1,14 @@
+services:
+  missoes-admin:
+    build: .
+    container_name: missoes-admin
+    ports:
+      - '9015:9015'
+    volumes:
+      - .:/home/node/app:rw
+    restart: 'no'
+    command: sh
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
