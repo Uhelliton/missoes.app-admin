@@ -748,6 +748,6 @@ const executeExample = (sub: any) => {
   }
 };
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

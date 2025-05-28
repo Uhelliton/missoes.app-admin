@@ -40,5 +40,5 @@
 <script setup lang="ts">
 import { fontAwesomeIcon } from "@/views/icons/data";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

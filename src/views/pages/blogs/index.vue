@@ -11,5 +11,5 @@
 import { blogData } from "@/views/pages/blogs/components/data";
 import BlogCard from "@/views/pages/blogs/components/BlogCard.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

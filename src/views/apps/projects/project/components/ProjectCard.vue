@@ -106,8 +106,8 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 import type { ProjectType } from "@/views/apps/projects/project/components/types";
-import { currency } from "@/helpers/constants";
-import { kebabToTitleCase } from "@/helpers/change-casing";
+import { currency } from "@/infra/helpers/constants";
+import { kebabToTitleCase } from "@/infra/helpers/change-casing";
 
 defineProps({
   item: {

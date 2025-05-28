@@ -679,6 +679,6 @@ import btc from "@/assets/images/extra/card/btc.png";
 import find from "@/assets/images/extra/card/find.png";
 import avatar5 from "@/assets/images/users/avatar-5.jpg";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

@@ -3,7 +3,7 @@ import type {
   CustomerType,
   StateType,
 } from "@/views/apps/ecommerce/customers/components/types";
-import { currency } from "@/helpers/constants";
+import { currency } from "@/infra/helpers/constants";
 
 import avatar1 from "@/assets/images/users/avatar-1.jpg";
 import avatar2 from "@/assets/images/users/avatar-2.jpg";

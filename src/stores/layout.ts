@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
-import { toggleDocumentAttribute } from "@/helpers/layout";
+import { toggleDocumentAttribute } from "@/infra/helpers/layout";
 
 type LayoutType = {
   theme: "light" | "dark";

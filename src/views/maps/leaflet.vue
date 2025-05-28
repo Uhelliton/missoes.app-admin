@@ -96,7 +96,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted } from "vue";
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import L, { type CircleMarkerOptions } from "leaflet";
 
 onMounted(() => {

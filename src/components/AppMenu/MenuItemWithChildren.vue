@@ -50,7 +50,7 @@ const props = defineProps<SubMenus>();
 
 const visible = ref(true);
 
-import router from "@/router";
+import router from "src/core/router";
 const currentRouteName = router.currentRoute.value.name;
 
 const toggle = () => {

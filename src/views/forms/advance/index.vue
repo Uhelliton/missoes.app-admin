@@ -22,5 +22,5 @@ import CustomTouchSpin from "@/views/forms/advance/components/CustomTouchSpin.vu
 import DateFlatPicker from "@/views/forms/advance/components/DateFlatPicker.vue";
 import Mask from "@/views/forms/advance/components/Mask.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

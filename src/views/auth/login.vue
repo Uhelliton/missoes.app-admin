@@ -112,15 +112,15 @@ import { ref, reactive, computed } from "vue";
 import logoSm from "@/assets/images/logo-sm.png";
 import { required, email } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
-import AuthLayout from "@/layouts/AuthLayout.vue";
+import AuthLayout from "@/presentation/layouts/AuthLayout.vue";
 
-import HttpClient from "@/helpers/http-client";
-import { useAuthStore } from "@/stores/auth";
+import HttpClient from "@/infra/helpers/http-client";
+import { useAuthStore } from "@/modules/auth/stores/auth";
 import { useRoute } from "vue-router";
 
 import type { AxiosResponse } from "axios";
 import type { User } from "@/types/auth";
-import router from "@/router";
+import router from "@//core/router";
 
 const credentials = reactive({
   email: "user@email.com",

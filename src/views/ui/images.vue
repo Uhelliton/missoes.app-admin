@@ -90,6 +90,6 @@ import avatar7 from "@/assets/images/users/avatar-7.jpg";
 import avatar8 from "@/assets/images/users/avatar-8.jpg";
 import avatar10 from "@/assets/images/users/avatar-10.jpg";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

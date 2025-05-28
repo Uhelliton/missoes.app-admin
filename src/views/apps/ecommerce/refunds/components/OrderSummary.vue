@@ -46,5 +46,5 @@
   </b-card>
 </template>
 <script setup lang="ts">
-import { currency } from "@/helpers/constants";
+import { currency } from "@/infra/helpers/constants";
 </script>

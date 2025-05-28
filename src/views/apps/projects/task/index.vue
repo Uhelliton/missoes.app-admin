@@ -12,5 +12,5 @@ import TasksSummary from "@/views/apps/projects/task/components/TasksSummary.vue
 import StateWidgets from "@/views/apps/projects/task/components/StateWidgets.vue";
 import TaskDetails from "@/views/apps/projects/task/components/TaskDetails.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

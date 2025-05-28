@@ -197,7 +197,7 @@
 import { onMounted } from "vue";
 import { DataTable } from "simple-datatables";
 import { contactData } from "@/views/apps/contacts/components/data";
-import { kebabToTitleCase } from "@/helpers/change-casing";
+import { kebabToTitleCase } from "@/infra/helpers/change-casing";
 
 onMounted(() => {
   new DataTable("#datatable_1", {
@@ -209,5 +209,5 @@ onMounted(() => {
   });
 });
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

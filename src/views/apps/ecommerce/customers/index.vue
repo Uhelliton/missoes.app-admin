@@ -220,8 +220,8 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { DataTable } from "simple-datatables";
-import { currency } from "@/helpers/constants";
-import { kebabToTitleCase } from "@/helpers/change-casing";
+import { currency } from "@/infra/helpers/constants";
+import { kebabToTitleCase } from "@/infra/helpers/change-casing";
 import { customersData } from "@/views/apps/ecommerce/customers/components/data";
 
 onMounted(() => {
@@ -234,5 +234,5 @@ onMounted(() => {
   });
 });
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

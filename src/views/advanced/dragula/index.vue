@@ -12,5 +12,5 @@
 import { projectData } from "@/views/advanced/dragula/components/data";
 import ProjectCard from "@/views/advanced/dragula/components/ProjectCard.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

@@ -18,6 +18,6 @@
 import CustomFileUpload from "@/views/forms/file-uploads/components/CustomFileUpload.vue";
 import UppyFileUpload from "@/views/forms/file-uploads/components/UppyFileUpload.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

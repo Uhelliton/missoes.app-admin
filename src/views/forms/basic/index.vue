@@ -838,7 +838,7 @@
   </DefaultLayout>
 </template>
 <script setup lang="ts">
-import { currency } from "@/helpers/constants";
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import { currency } from "@/infra/helpers/constants";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

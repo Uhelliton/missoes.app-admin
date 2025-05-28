@@ -11,5 +11,5 @@
 import { clients } from "@/views/apps/projects/clients/components/data";
 import ClientCard from "@/views/apps/projects/clients/components/ClientCard.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

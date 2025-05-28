@@ -24,5 +24,5 @@ import TopSelling from "@/views/dashboards/ecommerce/components/TopSelling.vue";
 import CategoriesData from "@/views/dashboards/ecommerce/components/CategoriesData.vue";
 import RecentsOrder from "@/views/dashboards/ecommerce/components/RecentsOrder.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

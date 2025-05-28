@@ -23,5 +23,5 @@
   </footer>
 </template>
 <script setup lang="ts">
-import { currentYear, developedBy } from "@/helpers/constants";
+import { currentYear, developedBy } from "@/infra/helpers/constants";
 </script>

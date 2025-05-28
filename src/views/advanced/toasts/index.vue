@@ -272,6 +272,6 @@ const options = [
 import logoSm from "@/assets/images/logo-sm.png";
 import avatar5 from "@/assets/images/users/avatar-5.jpg";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

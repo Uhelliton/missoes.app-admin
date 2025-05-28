@@ -486,7 +486,7 @@ import {
   exportJSON,
 } from "simple-datatables";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 
 onMounted(() => {
   new DataTable("#datatable_1", {

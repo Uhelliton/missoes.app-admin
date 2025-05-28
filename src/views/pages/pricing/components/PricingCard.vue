@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 import type { PricingDataType } from "@/views/pages/pricing/components/types";
-import { currency } from "@/helpers/constants";
+import { currency } from "@/infra/helpers/constants";
 
 defineProps({
   item: {

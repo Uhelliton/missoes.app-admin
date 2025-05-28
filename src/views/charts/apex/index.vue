@@ -235,7 +235,7 @@
   </DefaultLayout>
 </template>
 <script setup lang="ts">
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 import ApexChart from "@/components/ApexChart.vue";
 import {

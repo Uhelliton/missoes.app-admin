@@ -208,11 +208,11 @@
 <script setup lang="ts">
 import logoSm from "@/assets/images/logo-sm.png";
 import signature from "@/assets/images/extra/signature.png";
-import { currency } from "@/helpers/constants";
+import { currency } from "@/infra/helpers/constants";
 
 const print = () => {
   window.print();
 };
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

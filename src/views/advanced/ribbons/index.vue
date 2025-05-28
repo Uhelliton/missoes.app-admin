@@ -300,5 +300,5 @@ import crovex from "@/assets/images/extra/dashboards/crovex.jpg";
 import metrica from "@/assets/images/extra/dashboards/metrica.jpg";
 import frogetor from "@/assets/images/extra/dashboards/frogetor.jpg";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

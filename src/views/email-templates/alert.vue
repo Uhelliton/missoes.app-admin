@@ -189,5 +189,5 @@
 <script setup lang="ts">
 import bell from "@/assets/images/extra/bell.png";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

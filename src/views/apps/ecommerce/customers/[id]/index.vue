@@ -14,7 +14,7 @@ import { useRoute } from "vue-router";
 import Profile from "@/views/apps/ecommerce/customers/components/Profile.vue";
 import StatsWidgets from "@/views/apps/ecommerce/customers/components/StatsWidgets.vue";
 import Orders from "@/views/apps/ecommerce/customers/components/Orders.vue";
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 
 const route = useRoute();
 </script>

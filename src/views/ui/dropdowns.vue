@@ -413,6 +413,6 @@
 </template>
 <script setup lang="ts">
 import DropDown from "@/components/DropDown.vue";
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

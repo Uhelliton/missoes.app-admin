@@ -15,5 +15,5 @@ import ProfileInfo from "@/views/pages/profile/components/ProfileInfo.vue";
 import PersonalInformation from "@/views/pages/profile/components/PersonalInformation.vue";
 import ProfileTabs from "@/views/pages/profile/components/ProfileTabs.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

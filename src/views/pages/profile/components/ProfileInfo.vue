@@ -73,7 +73,7 @@
 </template>
 <script setup lang="ts">
 import ApexChart from "@/components/ApexChart.vue";
-import { currency } from "@/helpers/constants";
+import { currency } from "@/infra/helpers/constants";
 import { completeChart } from "@/views/pages/profile/components/data";
 import avatar7 from "@/assets/images/users/avatar-7.jpg";
 </script>

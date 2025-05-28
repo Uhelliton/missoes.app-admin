@@ -36,5 +36,5 @@ import { notificationsList } from "@/views/pages/notifications/components/data";
 import NotificationCard from "@/views/pages/notifications/components/NotificationCard.vue";
 import notification from "@/assets/images/extra/card/notification.gif";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

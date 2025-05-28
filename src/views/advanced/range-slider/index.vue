@@ -95,7 +95,7 @@ import noUiSlider from "nouislider";
 import type { Options } from "nouislider";
 import wNumb from "wnumb";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 
 onMounted(() => {

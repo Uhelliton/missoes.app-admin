@@ -366,5 +366,5 @@ import img1 from "@/assets/images/extra/card/img-1.jpg";
 import vcard from "@/assets/images/extra/card/v-card.jpg";
 import excard from "@/assets/images/extra/card/ex-card.png";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

@@ -62,5 +62,5 @@
 <script setup lang="ts">
 import { iconfont } from "@/views/icons/data";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

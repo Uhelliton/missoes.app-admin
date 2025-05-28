@@ -33,6 +33,6 @@
 </template>
 <script setup lang="ts">
 import simplebar from "simplebar-vue";
-import { getMenuItems } from "@/helpers/menu";
+import { getMenuItems } from "@/infra/helpers/menu";
 import LogoBox from "@/components/LogoBox.vue";
 </script>

@@ -98,6 +98,6 @@ import { ref } from "vue";
 const perPageItem = ref(5);
 const currentPage = ref(1);
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

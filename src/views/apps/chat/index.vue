@@ -12,5 +12,5 @@
 import ContactList from "@/views/apps/chat/components/ContactList.vue";
 import ChatBox from "@/views/apps/chat/components/ChatBox.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

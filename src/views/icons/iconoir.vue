@@ -63,5 +63,5 @@
 <script setup lang="ts">
 import { iconoir } from "@/views/icons/data";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

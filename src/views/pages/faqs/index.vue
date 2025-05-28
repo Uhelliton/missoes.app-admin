@@ -15,5 +15,5 @@ import AskedQuestions from "@/views/pages/faqs/components/AskedQuestions.vue";
 import QuestionsWithAccordion from "@/views/pages/faqs/components/QuestionsWithAccordion.vue";
 import HaveMoreQuestions from "@/views/pages/faqs/components/HaveMoreQuestions.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

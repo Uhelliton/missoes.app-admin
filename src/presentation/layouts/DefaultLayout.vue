@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import TopBar from "@/layouts/components/TopBar.vue";
-import LeftSideBar from "@/layouts/components/LeftSideBar.vue";
-import Footer from "@/layouts/components/Footer.vue";
+import TopBar from "@/presentation/layouts/components/TopBar.vue";
+import LeftSideBar from "@/presentation/layouts/components/LeftSideBar.vue";
+import Footer from "@/presentation/layouts/components/Footer.vue";
 </script>

@@ -206,5 +206,5 @@ import img4 from "@/assets/images/extra/card/img-4.jpg";
 import img5 from "@/assets/images/extra/card/img-5.jpg";
 import img6 from "@/assets/images/extra/card/img-6.jpg";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

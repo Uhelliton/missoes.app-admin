@@ -2,7 +2,7 @@ import type {
   OrderListType,
   OrderType,
 } from "@/views/apps/ecommerce/orders/components/types";
-import { currency } from "@/helpers/constants";
+import { currency } from "@/infra/helpers/constants";
 
 import products01 from "@/assets/images/products/01.png";
 import products03 from "@/assets/images/products/03.png";

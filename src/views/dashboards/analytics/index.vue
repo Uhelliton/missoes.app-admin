@@ -27,5 +27,5 @@ import OrganicTraffic from "@/views/dashboards/analytics/components/OrganicTraff
 import TotalVisits from "@/views/dashboards/analytics/components/TotalVisits.vue";
 import TrafficSources from "@/views/dashboards/analytics/components/TrafficSources.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

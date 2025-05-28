@@ -20,5 +20,5 @@ import {
 import PricingCard from "@/views/pages/pricing/components/PricingCard.vue";
 import PricingIconCard from "@/views/pages/pricing/components/PricingIconCard.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

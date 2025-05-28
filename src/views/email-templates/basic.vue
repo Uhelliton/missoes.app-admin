@@ -337,5 +337,5 @@
 <script setup lang="ts">
 import logoSm from "@/assets/images/logo-sm.png";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

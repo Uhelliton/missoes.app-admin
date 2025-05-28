@@ -11,5 +11,5 @@
 import { teamsData } from "@/views/apps/projects/team/components/data";
 import TeamCard from "@/views/apps/projects/team/components/TeamCard.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

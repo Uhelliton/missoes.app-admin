@@ -13,5 +13,5 @@
 import StatWidgets from "@/views/advanced/file-manager/components/StatWidgets.vue";
 import Files from "@/views/advanced/file-manager/components/Files.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

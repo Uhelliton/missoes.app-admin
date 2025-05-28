@@ -119,7 +119,7 @@
 import type { PropType } from "vue";
 import type { TaskType } from "@/views/apps/projects/task/components/types";
 
-import { kebabToTitleCase } from "@/helpers/change-casing";
+import { kebabToTitleCase } from "@/infra/helpers/change-casing";
 
 defineProps({
   item: {

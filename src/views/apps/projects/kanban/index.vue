@@ -167,5 +167,5 @@ import avatar6 from "@/assets/images/users/avatar-6.jpg";
 const userImg = [avatar1, avatar2, avatar4, avatar5, avatar4, avatar6];
 
 const boardModal = ref(false);
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

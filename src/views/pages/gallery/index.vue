@@ -38,6 +38,6 @@ onMounted(() => {
 
 const cardImg = [img1, img2, img3, img4, img5, img6, img2, img1];
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

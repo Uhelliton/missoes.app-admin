@@ -69,6 +69,6 @@
   </b-col>
 </template>
 <script setup lang="ts">
-import { currency } from "@/helpers/constants";
+import { currency } from "@/infra/helpers/constants";
 import { topSelling } from "@/views/dashboards/ecommerce/components/data";
 </script>

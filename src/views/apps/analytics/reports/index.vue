@@ -17,5 +17,5 @@ import Metrics from "@/views/apps/analytics/reports/components/Metrics.vue";
 import VisitsDetails from "@/views/apps/analytics/reports/components/VisitsDetails.vue";
 import SocialMedia from "@/views/apps/analytics/reports/components/SocialMedia.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

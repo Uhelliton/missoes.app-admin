@@ -122,8 +122,8 @@
 import type { PropType } from "vue";
 import type { MovableType } from "@/views/advanced/dragula/components/types";
 
-import { kebabToTitleCase } from "@/helpers/change-casing";
-import { currency } from "@/helpers/constants";
+import { kebabToTitleCase } from "@/infra/helpers/change-casing";
+import { currency } from "@/infra/helpers/constants";
 
 defineProps({
   item: {

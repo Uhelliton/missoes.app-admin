@@ -30,5 +30,5 @@
 <script setup lang="ts">
 import logoSm from "@/assets/images/logo-sm.png";
 import error from "@/assets/images/extra/error.svg";
-import AuthLayout from "@/layouts/AuthLayout.vue";
+import AuthLayout from "@/presentation/layouts/AuthLayout.vue";
 </script>

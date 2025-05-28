@@ -24,5 +24,5 @@
 </template>
 <script setup lang="ts">
 import maintenance from "@/assets/images/extra/card/maintenance.png";
-import AuthLayout from "@/layouts/AuthLayout.vue";
+import AuthLayout from "@/presentation/layouts/AuthLayout.vue";
 </script>

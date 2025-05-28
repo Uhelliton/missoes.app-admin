@@ -23,6 +23,6 @@ const taskDetail = `<p>Hello World!</p>
           <p>Some initial <strong>bold</strong> text</p>
           <p><br /></p>`;
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

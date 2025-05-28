@@ -27,6 +27,6 @@ import VBForm from "@/views/forms/validation/components/VBForm.vue";
 import VuelidateForm from "@/views/forms/validation/components/VuelidateForm.vue";
 import ValidationTooltipsForm from "@/views/forms/validation/components/ValidationTooltipsForm.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 import UIComponentCard from "@/components/UIComponentCard.vue";
 </script>

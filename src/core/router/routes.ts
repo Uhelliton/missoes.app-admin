@@ -1,51 +1,54 @@
+import { routes as authRoutes } from '@/modules/auth/routes'
+
 const setTitle = (title: string) => {
   return title
     ? `${title} | Rizz Vue - Responsive Admin Dashboard Template`
     : "Rizz Vue | Responsive Admin Dashboard Template";
 };
 
-const authRoutes = [
-  {
-    path: "/auth/sign-in",
-    name: "auth.sign-in",
-    meta: {
-      title: setTitle("Sign In"),
-    },
-    component: () => import("@/views/auth/login.vue"),
-  },
-  {
-    path: "/auth/register",
-    name: "auth.register",
-    meta: {
-      title: setTitle("Register"),
-    },
-    component: () => import("@/views/auth/register.vue"),
-  },
-  {
-    path: "/auth/reset-pass",
-    name: "auth.reset-pass",
-    meta: {
-      title: setTitle("Reset Password"),
-    },
-    component: () => import("@/views/auth/reset-pass.vue"),
-  },
-  {
-    path: "/auth/lock-screen",
-    name: "auth.lock-screen",
-    meta: {
-      title: setTitle("Lock Screen"),
-    },
-    component: () => import("@/views/auth/lock-screen.vue"),
-  },
-  {
-    path: "/auth/maintenance",
-    name: "auth.maintenance",
-    meta: {
-      title: setTitle("Maintenance"),
-    },
-    component: () => import("@/views/auth/maintenance.vue"),
-  },
-];
+
+// const authRoutes = [
+//   {
+//     path: "/auth/sign-in",
+//     name: "auth.sign-in",
+//     meta: {
+//       title: setTitle("Sign In"),
+//     },
+//     component: () => import("@/views/auth/login.vue"),
+//   },
+//   {
+//     path: "/auth/register",
+//     name: "auth.register",
+//     meta: {
+//       title: setTitle("Register"),
+//     },
+//     component: () => import("@/views/auth/register.vue"),
+//   },
+//   {
+//     path: "/auth/reset-pass",
+//     name: "auth.reset-pass",
+//     meta: {
+//       title: setTitle("Reset Password"),
+//     },
+//     component: () => import("@/views/auth/reset-pass.vue"),
+//   },
+//   {
+//     path: "/auth/lock-screen",
+//     name: "auth.lock-screen",
+//     meta: {
+//       title: setTitle("Lock Screen"),
+//     },
+//     component: () => import("@/views/auth/lock-screen.vue"),
+//   },
+//   {
+//     path: "/auth/maintenance",
+//     name: "auth.maintenance",
+//     meta: {
+//       title: setTitle("Maintenance"),
+//     },
+//     component: () => import("@/views/auth/maintenance.vue"),
+//   },
+// ];
 
 const errorRoutes = [
   {

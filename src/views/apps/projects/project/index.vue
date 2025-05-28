@@ -11,5 +11,5 @@
 import { projectsData } from "@/views/apps/projects/project/components/data";
 import ProjectCard from "@/views/apps/projects/project/components/ProjectCard.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

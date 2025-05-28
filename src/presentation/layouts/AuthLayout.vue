@@ -4,7 +4,7 @@
       <b-col cols="12" class="align-self-center">
         <b-card-body>
           <b-row>
-            <slot />
+            <router-view />
           </b-row>
         </b-card-body>
       </b-col>

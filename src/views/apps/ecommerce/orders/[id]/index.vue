@@ -22,5 +22,5 @@ import OrderSummary from "@/views/apps/ecommerce/orders/components/OrderSummary.
 import OrderInformation from "@/views/apps/ecommerce/orders/components/OrderInformation.vue";
 const route = useRoute();
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

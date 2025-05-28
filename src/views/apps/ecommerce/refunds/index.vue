@@ -16,5 +16,5 @@ import RefundRequest from "@/views/apps/ecommerce/refunds/components/RefundReque
 import OrderSummary from "@/views/apps/ecommerce/refunds/components/OrderSummary.vue";
 import Amount from "@/views/apps/ecommerce/refunds/components/Amount.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

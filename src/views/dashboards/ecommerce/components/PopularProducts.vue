@@ -88,7 +88,7 @@
   </b-col>
 </template>
 <script setup lang="ts">
-import { currency } from "@/helpers/constants";
-import { kebabToTitleCase } from "@/helpers/change-casing";
+import { currency } from "@/infra/helpers/constants";
+import { kebabToTitleCase } from "@/infra/helpers/change-casing";
 import { productList } from "@/views/dashboards/ecommerce/components/data";
 </script>

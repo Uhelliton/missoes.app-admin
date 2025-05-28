@@ -83,7 +83,7 @@
   </b-row>
 </template>
 <script setup lang="ts">
-import { currency } from "@/helpers/constants";
-import { kebabToTitleCase } from "@/helpers/change-casing";
+import { currency } from "@/infra/helpers/constants";
+import { kebabToTitleCase } from "@/infra/helpers/change-casing";
 import { customerOrder } from "@/views/apps/ecommerce/customers/components/data";
 </script>

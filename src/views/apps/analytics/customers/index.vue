@@ -14,5 +14,5 @@ import CustomersGrowth from "@/views/apps/analytics/customers/components/Custome
 import SocialStats from "@/views/apps/analytics/customers/components/SocialStats.vue";
 import CustomersDetails from "@/views/apps/analytics/customers/components/CustomersDetails.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

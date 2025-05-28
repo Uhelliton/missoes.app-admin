@@ -10,5 +10,5 @@
 import Timeline1 from "@/views/pages/timeline/components/Timeline1.vue";
 import Timeline2 from "@/views/pages/timeline/components/Timeline2.vue";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>

@@ -97,9 +97,9 @@
   </DefaultLayout>
 </template>
 <script setup lang="ts">
-import { currency } from "@/helpers/constants";
-import { kebabToTitleCase } from "@/helpers/change-casing";
+import { currency } from "@/infra/helpers/constants";
+import { kebabToTitleCase } from "@/infra/helpers/change-casing";
 import { ordersData } from "@/views/apps/ecommerce/orders/components/data";
 
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import DefaultLayout from "@/presentation/layouts/DefaultLayout.vue";
 </script>
