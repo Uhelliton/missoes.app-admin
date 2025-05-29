@@ -5,12 +5,12 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { useLayoutStore } from "@/stores/layout";
-import configureFakeBackend from "@/infra/helpers/fake-backend";
+// import configureFakeBackend from "@/infra/helpers/fake-backend";
 import { onMounted } from "vue";
 
 onMounted(() => {
   useLayoutStore().init();
 });
 
-configureFakeBackend();
+// configureFakeBackend();
 </script>

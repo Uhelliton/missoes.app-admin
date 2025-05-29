@@ -12,7 +12,7 @@
         </div>
       </b-card-body>
       <b-card-body class="pt-0">
-        <b-form class="my-4" @submit.prevent="handleLogin">
+        <b-form class="my-4" @submit.prevent="login">
           <b-form-group class="mb-2" label="Email" label-for="username">
             <b-form-input
               type="text"
@@ -68,18 +68,21 @@ import { ref, reactive, computed } from "vue";
 import logoSm from "@/assets/images/logo-sm.png";
 import { required, email } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
-
-import HttpClient from "@/infra/helpers/http-client";
-import { useAuthStore } from "@/modules/auth/stores/auth";
-import { useRoute } from "vue-router";
-
-import type { AxiosResponse } from "axios";
-import type { User } from "@/types/auth";
 import router from "@/core/router";
 
+import { useAuthStore } from "@/modules/auth/stores/auth";
+import { useRoute } from "vue-router";
+import { AuthService } from '../services/auth.service'
+
+const { authenticate } = AuthService()
+const useAuth = useAuthStore();
+const route = useRoute();
+const query = route.query;
+
+const error = ref("");
 const credentials = reactive({
-  email: "user@email.com",
-  password: "password",
+  email: "administrador@cif.com.br",
+  password: "cef@@123",
 });
 
 const vuelidateRules = computed(() => ({
@@ -89,36 +92,25 @@ const vuelidateRules = computed(() => ({
 
 const v = useVuelidate(vuelidateRules, credentials);
 
-const useAuth = useAuthStore();
-const route = useRoute();
-const query = route.query;
+const login = async () => {
+  const result = await v.value.$validate()
+  if (!result) return
 
-const error = ref("");
+  try {
+    const payload = { password: credentials.password, username: credentials.email }
+    const response = await authenticate(payload)
+    console.log('Login com sucesso:', response.data)
+    useAuth.saveSession({
+       ...response.data,
+       token: response.data.token,
+      });
 
-const handleLogin = async () => {
-  const result = await v.value.$validate();
-
-  if (result) {
-    try {
-      const res: AxiosResponse<User> = await HttpClient.post(
-        "/sign-in",
-        credentials,
-      );
-
-      if (res.data.token) {
-        useAuth.saveSession({
-          ...res.data,
-          token: res.data.token,
-        });
-        redirectUser();
-      }
-    } catch (e: any) {
-      if (e.response?.data?.error) {
-        if (error.value.length == 0) error.value = e.response?.data?.error;
-      }
-    }
+    redirectUser();
+  } catch (error) {
+    // e.response?.data?.error
+    console.error('Erro ao autenticar:', error)
   }
-};
+}
 
 const redirectUser = () => {
   if (query.redirectedFrom) {

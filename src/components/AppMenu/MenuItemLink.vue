@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import type { SubMenus } from "@/types/menu";
-import router from "src/core/router";
+import router from "@/core/router";
 
 defineProps<SubMenus>();
 
