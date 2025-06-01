@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { required, numeric, helpers, email } from "@vuelidate/validators";
+import { required, numeric, helpers, email } from '@vuelidate/validators'
 
 export const useMemberValidation = () => {
   const rules = computed(() => ({
@@ -14,21 +14,21 @@ export const useMemberValidation = () => {
       city: {
         id: {
           required,
-          notZero: helpers.withMessage('Cidade obrigatória', (val) => val > 0)
-        }
+          notZero: helpers.withMessage('Cidade obrigatória', (val) => val > 0),
+        },
       },
       state: {
         id: {
           required,
-          notZero: helpers.withMessage('Estado obrigatório', (val) => val > 0)
-        }
+          notZero: helpers.withMessage('Estado obrigatório', (val) => val > 0),
+        },
       },
       church: {
         id: {
           required,
-          notZero: helpers.withMessage('Igreja obrigatório', (val) => val > 0)
-        }
-      }
+          notZero: helpers.withMessage('Igreja obrigatório', (val) => val > 0),
+        },
+      },
     },
   }))
 

@@ -3,7 +3,7 @@ import type { IAuthPayload, IAuthResponse } from '@/modules/auth/interfaces/auth
 
 export const TeamService = () => {
   const getAll = (): Promise<any> => {
-    return  http.get<IAuthResponse>('/teams')
+    return http.get<IAuthResponse>('/teams')
   }
 
   return { getAll }

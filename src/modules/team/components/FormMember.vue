@@ -1,47 +1,27 @@
 <template>
-  <BModal
-      v-model="isOpen"
-      title="Cadastro de Membros"
-      title-class="m-0"
-      size="lg"
-      cancel-variant="outline-danger"
-      @close="closeModal"
-  >
+  <BModal v-model="isOpen" title="Cadastro de Membros" title-class="m-0" size="lg" cancel-variant="outline-danger" @close="closeModal">
     <BForm class="px-4 mt-2">
       <BRow>
         <BCol md="6">
           <BFormGroup label="Name" label-for="Nome" class="mb-3">
-            <BFormInput
-              type="text"
-              v-model="form.name"
-              :class="[{ 'error': v$.name.$error }]"
-            />
+            <BFormInput type="text" v-model="form.name" :class="[{ error: v$.name.$error }]" />
           </BFormGroup>
         </BCol>
         <BCol md="6">
           <BFormGroup label="Email" label-for="Email" class="mb-3">
-            <BFormInput type="text" v-model="form.email" :class="[{ 'error': v$.email.$error }]" />
+            <BFormInput type="text" v-model="form.email" :class="[{ error: v$.email.$error }]" />
           </BFormGroup>
         </BCol>
       </BRow>
       <BRow>
         <BCol md="6">
           <BFormGroup label="CPF" label-for="Cpf" class="mb-3">
-            <BFormInput
-              type="text"
-              v-model="form.cpf"
-              :class="[{ 'error': v$.cpf.$error }]"
-              v-maska="'###.###.###-##'"
-            />
+            <BFormInput type="text" v-model="form.cpf" :class="[{ error: v$.cpf.$error }]" v-maska="'###.###.###-##'" />
           </BFormGroup>
         </BCol>
         <BCol md="6">
           <BFormGroup label="Telefone" label-for="Telefone" class="mb-3">
-            <BFormInput
-              type="text"
-              v-model="form.phoneNumber"
-              v-maska="'(##) #####-####'"
-            />
+            <BFormInput type="text" v-model="form.phoneNumber" v-maska="'(##) #####-####'" />
           </BFormGroup>
         </BCol>
       </BRow>
@@ -52,7 +32,7 @@
               v-model="form.gender"
               class="form-control"
               placeholder="Selecione uma opção"
-              :class="[{ 'error': v$.gender.$error }]"
+              :class="[{ error: v$.gender.$error }]"
             >
               <option value="Masculino">Masculino</option>
               <option value="Feminino">Feminino</option>
@@ -68,7 +48,7 @@
               class="form-control"
               v-model="form.maritalStatus"
               placeholder="Selecione uma opção"
-              :class="[{ 'error': v$.gender.$error }]"
+              :class="[{ error: v$.gender.$error }]"
             >
               <option value="Solteiro">Solteiro</option>
               <option value="Casado">Casado</option>
@@ -85,8 +65,8 @@
             <AppSelect
               v-model="form.select.church"
               :options="churches"
-              :class="[{ 'error': v$.select.church.$error }]"
-              @change="(option) => form.churchId = option.id"
+              :class="[{ error: v$.select.church.$error }]"
+              @change="(option) => (form.churchId = option.id)"
             />
           </BFormGroup>
         </BCol>
@@ -94,12 +74,7 @@
       <BRow class="mt-2">
         <BCol md="6">
           <BFormGroup label="Estado" label-for="" class="mb-3 error">
-            <AppSelect
-              v-model="form.select.state"
-              :options="states"
-              @change="onChangeState"
-              :class="[{ 'error': v$.select.state.$error }]"
-            />
+            <AppSelect v-model="form.select.state" :options="states" @change="onChangeState" :class="[{ error: v$.select.state.$error }]" />
           </BFormGroup>
         </BCol>
         <BCol md="6">
@@ -107,9 +82,9 @@
             <AppSelect
               v-model="form.select.city"
               :options="cities"
-              :class="[{ 'error': v$.select.city.$error }]"
+              :class="[{ error: v$.select.city.$error }]"
               :disabled="!form.select.state"
-              @change="(option) => form.cityId = option.id"
+              @change="(option) => (form.cityId = option.id)"
             />
           </BFormGroup>
         </BCol>
@@ -126,30 +101,30 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, toRefs, computed } from "vue";
-import AppSelect, { type ISelect } from "@/components/forms/Select.vue";
-import { LocationService } from "@/modules/location/services/location.service";
-import { ChurchService } from "@/modules/project/services/church.service";
-import { MemberService } from "@/modules/team/services/member.service";
-import type { IMemberPayload } from "@/modules/team/types/member.interface";
-import { vMaska } from "maska/vue"
-import { useMemberValidation } from "@/modules/team/composables";
-import { useVuelidate } from "@vuelidate/core";
-import {locationDefault} from "@/infra/helpers/constants";
+import { onMounted, reactive, ref, toRefs, computed } from 'vue'
+import AppSelect, { type ISelect } from '@/components/forms/Select.vue'
+import { LocationService } from '@/modules/location/services/location.service'
+import { ChurchService } from '@/modules/project/services/church.service'
+import { MemberService } from '@/modules/team/services/member.service'
+import type { IMemberPayload } from '@/modules/team/types/member.interface'
+import { vMaska } from 'maska/vue'
+import { useMemberValidation } from '@/modules/team/composables'
+import { useVuelidate } from '@vuelidate/core'
+import { locationDefault } from '@/infra/helpers/constants'
 import { useNotify } from '@/infra/composables/useNotify'
 
 interface IModalProps {
-  isOpen: boolean;
+  isOpen: boolean
 }
 
 interface IModalEmits {
-  (event: 'update:isOpen', value: boolean): void;
-  (event: 'close'): void;
-  (event: 'created', value: boolean): void;
+  (event: 'update:isOpen', value: boolean): void
+  (event: 'close'): void
+  (event: 'created', value: boolean): void
 }
 
-const props = defineProps<IModalProps>();
-const emit = defineEmits<IModalEmits>();
+const props = defineProps<IModalProps>()
+const emit = defineEmits<IModalEmits>()
 
 const locationService = LocationService()
 const churchService = ChurchService()
@@ -157,7 +132,7 @@ const memberService = MemberService()
 const { rules } = useMemberValidation()
 const notify = useNotify()
 
-const { isOpen } = toRefs(props);
+const { isOpen } = toRefs(props)
 const form = reactive<IMemberPayload>({
   name: '',
   email: '',
@@ -172,11 +147,11 @@ const form = reactive<IMemberPayload>({
     city: locationDefault.city,
     state: locationDefault.state,
     church: {} as ISelect,
-  }
-});
-const states = ref([]);
-const cities = ref([]);
-const churches = ref([]);
+  },
+})
+const states = ref([])
+const cities = ref([])
+const churches = ref([])
 
 const v$ = useVuelidate(rules, form)
 
@@ -223,7 +198,7 @@ const handleSubmit = async () => {
 }
 
 const closeModal = () => {
-  emit('update:isOpen', false);
-  emit('close');
-};
+  emit('update:isOpen', false)
+  emit('close')
+}
 </script>

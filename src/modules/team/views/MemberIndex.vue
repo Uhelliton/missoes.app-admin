@@ -19,11 +19,7 @@
           </b-row>
         </b-card-header>
         <b-card-body class="pt-0">
-          <b-table-simple
-            responsive
-            class="mb-0 checkbox-all text-nowrap"
-            id="datatable_1"
-          >
+          <b-table-simple responsive class="mb-0 checkbox-all text-nowrap" id="datatable_1">
             <b-thead class="table-light">
               <b-tr>
                 <b-th class="ps-0">ID</b-th>
@@ -38,7 +34,8 @@
             <b-tbody>
               <b-tr v-for="(item, idx) in dataTable.rows" :key="idx">
                 <b-td>{{ item.id }}</b-td>
-                <b-td class="ps-0"><!--
+                <b-td class="ps-0"
+                  ><!--
                   <img
                     :src="item.customer.avatar"
                     alt=""
@@ -69,41 +66,37 @@
       </b-card>
     </b-col>
   </b-row>
-  <FormMember
-    :is-open="dialogMember"
-    @close="() => dialogMember = false"
-    @created="fetchMembers"
-  />
+  <FormMember :is-open="dialogMember" @close="() => (dialogMember = false)" @created="fetchMembers" />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive } from "vue";
-import { DataTable } from "simple-datatables";
-import { currency } from "@/infra/helpers/constants";
-import { kebabToTitleCase } from "@/infra/helpers/change-casing";
-import { customersData } from "@/views/apps/ecommerce/customers/components/data";
-import FormMember from "@/modules/team/components/FormMember.vue";
-import { MemberService } from "@/modules/team/services/member.service";
+import { onMounted, ref, reactive } from 'vue'
+import { DataTable } from 'simple-datatables'
+import { currency } from '@/infra/helpers/constants'
+import { kebabToTitleCase } from '@/infra/helpers/change-casing'
+import { customersData } from '@/views/apps/ecommerce/customers/components/data'
+import FormMember from '@/modules/team/components/FormMember.vue'
+import { MemberService } from '@/modules/team/services/member.service'
 
 const memberService = MemberService()
 const dialogMember = ref(false)
 const dataTable = reactive({
   rows: [],
   currentPage: 1,
-  total: 0
+  total: 0,
 })
 
 onMounted(async () => {
   await fetchMembers()
 
-  new DataTable("#datatable_1", {
+  new DataTable('#datatable_1', {
     searchable: true,
     fixedHeight: false,
     classes: {
-      table: "datatable-table mb-0",
+      table: 'datatable-table mb-0',
     },
-  });
-});
+  })
+})
 
 const fetchMembers = async () => {
   const response = await memberService.getAll()

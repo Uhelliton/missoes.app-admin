@@ -16,9 +16,9 @@ const routes = [
         path: '/members',
         component: MemberIndex,
         name: 'member.index',
-      }
-    ]
-  }
+      },
+    ],
+  },
 ]
 
 export default routes
