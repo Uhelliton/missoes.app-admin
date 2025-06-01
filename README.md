@@ -30,4 +30,11 @@ npm run dev
 
 ```sh
 npm run build
+
+
+
+npm run lint
+npm run format
+npx prettier --write src/modules/team
+
 ```
