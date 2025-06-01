@@ -9,7 +9,8 @@ import { BootstrapVueNextResolver } from 'bootstrap-vue-next';
 export default defineConfig({
   base: "/",
   server: {
-    port: 8086
+    port: 5173,
+    host: true
   },
   plugins: [
     vue(),
