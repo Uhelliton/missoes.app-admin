@@ -10,7 +10,7 @@ type LayoutType = {
 
 const defaultConfig: LayoutType = {
   theme: "light",
-  leftSideBarColor: "light",
+  leftSideBarColor: "dark",
   leftSideBarSize: "default",
 };
 

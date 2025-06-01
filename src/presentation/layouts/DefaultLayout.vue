@@ -5,8 +5,8 @@
 
   <div class="page-wrapper">
     <div class="page-content">
-      <div class="container-xxl">
-        <slot />
+      <div class="container-fluid px-md-4">
+        <router-view />
       </div>
 
       <Footer />
