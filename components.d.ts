@@ -77,6 +77,7 @@ declare module 'vue' {
     MenuItemWithChildren: typeof import('./src/components/AppMenu/MenuItemWithChildren.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Select: typeof import('./src/components/forms/Select.vue')['default']
     UIComponentCard: typeof import('./src/components/UIComponentCard.vue')['default']
   }
   export interface ComponentCustomProperties {

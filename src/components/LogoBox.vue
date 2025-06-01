@@ -4,8 +4,7 @@
       <img :src="logoSm" alt="logo-small" class="logo-sm" />{{ " " }}
     </span>
     <span class="">
-      <img :src="logoLight" alt="logo-large" class="logo-lg logo-light" />
-      <img :src="logoDark" alt="logo-large" class="logo-lg logo-dark" />
+      <h4 class="logo-lg text-black logo-dark">Missões</h4>
     </span>
   </router-link>
 </template>

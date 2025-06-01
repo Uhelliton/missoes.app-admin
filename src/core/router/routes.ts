@@ -1,4 +1,5 @@
 import { routes as authRoutes } from '@/modules/auth/routes'
+import { routes as teamRoutes } from '@/modules/team/routes'
 
 const setTitle = (title: string) => {
   return title
@@ -864,6 +865,7 @@ const componentsRoutes = [
 
 export const allRoute = [
   ...authRoutes,
+  ...teamRoutes,
   ...errorRoutes,
   ...dashboardRoutes,
   ...appRoutes,
