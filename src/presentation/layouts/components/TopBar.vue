@@ -1,6 +1,6 @@
 <template>
   <div class="topbar d-print-none">
-    <div class="container-xxl">
+    <div class="container-fluid px-md-4">
       <nav
         class="topbar-custom d-flex justify-content-between"
         id="topbar-custom"
@@ -18,55 +18,13 @@
             </button>
           </li>
           <li class="mx-3 welcome-text">
-            <h3 class="mb-0 fw-bold text-truncate">Good Morning, James!</h3>
+            <h3 class="mb-0 fw-bold text-truncate">Olá, Admin</h3>
             <!-- <h6 class="mb-0 fw-normal text-muted text-truncate fs-14">Here's your overview this week.</h6> -->
           </li>
         </ul>
         <ul
           class="topbar-item list-unstyled d-inline-flex align-items-center mb-0"
         >
-          <li class="hide-phone app-search">
-            <form role="search" action="#" method="get">
-              <input
-                type="search"
-                name="search"
-                class="form-control top-search mb-0"
-                placeholder="Search here..."
-              />
-              <button type="button"><i class="iconoir-search"></i></button>
-            </form>
-          </li>
-          <DropDown custom-class="dropdown">
-            <a
-              class="nav-link dropdown-toggle arrow-none nav-icon"
-              data-bs-toggle="dropdown"
-              href="#"
-              role="button"
-              aria-haspopup="false"
-              aria-expanded="false"
-            >
-              <img :src="usFlag" alt="" class="thumb-sm rounded-circle" />
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">
-                <img :src="usFlag" alt="" height="15" class="me-2" />
-                English
-              </a>
-              <a class="dropdown-item" href="#">
-                <img :src="spainFlag" alt="" height="15" class="me-2" />
-                Spanish
-              </a>
-              <a class="dropdown-item" href="#">
-                <img :src="germanyFlag" alt="" height="15" class="me-2" />
-                German
-              </a>
-              <a class="dropdown-item" href="#">
-                <img :src="frenchFlag" alt="" height="15" class="me-2" />
-                French
-              </a>
-            </div>
-          </DropDown>
-
           <li class="topbar-item">
             <a
               class="nav-link nav-icon"
