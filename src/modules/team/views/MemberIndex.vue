@@ -1,107 +1,93 @@
 <template>
-  <b-row>
-    <b-col cols="12">
-      <b-card no-body>
-        <b-card-header>
-          <b-row class="align-items-center">
+  <BRow>
+    <BCol cols="12">
+      <BCard no-body>
+        <BCardHeader>
+          <BRow class="align-items-center">
             <div class="col">
-              <b-card-title>Gerenciar Membros</b-card-title>
+              <BCardTitle>Gerenciar Membros</BCardTitle>
             </div>
             <div class="col-auto">
               <form class="row g-2">
                 <div class="col-auto">
-                  <b-button type="button" variant="primary" @click="dialogMember = !dialogMember">
+                  <b-button type="button" variant="primary" @click="handleCreate">
                     <i class="fa-solid fa-plus me-1"></i> Novo Membro
                   </b-button>
                 </div>
               </form>
             </div>
-          </b-row>
-        </b-card-header>
-        <b-card-body class="pt-0">
-          <b-table-simple responsive class="mb-0 checkbox-all text-nowrap" id="datatable_1">
-            <b-thead class="table-light">
-              <b-tr>
-                <b-th class="ps-0">ID</b-th>
-                <b-th class="ps-0">Nome</b-th>
-                <b-th>Email</b-th>
-                <b-th>CPF</b-th>
-                <b-th>Sexo</b-th>
-                <b-th>Cidade</b-th>
-                <b-th class="text-end"></b-th>
-              </b-tr>
-            </b-thead>
-            <b-tbody>
-              <b-tr v-for="(item, idx) in dataTable.rows" :key="idx">
-                <b-td>{{ item.id }}</b-td>
-                <b-td class="ps-0"
-                  ><!--
-                  <img
-                    :src="item.customer.avatar"
-                    alt=""
-                    class="thumb-md d-inline rounded-circle me-1"
-                  />{{ " " }}-->
-                  <p class="d-inline-block align-middle mb-0">
-                    <span class="font-13 fw-medium">{{ item.name }}</span>
-                  </p>
-                </b-td>
-                <b-td>
-                  <a href="" class="d-inline-block align-middle mb-0 text-body">{{ item.email }}</a>
-                </b-td>
-                <b-td>{{ item.cpf }}</b-td>
-                <b-td>
-                  <b-badge :variant="null" class="bg-danger-subtle text-danger">
-                    {{ kebabToTitleCase(item.gender) }}
-                  </b-badge>
-                </b-td>
-                <b-td>{{ item.city.name }}</b-td>
-                <b-td class="text-end">
-                  <a href="#"><i class="las la-pen text-secondary fs-18"></i></a>
-                  <a href="#"><i class="las la-trash-alt text-secondary fs-18"></i></a>
-                </b-td>
-              </b-tr>
-            </b-tbody>
-          </b-table-simple>
-        </b-card-body>
-      </b-card>
-    </b-col>
-  </b-row>
-  <FormMember :is-open="dialogMember" @close="() => (dialogMember = false)" @created="fetchMembers" />
+          </BRow>
+        </BCardHeader>
+        <BCardBody  class="pt-0">
+          <Datatable :items="dataTable.items" :columns="dataTable.columns" :has-actions="true">
+            <template #actions="{ item }">
+              <button @click="handleEdit(item)" class="btn btn-xs">
+                <i class="iconoir-edit-pencil text-secondary fs-18"></i>
+              </button>
+            </template>
+            <template #cell-gender="{ item }">
+              <BBadge :variant="null" class="bg-danger-subtle text-danger">
+                {{ item.gender }}
+              </BBadge >
+            </template>
+            <template #cell-city="{ item }">
+              <i class="bi bi-envelope-fill me-1"></i>{{ item.city.name }}
+            </template>
+          </Datatable>
+        </BCardBody >
+      </BCard>
+    </BCol>
+  </BRow>
+  <FormMember
+    :is-open="dialogMember"
+    @close="() => (dialogMember = false)"
+    :member="dataTable.rowSelected"
+    @created="fetchMembers"
+  />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue'
-import { DataTable } from 'simple-datatables'
-import { currency } from '@/infra/helpers/constants'
-import { kebabToTitleCase } from '@/infra/helpers/change-casing'
-import { customersData } from '@/views/apps/ecommerce/customers/components/data'
+import { onMounted, ref, reactive, Ref } from 'vue'
 import FormMember from '@/modules/team/components/FormMember.vue'
 import { MemberService } from '@/modules/team/services/member.service'
+import type { IMember } from '@/modules/team/types/member.interface'
+import Datatable from "@/components/table/Datatable.vue";
 
 const memberService = MemberService()
 const dialogMember = ref(false)
 const dataTable = reactive({
-  rows: [],
+  items: [],
+  columns: [
+    { key: 'id', label: '#' },
+    { key: 'name', label: 'Nome' },
+    { key: 'email', label: 'Email' },
+    { key: 'cpf', label: 'CPF' },
+    { key: 'gender', label: 'Sexo' },
+    { key: 'city', label: 'Cidade' },
+  ],
+  rowSelected: {} as Ref<IMember>,
   currentPage: 1,
   total: 0,
 })
 
 onMounted(async () => {
   await fetchMembers()
-
-  new DataTable('#datatable_1', {
-    searchable: true,
-    fixedHeight: false,
-    classes: {
-      table: 'datatable-table mb-0',
-    },
-  })
 })
 
 const fetchMembers = async () => {
   const response = await memberService.getAll()
-  dataTable.rows = response.data.items
+  dataTable.items = response.data.items
   dataTable.total = response.data.meta.totalItems
   dataTable.currentPage = response.data.meta.currentPage
+}
+
+const handleEdit = (row: IMember) => {
+  dataTable.rowSelected = row
+  dialogMember.value = true
+}
+
+const handleCreate = () => {
+  dataTable.rowSelected = null
+  dialogMember.value = true
 }
 </script>

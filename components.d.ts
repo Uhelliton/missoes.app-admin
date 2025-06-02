@@ -66,6 +66,7 @@ declare module 'vue' {
     BTooltip: typeof import('bootstrap-vue-next')['BTooltip']
     BTr: typeof import('bootstrap-vue-next')['BTr']
     ChartJs: typeof import('./src/components/ChartJs.vue')['default']
+    Datatable: typeof import('./src/components/table/Datatable.vue')['default']
     DropDown: typeof import('./src/components/DropDown.vue')['default']
     FlatPicker: typeof import('./src/components/FlatPicker.vue')['default']
     InputMask: typeof import('./src/components/InputMask.vue')['default']

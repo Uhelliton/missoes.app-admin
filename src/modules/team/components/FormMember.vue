@@ -1,5 +1,12 @@
 <template>
-  <BModal v-model="isOpen" title="Cadastro de Membros" title-class="m-0" size="lg" cancel-variant="outline-danger" @close="closeModal">
+  <BModal
+    v-model="isOpen"
+    :title="isFormCreate ? 'Cadastro de Membro' : 'Editar Membro'"
+    title-class="m-0"
+    size="lg"
+    cancel-variant="outline-danger"
+    @close="closeModal"
+  >
     <BForm class="px-4 mt-2">
       <BRow>
         <BCol md="6">
@@ -101,20 +108,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, toRefs, computed } from 'vue'
+import { onMounted, ref, toRefs, watch, computed } from 'vue'
 import AppSelect, { type ISelect } from '@/components/forms/Select.vue'
 import { LocationService } from '@/modules/location/services/location.service'
 import { ChurchService } from '@/modules/project/services/church.service'
 import { MemberService } from '@/modules/team/services/member.service'
-import type { IMemberPayload } from '@/modules/team/types/member.interface'
+import type { IMember } from '@/modules/team/types/member.interface'
 import { vMaska } from 'maska/vue'
-import { useMemberValidation } from '@/modules/team/composables'
 import { useVuelidate } from '@vuelidate/core'
 import { locationDefault } from '@/infra/helpers/constants'
 import { useNotify } from '@/infra/composables/useNotify'
+import { useFormMember } from '@/modules/team/composables/useFormMember'
 
 interface IModalProps {
   isOpen: boolean
+  member?: IMember
 }
 
 interface IModalEmits {
@@ -129,30 +137,13 @@ const emit = defineEmits<IModalEmits>()
 const locationService = LocationService()
 const churchService = ChurchService()
 const memberService = MemberService()
-const { rules } = useMemberValidation()
+const { form, setFormData, rules } = useFormMember()
 const notify = useNotify()
 
-const { isOpen } = toRefs(props)
-const form = reactive<IMemberPayload>({
-  name: '',
-  email: '',
-  cpf: '',
-  churchId: 0,
-  cityId: locationDefault.city.id,
-  stateId: locationDefault.state.id,
-  phoneNumber: '',
-  gender: '',
-  maritalStatus: '',
-  select: {
-    city: locationDefault.city,
-    state: locationDefault.state,
-    church: {} as ISelect,
-  },
-})
+const { isOpen, member } = toRefs(props)
 const states = ref([])
 const cities = ref([])
 const churches = ref([])
-
 const v$ = useVuelidate(rules, form)
 
 onMounted(async () => {
@@ -160,6 +151,17 @@ onMounted(async () => {
   await fetchCities(locationDefault.state.id)
   await fetchChurches()
 })
+
+const isFormCreate = computed(() => !member.value)
+
+watch(
+  () => isOpen.value,
+  (value: boolean) => {
+    if (value && !isFormCreate.value) {
+      setFormData(member.value)
+    }
+  },
+)
 
 const fetchStates = async () => {
   states.value = await locationService.getStates()
@@ -185,10 +187,23 @@ const handleSubmit = async () => {
   v$.value.$touch()
   if (v$.value.$invalid) return
 
+  await createOrUpdateRecord()
+}
+
+const createOrUpdateRecord = async () => {
   try {
     const payload = { ...form }
-    await memberService.create(payload)
-    notify.success('Cadastro efetivado com sucesso!')
+    delete payload.stateId
+    delete payload.select
+
+    if (isFormCreate.value) {
+      await memberService.create(payload)
+      notify.success('Cadastro efetivado com sucesso!')
+    } else {
+      await memberService.update(member.value.id, payload)
+      notify.success('Cadastro atualizado com sucesso!')
+    }
+
     closeModal()
     emit('created', true)
   } catch (error) {

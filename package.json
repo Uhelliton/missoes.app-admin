@@ -40,7 +40,6 @@
     "nouislider": "^15.8.1",
     "pinia": "^2.1.7",
     "prismjs": "^1.29.0",
-    "simple-datatables": "^9.0.3",
     "simplebar": "^6.2.6",
     "simplebar-vue": "^2.3.4",
     "sortablejs": "^1.15.6",

@@ -12,5 +12,9 @@ export const MemberService = () => {
     return http.post<IMember>('/members', payload)
   }
 
-  return { getAll, create }
+  const update = (id: number, payload: IMemberPayload): Promise<AxiosResponse<IMember>> => {
+    return http.put<IMember>(`/members/${id}`, payload)
+  }
+
+  return { getAll, create, update }
 }

@@ -1,1 +1,1 @@
-export * from './useMemberValidation'
+export * from './useFormMember'

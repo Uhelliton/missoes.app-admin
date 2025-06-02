@@ -62,7 +62,7 @@
                 <b-td>{{ item.order }}</b-td>
                 <b-td>{{ currency }}{{ item.spent }}</b-td>
                 <b-td class="text-end">
-                  <a href="#"><i class="las la-pen text-secondary fs-18"></i></a>{{ ' ' }}
+                  <a href="#"><i class="las la-pen text-secondary fs-18"></i></a>
                   <a href="#"><i class="las la-trash-alt text-secondary fs-18"></i></a>
                 </b-td>
               </b-tr>
