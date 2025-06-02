@@ -99,10 +99,10 @@
     </BForm>
 
     <template #ok>
-      <b-button type="button" variant="success" @click="handleSubmit">Confirmar</b-button>
+      <b-button type="button" variant="primary" @click="handleSubmit">Confirmar</b-button>
     </template>
     <template #cancel>
-      <b-button variant="outline-danger" @click="closeModal">Cancelar</b-button>
+      <b-button variant="outline-secondary" @click="closeModal">Cancelar</b-button>
     </template>
   </BModal>
 </template>
@@ -137,7 +137,7 @@ const emit = defineEmits<IModalEmits>()
 const locationService = LocationService()
 const churchService = ChurchService()
 const memberService = MemberService()
-const { form, setFormData, rules } = useFormMember()
+const { form, setFormData, resetForm, rules } = useFormMember()
 const notify = useNotify()
 
 const { isOpen, member } = toRefs(props)
@@ -159,7 +159,10 @@ watch(
   (value: boolean) => {
     if (value && !isFormCreate.value) {
       setFormData(member.value)
+      return
     }
+
+    resetForm()
   },
 )
 

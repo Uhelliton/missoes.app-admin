@@ -26,12 +26,18 @@
               </button>
             </template>
             <template #cell-gender="{ item }">
-              <BBadge :variant="null" class="bg-danger-subtle text-danger">
+              <BBadge
+                :variant="null"
+                :class="[
+                  { 'bg-success-subtle text-success': item.gender === 'Masculino' },
+                  { 'bg-danger-subtle text-danger': item.gender === 'Feminino' },
+                ]"
+              >
                 {{ item.gender }}
               </BBadge >
             </template>
             <template #cell-city="{ item }">
-              <i class="bi bi-envelope-fill me-1"></i>{{ item.city.name }}
+              {{ item.city.name }}
             </template>
           </Datatable>
         </BCardBody >
