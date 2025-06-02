@@ -1,4 +1,4 @@
-  <template>
+<template>
   <BModal
     v-model="isOpen"
     :title="isFormCreate ? 'Cadastro de Equipe' : 'Editar Equipe'"
@@ -11,7 +11,12 @@
       <BRow>
         <BCol md="6">
           <BFormGroup label="Name" label-for="Nome" class="mb-3">
-            <BFormInput type="text" v-model="form.name" placeholder="ex: Equipe Azul" :class="[{ error: v$.name.$error }]" />
+            <BFormInput
+              type="text"
+              v-model="form.name"
+              placeholder="ex: Equipe Azul"
+              :class="[{ error: v$.name.$error }]"
+            />
           </BFormGroup>
         </BCol>
         <BCol md="6">
@@ -22,7 +27,7 @@
               placeholder="Selecione uma opção"
               :class="[{ error: v$.color.$error }]"
             >
-              <option v-for="(color) in colors" :value="color" :key="color"> {{ color }}</option>
+              <option v-for="color in colors" :value="color" :key="color">{{ color }}</option>
               <template #first>
                 <option disabled value="">Selecione uma opção</option>
               </template>
@@ -57,12 +62,12 @@
 import { onMounted, ref, toRefs, watch, computed } from 'vue'
 import AppSelect, { type ISelect } from '@/components/forms/Select.vue'
 import { MemberService } from '@/modules/team/services/member.service'
-import {TeamService} from "@/modules/team/services/team.service";
+import { TeamService } from '@/modules/team/services/team.service'
 import { useVuelidate } from '@vuelidate/core'
 import { useNotify } from '@/infra/composables/useNotify'
-import {useFormTeam} from "@/modules/team/composables/useFormTeam";
-import type {ITeam} from "@/modules/team/types/team.interface";
-import { colors } from "@/infra/helpers/constants";
+import { useFormTeam } from '@/modules/team/composables/useFormTeam'
+import type { ITeam } from '@/modules/team/types/team.interface'
+import { colors } from '@/infra/helpers/constants'
 
 interface IModalProps {
   isOpen: boolean

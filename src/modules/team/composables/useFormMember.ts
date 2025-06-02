@@ -2,7 +2,7 @@ import { computed, reactive } from 'vue'
 import type { IMember, IMemberPayload } from '@/modules/team/types/member.interface'
 import { locationDefault } from '@/infra/helpers/constants'
 import { required, numeric, helpers, email } from '@vuelidate/validators'
-import type {ITeamPayload} from "@/modules/team/types/team.interface";
+import type { ITeamPayload } from '@/modules/team/types/team.interface'
 
 export const useFormMember = () => {
   const initialForm: IMemberPayload = {

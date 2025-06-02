@@ -18,7 +18,7 @@
       <b-thead class="table-light">
         <b-tr>
           <b-th v-for="col in columns" :key="col.key">{{ col.label }}</b-th>
-          <b-th v-if="hasActions">Ações</b-th>
+          <b-th v-if="hasActions" class="text-end"><!--Ações--></b-th>
         </b-tr>
       </b-thead>
       <b-tbody>
@@ -28,7 +28,7 @@
               {{ item[col.key] }}
             </slot>
           </b-td>
-          <b-td v-if="hasActions">
+          <b-td v-if="hasActions" class="text-end">
             <slot name="actions" :item="item" />
           </b-td>
         </b-tr>

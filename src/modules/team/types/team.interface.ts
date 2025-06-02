@@ -1,5 +1,5 @@
-import type {ISelect} from "@/components/forms/Select.vue";
-import type {IMember} from "@/modules/team/types/member.interface";
+import type { ISelect } from '@/components/forms/Select.vue'
+import type { IMember } from '@/modules/team/types/member.interface'
 
 export interface ITeam {
   id: number

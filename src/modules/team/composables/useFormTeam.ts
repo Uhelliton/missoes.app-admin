@@ -1,7 +1,7 @@
 import { computed, reactive } from 'vue'
 import { required, helpers } from '@vuelidate/validators'
-import type {ITeam, ITeamPayload} from "@/modules/team/types/team.interface";
-import type {ISelect} from "@/components/forms/Select.vue";
+import type { ITeam, ITeamPayload } from '@/modules/team/types/team.interface'
+import type { ISelect } from '@/components/forms/Select.vue'
 
 export const useFormTeam = () => {
   const initialForm: ITeamPayload = {
@@ -21,9 +21,9 @@ export const useFormTeam = () => {
 
     form.name = payload.name
     form.color = payload.color
-    form.leaderId =  payload.leader.id
+    form.leaderId = payload.leader.id
     form.select = {
-      leader: payload.leader
+      leader: payload.leader,
     }
   }
 

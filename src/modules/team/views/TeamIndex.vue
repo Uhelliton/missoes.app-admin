@@ -18,15 +18,54 @@
             </div>
           </BRow>
         </BCardHeader>
-        <BCardBody  class="pt-0">
+        <BCardBody class="pt-0">
           <Datatable :items="dataTable.items" :columns="dataTable.columns" :has-actions="true">
             <template #actions="{ item }">
-              <button @click="handleEdit(item)" class="btn btn-xs">
-                <i class="iconoir-edit-pencil text-secondary fs-18"></i>
+              <button @click="handleEdit(item)" class="btn btn-sm btn-outline-light mx-2" title="Editar Equipe">
+                <span class="d-flex justify-content-center align-items-center">
+                  <i class="iconoir-edit-pencil text-secondary fs-16"></i>
+                </span>
+              </button>
+              <button @click="handleEdit(item)" class="btn btn-sm btn-warning">
+                <span class="d-flex justify-content-center align-items-center gap-1">
+                  <i class="iconoir-user text-white fs-16"></i> Associar Membros
+                </span>
               </button>
             </template>
+            <template #cell-leader="{ item }">
+              {{ item.leader.name }}
+            </template>
+            <template #cell-name="{ item }">
+              <div class="d-flex align-items-center">
+                <span
+                  class="thumb-md justify-content-center d-flex align-items-center bg-purple-subtle text-purple rounded-circle me-1"
+                >
+                  {{ extractSecondPart(item.name) }}
+                </span>
+                {{ item.name }}
+              </div>
+            </template>
+
+            <template #cell-members="{ item }">
+              <div class="img-group">
+                <template v-for="(member, idx) in ['VS', 'MQ', 'WD', 'FS']" :key="idx">
+                  <a class="user-avatar position-relative d-inline-block" href="#" :class="idx && 'ms-n2'">
+                    <span class="thumb-md bg-secondary text-white rounded-circle me-0">
+                      {{ member }}
+                    </span>
+                  </a>
+                </template>
+                <a href="" class="user-avatar position-relative d-inline-block ms-1">
+                  <span
+                    class="thumb-md justify-content-center d-flex align-items-center bg-info-subtle rounded-circle fw-semibold fs-6"
+                  >
+                    +{{ 5 - 3 }}
+                  </span>
+                </a>
+              </div>
+            </template>
           </Datatable>
-        </BCardBody >
+        </BCardBody>
       </BCard>
     </BCol>
   </BRow>
@@ -43,7 +82,7 @@ import { onMounted, ref, reactive, Ref } from 'vue'
 import FormTeam from '@/modules/team/components/FormTeam.vue'
 import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam } from '@/modules/team/types/team.interface'
-import Datatable from "@/components/table/Datatable.vue";
+import Datatable from '@/components/table/Datatable.vue'
 
 const teamService = TeamService()
 const dialogTeamActive = ref(false)
@@ -52,6 +91,9 @@ const dataTable = reactive({
   columns: [
     { key: 'id', label: '#' },
     { key: 'name', label: 'Nome' },
+    { key: 'color', label: 'Cor' },
+    { key: 'leader', label: 'Lider' },
+    { key: 'members', label: 'Membros' },
   ],
   rowSelected: {} as Ref<ITeam>,
   currentPage: 1,
@@ -61,6 +103,12 @@ const dataTable = reactive({
 onMounted(async () => {
   await fetchTeams()
 })
+
+const extractSecondPart = (name: string) => {
+  const split = name.split(' ')
+  const strPart = String(split[1] || '').toUpperCase()
+  return strPart[0] + strPart[1]
+}
 
 const fetchTeams = async () => {
   try {

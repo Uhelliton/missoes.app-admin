@@ -81,7 +81,12 @@
       <BRow class="mt-2">
         <BCol md="6">
           <BFormGroup label="Estado" label-for="" class="mb-3 error">
-            <AppSelect v-model="form.select.state" :options="states" @change="onChangeState" :class="[{ error: v$.select.state.$error }]" />
+            <AppSelect
+              v-model="form.select.state"
+              :options="states"
+              @change="onChangeState"
+              :class="[{ error: v$.select.state.$error }]"
+            />
           </BFormGroup>
         </BCol>
         <BCol md="6">

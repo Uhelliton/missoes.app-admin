@@ -18,11 +18,13 @@
             </div>
           </BRow>
         </BCardHeader>
-        <BCardBody  class="pt-0">
+        <BCardBody class="pt-0">
           <Datatable :items="dataTable.items" :columns="dataTable.columns" :has-actions="true">
             <template #actions="{ item }">
-              <button @click="handleEdit(item)" class="btn btn-xs">
-                <i class="iconoir-edit-pencil text-secondary fs-18"></i>
+              <button @click="handleEdit(item)" class="btn btn-sm btn-outline-light mx-2" title="Editar Membro">
+                <span class="d-flex justify-content-center align-items-center">
+                  <i class="iconoir-edit-pencil text-secondary fs-16"></i>
+                </span>
               </button>
             </template>
             <template #cell-gender="{ item }">
@@ -34,13 +36,13 @@
                 ]"
               >
                 {{ item.gender }}
-              </BBadge >
+              </BBadge>
             </template>
             <template #cell-city="{ item }">
               {{ item.city.name }}
             </template>
           </Datatable>
-        </BCardBody >
+        </BCardBody>
       </BCard>
     </BCol>
   </BRow>
@@ -57,7 +59,7 @@ import { onMounted, ref, reactive, Ref } from 'vue'
 import FormMember from '@/modules/team/components/FormMember.vue'
 import { MemberService } from '@/modules/team/services/member.service'
 import type { IMember } from '@/modules/team/types/member.interface'
-import Datatable from "@/components/table/Datatable.vue";
+import Datatable from '@/components/table/Datatable.vue'
 
 const memberService = MemberService()
 const dialogMember = ref(false)
