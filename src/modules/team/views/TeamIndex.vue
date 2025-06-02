@@ -5,96 +5,82 @@
         <BCardHeader>
           <BRow class="align-items-center">
             <div class="col">
-              <BCardTitle>Customers</BCardTitle>
+              <BCardTitle>Gerenciar Equipes</BCardTitle>
             </div>
             <div class="col-auto">
               <form class="row g-2">
                 <div class="col-auto">
-                  <BButton type="button" variant="primary"> <i class="fa-solid fa-plus me-1"></i> Add Product </BButton>
+                  <b-button type="button" variant="primary" @click="handleCreate">
+                    <i class="fa-solid fa-plus me-1"></i> Nova Equipe
+                  </b-button>
                 </div>
               </form>
             </div>
           </BRow>
         </BCardHeader>
-        <BCardBody class="pt-0">
-          <BTableSimple responsive class="mb-0 checkbox-all text-nowrap" id="datatable_1">
-            <b-thead class="table-light">
-              <b-tr>
-                <b-th class="ps-0">Customer</b-th>
-                <b-th>Email</b-th>
-                <b-th>Status</b-th>
-                <b-th>Order</b-th>
-                <b-th>Spent</b-th>
-                <b-th class="text-end">Action</b-th>
-              </b-tr>
-            </b-thead>
-            <b-tbody>
-              <b-tr v-for="(item, idx) in customersData" :key="idx">
-                <b-td class="ps-0">
-                  <img :src="item.customer.avatar" alt="" class="thumb-md d-inline rounded-circle me-1" />{{ ' ' }}
-                  <p class="d-inline-block align-middle mb-0">
-                    <span class="font-13 fw-medium">{{ item.customer.name }}</span>
-                  </p>
-                </b-td>
-                <b-td
-                  ><a href="" class="d-inline-block align-middle mb-0 text-body">{{ item.email }}</a>
-                </b-td>
-                <b-td v-if="item.status === 'VIP'">
-                  <b-badge :variant="null" class="bg-danger-subtle text-danger">
-                    {{ kebabToTitleCase(item.status) }}
-                  </b-badge>
-                </b-td>
-                <b-td v-else-if="item.status === 'inactive'">
-                  <b-badge :variant="null" class="bg-secondary-subtle text-secondary">
-                    {{ kebabToTitleCase(item.status) }}
-                  </b-badge>
-                </b-td>
-                <b-td v-else-if="item.status === 'repeat'">
-                  <b-badge :variant="null" class="bg-blue-subtle text-blue">
-                    {{ kebabToTitleCase(item.status) }}
-                  </b-badge>
-                </b-td>
-                <b-td v-else>
-                  <b-badge :variant="null" class="bg-success-subtle text-success">
-                    {{ kebabToTitleCase(item.status) }}
-                  </b-badge>
-                </b-td>
-                <b-td>{{ item.order }}</b-td>
-                <b-td>{{ currency }}{{ item.spent }}</b-td>
-                <b-td class="text-end">
-                  <a href="#"><i class="las la-pen text-secondary fs-18"></i></a>
-                  <a href="#"><i class="las la-trash-alt text-secondary fs-18"></i></a>
-                </b-td>
-              </b-tr>
-            </b-tbody>
-          </BTableSimple>
-        </BCardBody>
+        <BCardBody  class="pt-0">
+          <Datatable :items="dataTable.items" :columns="dataTable.columns" :has-actions="true">
+            <template #actions="{ item }">
+              <button @click="handleEdit(item)" class="btn btn-xs">
+                <i class="iconoir-edit-pencil text-secondary fs-18"></i>
+              </button>
+            </template>
+          </Datatable>
+        </BCardBody >
       </BCard>
     </BCol>
   </BRow>
+  <FormTeam
+    :is-open="dialogTeamActive"
+    @close="() => (dialogTeamActive = false)"
+    :team="dataTable.rowSelected"
+    @created="fetchTeams"
+  />
 </template>
+
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { DataTable } from 'simple-datatables'
-import { currency } from '@/infra/helpers/constants'
-import { kebabToTitleCase } from '@/infra/helpers/change-casing'
-import { customersData } from '@/views/apps/ecommerce/customers/components/data'
+import { onMounted, ref, reactive, Ref } from 'vue'
+import FormTeam from '@/modules/team/components/FormTeam.vue'
 import { TeamService } from '@/modules/team/services/team.service'
+import type { ITeam } from '@/modules/team/types/team.interface'
+import Datatable from "@/components/table/Datatable.vue";
 
 const teamService = TeamService()
+const dialogTeamActive = ref(false)
+const dataTable = reactive({
+  items: [],
+  columns: [
+    { key: 'id', label: '#' },
+    { key: 'name', label: 'Nome' },
+  ],
+  rowSelected: {} as Ref<ITeam>,
+  currentPage: 1,
+  total: 0,
+})
 
 onMounted(async () => {
   await fetchTeams()
-  new DataTable('#datatable_1', {
-    searchable: true,
-    fixedHeight: false,
-    classes: {
-      table: 'datatable-table mb-0',
-    },
-  })
 })
 
 const fetchTeams = async () => {
-  await teamService.getAll()
+  try {
+    const { data } = await teamService.getAll()
+
+    dataTable.items = data?.items ?? []
+    dataTable.total = data?.meta?.totalItems ?? 0
+    dataTable.currentPage = data?.meta?.currentPage ?? 1
+  } catch (error) {
+    console.error('Erro ao buscar equipes:', error)
+  }
+}
+
+const handleEdit = (row: IMember) => {
+  dataTable.rowSelected = row
+  dialogTeamActive.value = true
+}
+
+const handleCreate = () => {
+  dataTable.rowSelected = null
+  dialogTeamActive.value = true
 }
 </script>

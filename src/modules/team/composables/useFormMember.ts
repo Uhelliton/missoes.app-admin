@@ -2,9 +2,10 @@ import { computed, reactive } from 'vue'
 import type { IMember, IMemberPayload } from '@/modules/team/types/member.interface'
 import { locationDefault } from '@/infra/helpers/constants'
 import { required, numeric, helpers, email } from '@vuelidate/validators'
+import type {ITeamPayload} from "@/modules/team/types/team.interface";
 
 export const useFormMember = () => {
-  const form = reactive<IMemberPayload>({
+  const initialForm: IMemberPayload = {
     name: '',
     email: '',
     cpf: '',
@@ -19,7 +20,9 @@ export const useFormMember = () => {
       state: locationDefault.state,
       church: {} as ISelect,
     },
-  })
+  }
+
+  const form = reactive<IMemberPayload>({ ...initialForm })
 
   const setFormData = (payload: IMember) => {
     form.name = payload.name
@@ -36,6 +39,10 @@ export const useFormMember = () => {
       state: payload.city.state,
       church: payload.church,
     }
+  }
+
+  const resetForm = () => {
+    Object.assign(form, initialForm)
   }
 
   const rules = computed(() => ({
@@ -68,5 +75,5 @@ export const useFormMember = () => {
     },
   }))
 
-  return { form, setFormData, rules }
+  return { form, setFormData, resetForm, rules }
 }

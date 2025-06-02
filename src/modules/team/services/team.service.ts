@@ -1,10 +1,20 @@
 import http from '@/infra/plugins/http'
-import type { IAuthPayload, IAuthResponse } from '@/modules/auth/interfaces/auth.interface'
+import type { IPaginateResponse } from '@/infra/types/http.interfaces'
+import type { ITeam, ITeamPayload } from '@/modules/team/types/team.interface'
+import type { AxiosResponse } from 'axios'
 
 export const TeamService = () => {
-  const getAll = (): Promise<any> => {
-    return http.get<IAuthResponse>('/teams')
+  const getAll = (): Promise<AxiosResponse<IPaginateResponse<ITeam>>> => {
+    return http.get<IPaginateResponse<ITeam>>('/teams')
   }
 
-  return { getAll }
+  const create = (payload: ITeamPayload): Promise<AxiosResponse<ITeam>> => {
+    return http.post<ITeam>('/teams', payload)
+  }
+
+  const update = (id: number, payload: ITeamPayload): Promise<AxiosResponse<ITeam>> => {
+    return http.put<ITeam>(`/teams/${id}`, payload)
+  }
+
+  return { getAll, create, update }
 }
