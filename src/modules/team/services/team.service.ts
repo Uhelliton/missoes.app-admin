@@ -1,6 +1,6 @@
 import http from '@/infra/plugins/http'
 import type { IPaginateResponse } from '@/infra/types/http.interfaces'
-import type { ITeam, ITeamPayload } from '@/modules/team/types/team.interface'
+import type { ITeam, ITeamMemberPayload, ITeamPayload } from '@/modules/team/types/team.interface'
 import type { AxiosResponse } from 'axios'
 
 export const TeamService = () => {
@@ -16,5 +16,9 @@ export const TeamService = () => {
     return http.put<ITeam>(`/teams/${id}`, payload)
   }
 
-  return { getAll, create, update }
+  const updateTeamMembers = (teamId: number, payload: ITeamMemberPayload): Promise<AxiosResponse<ITeam>> => {
+    return http.put<ITeam>(`/teams/${teamId}/members`, payload)
+  }
+
+  return { getAll, create, update, updateTeamMembers }
 }

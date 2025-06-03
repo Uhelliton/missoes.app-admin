@@ -6,6 +6,7 @@ export interface ITeam {
   name: string
   color: string
   leader: IMember
+  members: Array<IMember>
 }
 
 export interface ITeamPayload {
@@ -15,4 +16,8 @@ export interface ITeamPayload {
   select: {
     leader: ISelect
   }
+}
+
+export interface ITeamMemberPayload {
+  memberIds: number[]
 }

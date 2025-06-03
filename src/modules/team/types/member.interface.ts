@@ -20,6 +20,16 @@ export interface IMember {
   maritalStatus?: MaritalStatus.SINGLE | MaritalStatus.MARRIED | MaritalStatus.DIVORCED | MaritalStatus.WIDOWED
   city: ICity
   church: IChurch
+  teamMember?: {
+    id: number
+    teamId: number
+    memberId: number
+  }
+}
+
+export interface IMemberSimplified {
+  id: number
+  name: string
 }
 
 export interface IMemberPayload {

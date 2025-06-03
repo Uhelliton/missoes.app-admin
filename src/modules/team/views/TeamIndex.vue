@@ -26,7 +26,7 @@
                   <i class="iconoir-edit-pencil text-secondary fs-16"></i>
                 </span>
               </button>
-              <button @click="handleEdit(item)" class="btn btn-sm btn-warning">
+              <button @click="associateMember(item)" class="btn btn-sm btn-warning">
                 <span class="d-flex justify-content-center align-items-center gap-1">
                   <i class="iconoir-user text-white fs-16"></i> Associar Membros
                 </span>
@@ -40,7 +40,7 @@
                 <span
                   class="thumb-md justify-content-center d-flex align-items-center bg-purple-subtle text-purple rounded-circle me-1"
                 >
-                  {{ extractSecondPart(item.name) }}
+                  {{ getPrefixName(item.name) }}
                 </span>
                 {{ item.name }}
               </div>
@@ -48,20 +48,18 @@
 
             <template #cell-members="{ item }">
               <div class="img-group">
-                <template v-for="(member, idx) in ['VS', 'MQ', 'WD', 'FS']" :key="idx">
-                  <a class="user-avatar position-relative d-inline-block" href="#" :class="idx && 'ms-n2'">
+                <template v-for="member in item.members" :key="member.id">
+                  <a
+                    class="user-avatar position-relative d-inline-block"
+                    href="javascript:"
+                    :title="member.name"
+                    :class="member.id && 'ms-n2'"
+                  >
                     <span class="thumb-md bg-secondary text-white rounded-circle me-0">
-                      {{ member }}
+                      {{ member.name[0] }}
                     </span>
                   </a>
                 </template>
-                <a href="" class="user-avatar position-relative d-inline-block ms-1">
-                  <span
-                    class="thumb-md justify-content-center d-flex align-items-center bg-info-subtle rounded-circle fw-semibold fs-6"
-                  >
-                    +{{ 5 - 3 }}
-                  </span>
-                </a>
               </div>
             </template>
           </Datatable>
@@ -75,6 +73,13 @@
     :team="dataTable.rowSelected"
     @created="fetchTeams"
   />
+  <DualListbox
+    :is-open="dialogTeamMemberActive"
+    :team-members="dataTable.rowSelected.members"
+    :team="dataTable.rowSelected"
+    @close="() => (dialogTeamMemberActive = false)"
+    @update:list="fetchTeams"
+  />
 </template>
 
 <script setup lang="ts">
@@ -83,9 +88,11 @@ import FormTeam from '@/modules/team/components/FormTeam.vue'
 import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam } from '@/modules/team/types/team.interface'
 import Datatable from '@/components/table/Datatable.vue'
+import DualListbox from '@/modules/team/components/DualListbox.vue'
 
 const teamService = TeamService()
 const dialogTeamActive = ref(false)
+const dialogTeamMemberActive = ref(false)
 const dataTable = reactive({
   items: [],
   columns: [
@@ -104,7 +111,7 @@ onMounted(async () => {
   await fetchTeams()
 })
 
-const extractSecondPart = (name: string) => {
+const getPrefixName = (name: string) => {
   const split = name.split(' ')
   const strPart = String(split[1] || '').toUpperCase()
   return strPart[0] + strPart[1]
@@ -122,7 +129,7 @@ const fetchTeams = async () => {
   }
 }
 
-const handleEdit = (row: IMember) => {
+const handleEdit = (row: ITeam) => {
   dataTable.rowSelected = row
   dialogTeamActive.value = true
 }
@@ -130,5 +137,10 @@ const handleEdit = (row: IMember) => {
 const handleCreate = () => {
   dataTable.rowSelected = null
   dialogTeamActive.value = true
+}
+
+const associateMember = (row: ITeam) => {
+  dataTable.rowSelected = row
+  dialogTeamMemberActive.value = true
 }
 </script>
