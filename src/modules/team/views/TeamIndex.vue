@@ -31,6 +31,11 @@
                   <i class="iconoir-user text-white fs-16"></i> Associar Membros
                 </span>
               </button>
+              <button @click="redirectToTeamAnalytics(item.id)" class="btn btn-sm btn-outline-light mx-2" title="Estatísticas da Equipe">
+                <span class="d-flex justify-content-center align-items-center gap-1">
+                  <i class="iconoir-graph-down fs-16"></i>
+                </span>
+              </button>
             </template>
             <template #cell-leader="{ item }">
               {{ item.leader.name }}
@@ -89,8 +94,11 @@ import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam } from '@/modules/team/types/team.interface'
 import Datatable from '@/components/table/Datatable.vue'
 import DualListbox from '@/modules/team/components/DualListbox.vue'
+import { useRouter } from 'vue-router'
 
 const teamService = TeamService()
+const router = useRouter()
+
 const dialogTeamActive = ref(false)
 const dialogTeamMemberActive = ref(false)
 const dataTable = reactive({
@@ -142,5 +150,9 @@ const handleCreate = () => {
 const associateMember = (row: ITeam) => {
   dataTable.rowSelected = row
   dialogTeamMemberActive.value = true
+}
+
+const redirectToTeamAnalytics= (id: number) => {
+  router.push({ name: 'team.analytics', params: { id: id.toString()} })
 }
 </script>

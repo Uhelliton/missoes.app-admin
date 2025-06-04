@@ -16,12 +16,12 @@ export const customerLineChart: ApexChartType = {
   type: "line",
   series: [
     {
-      name: "Pessoas Envangelizadas",
+      name: "New Customers ",
       data: [0, 20, 15, 19, 14, 25, 30],
     },
     {
-      name: "Conversões",
-      data: [0, 8, 7, 8, 6, 12, 7],
+      name: "Returning Customers",
+      data: [0, 8, 7, 13, 26, 16, 25],
     },
   ],
   options: {
@@ -61,20 +61,20 @@ export const customerLineChart: ApexChartType = {
 
 export const customerStats: StatType[] = [
   {
-    title: "Total Customers",
-    stat: "38,321",
+    title: "Total Evangelizados",
+    stat: "318",
   },
   {
-    title: "New Customers",
-    stat: "946",
+    title: "Cursos",
+    stat: "18",
   },
   {
-    title: "Returning Customers",
-    stat: "70.8%",
+    title: "Celulas",
+    stat: "12",
   },
   {
-    title: "Bounce Rate",
-    stat: "1.5%",
+    title: "Conversões",
+    stat: "33",
   },
 ];
 
