@@ -21,7 +21,6 @@ import "magic.css/dist/magic.css";
 import "tobii/dist/css/tobii.min.css";
 import "starability/starability-css/starability-all.css";
 import "leaflet/dist/leaflet.css";
-import "simple-datatables/dist/style.css";
 import "nouislider/dist/nouislider.css";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import "uppy/dist/uppy.min.css";
