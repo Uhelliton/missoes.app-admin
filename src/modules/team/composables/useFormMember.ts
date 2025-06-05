@@ -12,6 +12,7 @@ export const useFormMember = () => {
     cityId: locationDefault.city.id,
     stateId: locationDefault.state.id,
     phoneNumber: '',
+    birthday: '',
     gender: '',
     maritalStatus: '',
     select: {
@@ -24,6 +25,7 @@ export const useFormMember = () => {
   const form = reactive<IMemberPayload>({ ...initialForm })
 
   const setFormData = (payload: IMember) => {
+    const birthday =  new Date(payload.birthday)
     form.name = payload.name
     form.email = payload.email
     form.cpf = payload.cpf
@@ -31,6 +33,7 @@ export const useFormMember = () => {
     form.stateId = payload.city.stateId
     form.churchId = payload.church.id
     form.phoneNumber = payload.phoneNumber
+    form.birthday = birthday.toLocaleDateString('pt-BR')
     form.gender = payload.gender
     form.maritalStatus = payload.maritalStatus
     form.select = {

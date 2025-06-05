@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import router from "@/core/router";
 import { useLocalStorage } from "@vueuse/core";
 import type { User } from "@/types/auth";
+import {computed} from "vue";
 
 export const useAuthStore = defineStore("auth", () => {
   const user = useLocalStorage<string | null>("app_user", null);
@@ -11,6 +12,11 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = JSON.stringify(newUser);
     token.value = String(newUser.token)
   };
+
+  const userAuth = computed(() => {
+    const session = JSON.parse(user.value)
+    return session?.user
+  })
 
   const removeSession = () => {
     user.value = null;
@@ -24,5 +30,6 @@ export const useAuthStore = defineStore("auth", () => {
     saveSession,
     removeSession,
     isAuthenticated,
+    userAuth,
   };
 });

@@ -73,11 +73,13 @@ import router from "@/core/router";
 import { useAuthStore } from "@/modules/auth/stores/auth";
 import { useRoute } from "vue-router";
 import { AuthService } from '../services/auth.service'
+import {useNotify} from "@/infra/composables/useNotify";
 
 const { authenticate } = AuthService()
 const useAuth = useAuthStore();
 const route = useRoute();
 const query = route.query;
+const notify = useNotify()
 
 const error = ref("");
 const credentials = reactive({
@@ -99,23 +101,16 @@ const login = async () => {
   try {
     const payload = { password: credentials.password, username: credentials.email }
     const response = await authenticate(payload)
-    console.log('Login com sucesso:', response.data)
     useAuth.saveSession({
        ...response.data,
        token: response.data.token,
       });
 
-    redirectUser();
+    router.push("/")
   } catch (error) {
-    // e.response?.data?.error
-    console.error('Erro ao autenticar:', error)
+    const message = error.response?.data?.message
+    notify.httpError(message)
   }
 }
 
-const redirectUser = () => {
-  if (query.redirectedFrom) {
-    return router.push(`${query.redirectedFrom}`);
-  }
-  return router.push("/");
-};
 </script>
