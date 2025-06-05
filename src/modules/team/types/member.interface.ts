@@ -37,7 +37,7 @@ export interface IMemberPayload {
   email: string
   cpf: string
   phoneNumber?: string
-  birthday?: string
+  birthday: string
   gender: string
   maritalStatus: string
   cityId: number

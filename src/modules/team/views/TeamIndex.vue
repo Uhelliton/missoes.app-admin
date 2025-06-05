@@ -80,7 +80,7 @@
   />
   <DualListbox
     :is-open="dialogTeamMemberActive"
-    :team-members="dataTable.rowSelected.members"
+    :team-members="dataTable.rowSelected?.members"
     :team="dataTable.rowSelected"
     @close="() => (dialogTeamMemberActive = false)"
     @update:list="fetchTeams"

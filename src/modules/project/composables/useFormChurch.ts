@@ -1,42 +1,34 @@
 import { computed, reactive } from 'vue'
-import type { IMember, IMemberPayload } from '@/modules/team/types/member.interface'
 import { locationDefault } from '@/infra/helpers/constants'
-import { required, numeric, helpers, email, minLength } from '@vuelidate/validators'
+import { required, helpers, email } from '@vuelidate/validators'
+import type { IChurchPayload, IChurch } from '@/modules/project/types/church.interface'
 
-export const useFormMember = () => {
-  const initialForm: IMemberPayload = {
+export const useFormChurch = () => {
+  const initialForm: IChurchPayload = {
     name: '',
     email: '',
-    cpf: '',
-    churchId: 0,
+    cnpj: '',
     cityId: locationDefault.city.id,
     stateId: locationDefault.state.id,
     phoneNumber: '',
-    gender: '',
-    maritalStatus: '',
     select: {
       city: locationDefault.city,
       state: locationDefault.state,
-      church: {} as ISelect,
     },
   }
 
-  const form = reactive<IMemberPayload>({ ...initialForm })
+  const form = reactive<IChurchPayload>({ ...initialForm })
 
-  const setFormData = (payload: IMember) => {
+  const setFormData = (payload: IChurch) => {
     form.name = payload.name
     form.email = payload.email
-    form.cpf = payload.cpf
+    form.cnpj = payload.cnpj
     form.cityId = payload.city.id
     form.stateId = payload.city.stateId
-    form.churchId = payload.church.id
     form.phoneNumber = payload.phoneNumber
-    form.gender = payload.gender
-    form.maritalStatus = payload.maritalStatus
     form.select = {
       city: payload.city,
       state: payload.city.state,
-      church: payload.church,
     }
   }
 
@@ -46,13 +38,9 @@ export const useFormMember = () => {
 
   const rules = computed(() => ({
     name: { required },
-    email: { required, email },
-    cpf: {
+    cnpj: {
       required,
     },
-    gender: { required },
-    maritalStatus: { required },
-    birthday: { required, minLength: minLength(10) },
     select: {
       city: {
         id: {
@@ -64,12 +52,6 @@ export const useFormMember = () => {
         id: {
           required,
           notZero: helpers.withMessage('Estado obrigatório', (val) => val > 0),
-        },
-      },
-      church: {
-        id: {
-          required,
-          notZero: helpers.withMessage('Igreja obrigatório', (val) => val > 0),
         },
       },
     },
