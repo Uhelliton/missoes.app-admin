@@ -3,7 +3,7 @@ import { allRoute } from "@/core/router/routes";
 import { useAuthStore } from "@/modules/auth/stores/auth";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: allRoute,
 });
 
