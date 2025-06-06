@@ -3,10 +3,10 @@
     <b-card no-body>
       <b-card-body class="p-0 bg-black auth-header-box rounded-top">
         <div class="text-center p-3">
-          <img :src="logoSm" height="50" alt="logo" class="auth-logo" />
-          <h4 class="mt-3 mb-1 fw-semibold text-white fs-18">
-           Missões
-          </h4>
+          <img :src="logoSm" height="50" alt="logo" class="auth-logo me-1"  style="margin-top: -6px" />
+          <span class=" pt-4">
+            <span class="logo-lg text-white" style="font-size: 1.8em;">Missões</span>
+          </span>
         </div>
       </b-card-body>
       <b-card-body class="pt-0">
