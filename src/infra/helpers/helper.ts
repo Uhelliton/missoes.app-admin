@@ -24,3 +24,30 @@ export  const isValidISODate = (dateString: string)  => {
 }
 
 export const wait = (ms = 500) => new Promise(resolve => setTimeout(resolve, ms))
+
+export function getAgeFromDate(dateString: string | Date): number {
+  const birthDate = new Date(dateString)
+  const today = new Date()
+
+  let age = today.getFullYear() - birthDate.getFullYear()
+
+  return age
+}
+
+export function getAgeCategory(dateString: string | Date): 'Adolescente' | 'Jovem' | 'Adulto' {
+  const age = getAgeFromDate(dateString)
+
+  if (age < 10) return 'Criança'
+  if (age >= 10 && age <= 16) return 'Adolescente'
+  if (age >= 17 && age <= 22) return 'Jovem'
+  return 'Adulto'
+}
+
+export function getClassBadgeAgeCategory(dateString: string | Date): string {
+  const age = getAgeFromDate(dateString)
+
+  if (age < 10) return 'bg-warning-subtle text-warning'
+  if (age >= 10 && age <= 16) return 'bg-info-subtle text-info'
+  if (age >= 17 && age <= 22) return 'bg-primary-subtle text-primary'
+  return 'bg-purple-subtle text-purple'
+}

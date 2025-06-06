@@ -31,8 +31,8 @@
               <BBadge
                 :variant="null"
                 :class="[
-                  { 'bg-success-subtle text-success': item.gender === 'Masculino' },
-                  { 'bg-danger-subtle text-danger': item.gender === 'Feminino' },
+                  { 'bg-transparent border  border-primary text-primary': item.gender === 'Masculino' },
+                  { 'bg-transparent border  border-danger text-danger': item.gender === 'Feminino' },
                 ]"
               >
                 {{ item.gender }}
@@ -40,6 +40,9 @@
             </template>
             <template #cell-city="{ item }">
               {{ item.city.name }}
+            </template>
+            <template #cell-category="{ item }">
+              <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]">{{ getAgeCategory(item.birthday) }} </b-badge>
             </template>
           </Datatable>
         </BCardBody>
@@ -60,6 +63,7 @@ import FormMember from '@/modules/team/components/FormMember.vue'
 import { MemberService } from '@/modules/team/services/member.service'
 import type { IMember } from '@/modules/team/types/member.interface'
 import Datatable from '@/components/table/Datatable.vue'
+import { getAgeCategory, getClassBadgeAgeCategory } from '@/infra/helpers/helper'
 
 const memberService = MemberService()
 const dialogMember = ref(false)
@@ -71,6 +75,7 @@ const dataTable = reactive({
     { key: 'email', label: 'Email' },
     { key: 'cpf', label: 'CPF' },
     { key: 'gender', label: 'Sexo' },
+    { key: 'category', label: 'Classificação' },
     { key: 'city', label: 'Cidade' },
   ],
   rowSelected: {} as Ref<IMember>,

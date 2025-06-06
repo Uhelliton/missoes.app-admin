@@ -3,7 +3,7 @@
     v-model="isOpen"
     :title="'Associar Membros: ' + team.name"
     title-class="m-0"
-    size="lg"
+    size="xl"
     cancel-variant="outline-danger"
     @close="closeModal"
     :hideFooter="false"
@@ -23,7 +23,10 @@
               :disabled="item.teamMember !== null"
               class="position-relative mb-1"
             >
-              <i class="la la-arrow-right text-secondary me-2"></i> {{ item.name }}
+              <span class="d-flex align-items-center gap-1">
+                <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]">{{ getAgeCategory(item.birthday) }} </b-badge>
+                {{ item.name }}
+              </span>
               <template v-if="item.teamMember !== null">
                 <div class="position-absolute float-end" style="right: 5px; bottom: 4px">
                   <div class="d-flex align-items-center">
@@ -57,7 +60,10 @@
               button
               class="mb-1"
             >
-              <i class="la la-arrow-left text-secondary me-2"></i> {{ item.name }}
+              <span class="d-flex align-items-center gap-1">
+                <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]">{{ getAgeCategory(item.birthday) }} </b-badge>
+                {{ item.name }}
+              </span>
             </b-list-group-item>
           </b-list-group>
         </div>
@@ -82,7 +88,7 @@ import { MemberService } from '@/modules/team/services/member.service'
 import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam, ITeamMemberPayload } from '@/modules/team/types/team.interface'
 import { useNotify } from '@/infra/composables/useNotify'
-import { wait } from '@/infra/helpers/helper'
+import { wait, getAgeCategory, getClassBadgeAgeCategory } from '@/infra/helpers/helper'
 
 interface IProps {
   isOpen: boolean
