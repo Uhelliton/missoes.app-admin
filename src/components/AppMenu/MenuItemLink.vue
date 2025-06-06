@@ -17,9 +17,12 @@
 
 <script setup lang="ts">
 import type { SubMenus } from "@/types/menu";
-import router from "@/core/router";
+import { useRoute } from "vue-router";
+import { computed } from "vue";
 
 defineProps<SubMenus>();
 
-const currentRouteName = router.currentRoute.value.name;
+const route = useRoute()
+
+const currentRouteName = computed(() => route.name?.toString() ?? '')
 </script>

@@ -8,6 +8,7 @@
       role="button"
       :aria-expanded="toggle() ? 'true' : 'false'"
       :aria-controls="item.key"
+      :key="item.key"
     >
       <i class="menu-icon" :class="item.icon" v-if="item.icon" />
       <span> {{ item.label }} </span>
@@ -42,19 +43,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import MenuItem from "@/components/AppMenu/MenuItem.vue";
 import { menuItemActive } from "@/components/AppMenu/menuActivation";
 import type { SubMenus } from "@/types/menu";
 const props = defineProps<SubMenus>();
+import { useRoute } from 'vue-router'
 
 const visible = ref(true);
+const route = useRoute()
 
-import router from "@/core/router";
-const currentRouteName = router.currentRoute.value.name;
+const currentRouteName = computed(() => route.name?.toString() ?? '')
 
 const toggle = () => {
-  return visible.value || menuItemActive(props.item.key, currentRouteName);
+  return visible.value || menuItemActive(props.item.key, currentRouteName.value);
 };
 
 watch(
@@ -67,4 +69,5 @@ watch(
   },
   { immediate: true, deep: true },
 );
+
 </script>
