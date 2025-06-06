@@ -50,7 +50,10 @@
     </BForm>
 
     <template #ok>
-      <b-button type="button" variant="primary" @click="handleSubmit">Confirmar</b-button>
+      <b-button type="button" variant="primary" @click="handleSubmit" :disabled="isLoading">
+        <b-spinner small v-if="isLoading" />
+        {{ isLoading ? 'Salvando...' : 'Confimar' }}
+      </b-button>
     </template>
     <template #cancel>
       <b-button variant="outline-secondary" @click="closeModal">Cancelar</b-button>
@@ -68,6 +71,7 @@ import { useNotify } from '@/infra/composables/useNotify'
 import { useFormTeam } from '@/modules/team/composables/useFormTeam'
 import type { ITeam } from '@/modules/team/types/team.interface'
 import { colors } from '@/infra/helpers/constants'
+import { wait } from '@/infra/helpers/helper'
 
 interface IModalProps {
   isOpen: boolean
@@ -91,6 +95,7 @@ const notify = useNotify()
 const { isOpen, team } = toRefs(props)
 const members = ref([])
 const v$ = useVuelidate(rules, form)
+const isLoading = ref(false)
 
 onMounted(async () => {
   await fetchMembers()
@@ -124,6 +129,7 @@ const handleSubmit = async () => {
 
 const createOrUpdateRecord = async () => {
   try {
+    isLoading.value =  true
     const payload = { ...form }
     delete payload.select
 
@@ -135,11 +141,14 @@ const createOrUpdateRecord = async () => {
       notify.success('Cadastro atualizado com sucesso!')
     }
 
+    await wait()
     closeModal()
     emit('created', true)
   } catch (error) {
     const message = error.response?.data?.message
     notify.httpError(message)
+  } finally {
+    isLoading.value = false
   }
 }
 

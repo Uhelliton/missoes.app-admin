@@ -109,7 +109,10 @@
     </BForm>
 
     <template #ok>
-      <b-button type="button" variant="primary" @click="handleSubmit">Confirmar</b-button>
+      <b-button type="button" variant="primary" @click="handleSubmit" :disabled="isLoading">
+        <b-spinner small v-if="isLoading" />
+        {{ isLoading ? 'Salvando...' : 'Confimar' }}
+      </b-button>
     </template>
     <template #cancel>
       <b-button variant="outline-secondary" @click="closeModal">Cancelar</b-button>
@@ -130,6 +133,7 @@ import { locationDefault } from '@/infra/helpers/constants'
 import { useNotify } from '@/infra/composables/useNotify'
 import { useFormMember } from '@/modules/team/composables/useFormMember'
 import { isValidISODate, parseDateBrToDefaultFormat} from "@/infra/helpers/helper";
+import { wait } from '@/infra/helpers/helper'
 
 interface IModalProps {
   isOpen: boolean
@@ -156,6 +160,7 @@ const states = ref([])
 const cities = ref([])
 const churches = ref([])
 const v$ = useVuelidate(rules, form)
+const isLoading = ref(false)
 
 onMounted(async () => {
   await fetchStates()
@@ -212,6 +217,7 @@ const createOrUpdateRecord = async () => {
   }
 
   try {
+    isLoading.value =  true
     const payload = {
       ...form,
        birthday: birthdayFormat
@@ -227,11 +233,14 @@ const createOrUpdateRecord = async () => {
       notify.success('Cadastro atualizado com sucesso!')
     }
 
+    await wait()
     closeModal()
     emit('created', true)
   } catch (error) {
     const message = error.response?.data?.message
     notify.httpError(message)
+  } finally {
+    isLoading.value = false
   }
 }
 

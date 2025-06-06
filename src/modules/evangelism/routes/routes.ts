@@ -1,4 +1,4 @@
-import Dashboard from '@/modules/dashaboard/views/Dashboard.vue'
+import Factsheet from '@/modules/evangelism/views/Factsheet.vue'
 import DefaultLayout from '@/presentation/layouts/DefaultLayout.vue'
 
 const routes = [
@@ -6,11 +6,11 @@ const routes = [
     component: DefaultLayout,
     children: [
       {
-        path: '/dashboard',
-        component: Dashboard,
-        name: 'dashboard.index',
+        path: '/evangelism/factsheet',
+        component: Factsheet,
+        name: 'evangelism.factsheet',
         meta: {
-          title: 'Dashboard',
+          title: 'Ficha de Evangelismo',
           authRequired: true,
         },
       },

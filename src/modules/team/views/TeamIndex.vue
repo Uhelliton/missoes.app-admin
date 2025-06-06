@@ -94,6 +94,7 @@ import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam } from '@/modules/team/types/team.interface'
 import Datatable from '@/components/table/Datatable.vue'
 import DualListbox from '@/modules/team/components/DualListbox.vue'
+import Preloader from '@/components/Preloader.vue'
 import { useRouter } from 'vue-router'
 
 const teamService = TeamService()

@@ -37,15 +37,15 @@ export const MENU_ITEMS: MenuItemType[] = [
     ],
   },
   {
-    key: "formsx",
+    key: "evangelism",
     icon: "iconoir-journal-page",
     label: "Envangelismo",
     children: [
       {
-        key: "memberxxx.index",
+        key: "evangelism.factsheet",
         label: "Lançamento de Fichas",
-        route: { name: 'member.index' },
-        parentKey: "formsx",
+        route: { name: 'evangelism.factsheet' },
+        parentKey: "evangelism",
       },
     ],
   },

@@ -3,6 +3,7 @@ import { routes as authRoutes } from '@/modules/auth/routes'
 import { routes as dashboardRoutes } from '@/modules/dashaboard/routes'
 import { routes as teamRoutes } from '@/modules/team/routes'
 import { routes as projectRoutes } from '@/modules/project/routes'
+import { routes as evangelismRoutes } from '@/modules/evangelism/routes'
 
 const setTitle = (title: string) => {
   return title
@@ -38,5 +39,6 @@ export const allRoute = [
   ...teamRoutes,
   ...projectRoutes,
   ...dashboardRoutes,
+  ...evangelismRoutes,
   ...errorRoutes,
 ];

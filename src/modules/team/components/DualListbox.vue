@@ -64,7 +64,10 @@
       </div>
     </div>
     <template #ok>
-      <b-button type="button" variant="primary" @click="onSubmit">Confirmar</b-button>
+      <b-button type="button" variant="primary" @click="onSubmit" :disabled="isLoading">
+        <b-spinner small v-if="isLoading" />
+        {{ isLoading ? 'Salvando...' : 'Confimar' }}
+      </b-button>
     </template>
     <template #cancel>
       <b-button variant="outline-secondary" @click="closeModal">Cancelar</b-button>
@@ -79,6 +82,7 @@ import { MemberService } from '@/modules/team/services/member.service'
 import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam, ITeamMemberPayload } from '@/modules/team/types/team.interface'
 import { useNotify } from '@/infra/composables/useNotify'
+import { wait } from '@/infra/helpers/helper'
 
 interface IProps {
   isOpen: boolean
@@ -108,6 +112,7 @@ const selectedAvailable = ref([])
 const selectedSelected = ref([])
 const selected = ref<IMemberSimplified[]>([...props.teamMembers]) // copia
 const items = ref<IMember[]>([])
+const isLoading = ref(false)
 
 watch(
   () => isOpen.value,
@@ -165,15 +170,21 @@ function moveToAvailable() {
 }
 
 const onSubmit = async () => {
+  isLoading.value =  true
+
   try {
     const payload: ITeamMemberPayload = { memberIds: selectedItems.value.map(({ id }) => id) }
     await updateTeamMembers(props.team.id, payload)
     notify.success('Os membros foram atualizado com sucesso na equipe!')
+
+    await wait()
     emit('update:list', true)
     closeModal()
   } catch (error) {
     const message = error.response?.data?.message
     notify.httpError(message)
+  } finally {
+    isLoading.value = false
   }
 }
 
