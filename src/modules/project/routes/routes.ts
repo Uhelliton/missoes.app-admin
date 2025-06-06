@@ -3,6 +3,7 @@ import DefaultLayout from '@/presentation/layouts/DefaultLayout.vue'
 
 const routes = [
   {
+    path: '/',
     component: DefaultLayout,
     children: [
       {

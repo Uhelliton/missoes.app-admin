@@ -17,11 +17,6 @@
               placeholder="email"
               v-model="v.email.$model"
             />
-            <div v-if="v.email.$error" class="text-danger">
-              <span v-for="(err, idx) in v.email.$errors" :key="idx">
-                {{ err.$message }}
-              </span>
-            </div>
           </b-form-group>
 
           <b-form-group class="mb-2" label="Senha">
@@ -30,17 +25,12 @@
               placeholder="password"
               v-model="v.password.$model"
             />
-            <div v-if="v.password.$errors" class="text-danger">
-              <span v-for="(err, idx) in v.password.$errors" :key="idx">
-                {{ err.$message }}
-              </span>
-            </div>
           </b-form-group>
 
           <div class="form-group row mt-3">
             <b-col sm="6">
               <div class="form-switch-success">
-                <b-form-checkbox switch>Remember me</b-form-checkbox>
+                <b-form-checkbox switch>lembrar-me</b-form-checkbox>
               </div>
             </b-col>
           </div>

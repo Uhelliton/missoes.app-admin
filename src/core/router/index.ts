@@ -12,7 +12,6 @@ router.beforeEach((to, from, next) => {
   if (title) {
     document.title = title.toString();
   }
-
   next();
 });
 
@@ -26,7 +25,6 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
   // If auth is required and the user is logged in...
   const useAuth = useAuthStore();
-
   if (useAuth.isAuthenticated()) {
     return next();
   }
@@ -37,7 +35,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
   function redirectToLogin() {
     // Pass the original route to the login component
-    next({ name: "auth.login" });
+   return  next({ name: "auth.login" });
   }
 });
 
