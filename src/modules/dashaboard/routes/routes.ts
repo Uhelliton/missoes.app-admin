@@ -1,4 +1,4 @@
-import ChurchIndex from '@/modules/project/views/ChurchIndex.vue'
+import Dashboard from '@/modules/dashaboard/views/Dashboard.vue'
 import DefaultLayout from '@/presentation/layouts/DefaultLayout.vue'
 
 const routes = [
@@ -6,11 +6,11 @@ const routes = [
     component: DefaultLayout,
     children: [
       {
-        path: '/churches',
-        component: ChurchIndex,
-        name: 'church.index',
+        path: '/dashboard',
+        component: Dashboard,
+        name: 'dashboard.index',
         meta: {
-          title: 'Gerenciar Igrejas',
+          title: 'Dashboard',
           authRequired: true,
         },
       },

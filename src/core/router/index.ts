@@ -12,6 +12,7 @@ router.beforeEach((to, from, next) => {
   if (title) {
     document.title = title.toString();
   }
+
   next();
 });
 
@@ -25,6 +26,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
 
   // If auth is required and the user is logged in...
   const useAuth = useAuthStore();
+
   if (useAuth.isAuthenticated()) {
     return next();
   }

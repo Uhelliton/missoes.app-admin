@@ -3,11 +3,9 @@
     <b-card no-body>
       <b-card-body class="p-0 bg-black auth-header-box rounded-top">
         <div class="text-center p-3">
-          <router-link to="/" class="logo logo-admin">
-            <img :src="logoSm" height="50" alt="logo" class="auth-logo" />
-          </router-link>
+          <img :src="logoSm" height="50" alt="logo" class="auth-logo" />
           <h4 class="mt-3 mb-1 fw-semibold text-white fs-18">
-           Missões 360
+           Missões
           </h4>
         </div>
       </b-card-body>
@@ -63,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, onBeforeMount } from "vue";
 
 import logoSm from "@/assets/images/logo-sm.png";
 import { required, email } from "@vuelidate/validators";
@@ -83,8 +81,8 @@ const notify = useNotify()
 
 const error = ref("");
 const credentials = reactive({
-  email: "administrador@cif.com.br",
-  password: "cef@@123",
+  email: "",
+  password: "",
 });
 
 const vuelidateRules = computed(() => ({
@@ -93,6 +91,12 @@ const vuelidateRules = computed(() => ({
 }));
 
 const v = useVuelidate(vuelidateRules, credentials);
+
+onBeforeMount(() => {
+  if (useAuth.isAuthenticated) {
+    router.push("/dashboard")
+  }
+})
 
 const login = async () => {
   const result = await v.value.$validate()
@@ -106,7 +110,7 @@ const login = async () => {
        token: response.data.token,
       });
 
-    router.push("/")
+    router.push("/dashboard")
   } catch (error) {
     const message = error.response?.data?.message
     notify.httpError(message)

@@ -3,11 +3,11 @@ import AuthLayout from '@/presentation/layouts/AuthLayout.vue'
 
 const routes = [
   {
-    path: '/auth/login',
+    path: '',
     component: AuthLayout,
     children: [
       {
-        path: '/auth/login',
+        path: '',
         component: Auth,
         name: 'auth.login',
       }

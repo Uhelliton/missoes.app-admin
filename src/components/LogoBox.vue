@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/" class="logo">
+  <router-link to="/dashboard" class="logo">
     <span>
       <img :src="logoSm" alt="logo-small" class="logo-sm" />{{ " " }}
     </span>

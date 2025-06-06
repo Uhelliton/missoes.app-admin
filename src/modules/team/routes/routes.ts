@@ -5,7 +5,6 @@ import DefaultLayout from '@/presentation/layouts/DefaultLayout.vue'
 
 const routes = [
   {
-    path: '/',
     component: DefaultLayout,
     children: [
       {
@@ -27,7 +26,7 @@ const routes = [
         },
       },
       {
-        path: '/teams/id:/analytics',
+        path: '/teams/:id/analytics',
         component: TeamAnalytics,
         name: 'team.analytics',
         meta: {

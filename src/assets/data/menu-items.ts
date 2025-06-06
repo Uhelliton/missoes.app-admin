@@ -10,7 +10,7 @@ export const MENU_ITEMS: MenuItemType[] = [
     key: "dashboards",
     icon: "iconoir-home-simple",
     label: "Dashboards",
-    route: { name: "team.index" },
+    route: { name: "dashboard.index" },
   },
   {
     key: "main",

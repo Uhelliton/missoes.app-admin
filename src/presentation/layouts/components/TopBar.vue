@@ -56,7 +56,7 @@
                   <img :src="avatar1" alt="" class="thumb-md rounded-circle" />
                 </div>
                 <div class="flex-grow-1 ms-2 text-truncate align-self-center">
-                  <h6 class="my-0 fw-medium text-dark fs-13">{{ userAuth.email }}</h6>
+                  <h6 class="my-0 fw-medium text-dark fs-13">{{ userAuth?.email }}</h6>
                   <small class="text-muted mb-0">Admin</small>
                 </div>
               </div>

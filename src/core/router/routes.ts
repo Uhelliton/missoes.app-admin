@@ -1,11 +1,13 @@
+
 import { routes as authRoutes } from '@/modules/auth/routes'
+import { routes as dashboardRoutes } from '@/modules/dashaboard/routes'
 import { routes as teamRoutes } from '@/modules/team/routes'
 import { routes as projectRoutes } from '@/modules/project/routes'
 
 const setTitle = (title: string) => {
   return title
-    ? `${title} | Rizz Vue - Responsive Admin Dashboard Template`
-    : "Rizz Vue | Responsive Admin Dashboard Template";
+    ? `${title} | Genesiis Missões`
+    : "Genesiis Missões";
 };
 
 const errorRoutes = [
@@ -35,5 +37,6 @@ export const allRoute = [
   ...authRoutes,
   ...teamRoutes,
   ...projectRoutes,
+  ...dashboardRoutes,
   ...errorRoutes,
 ];
