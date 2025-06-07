@@ -62,18 +62,22 @@ export const customerLineChart: ApexChartType = {
 export const customerStats: StatType[] = [
   {
     title: "Total Evangelizados",
+    icon: "iconoir-community text-secondary",
     stat: "318",
   },
   {
     title: "Cursos",
+    icon: "iconoir-book-stack text-secondary",
     stat: "18",
   },
   {
     title: "Celulas",
+    icon: "iconoir-group text-secondary",
     stat: "12",
   },
   {
     title: "Conversões",
+    icon: "iconoir-user-star text-secondary",
     stat: "33",
   },
 ];
