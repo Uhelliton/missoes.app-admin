@@ -16,7 +16,6 @@ const http: AxiosInstance = axios.create({
 http.interceptors.request.use(
     (config: AxiosRequestConfig): AxiosRequestConfig|any => {
         const token = getToken()
-        console.log('--', token)
         if (token && config.headers) {
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -30,8 +29,8 @@ http.interceptors.response.use(
     (response: AxiosResponse): AxiosResponse => response,
     (error: AxiosError) => {
         if (error.response && error.response.status === 401) {
-            localStorage.removeItem('token')
-            router.push('/auth/login')
+            localStorage.removeItem('app_user')
+            localStorage.removeItem('app_token')
         }
         return Promise.reject(error)
     }

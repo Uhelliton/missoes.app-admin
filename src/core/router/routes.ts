@@ -4,6 +4,7 @@ import { routes as dashboardRoutes } from '@/modules/dashaboard/routes'
 import { routes as teamRoutes } from '@/modules/team/routes'
 import { routes as projectRoutes } from '@/modules/project/routes'
 import { routes as evangelismRoutes } from '@/modules/evangelism/routes'
+import AuthLayout from '@/presentation/layouts/AuthLayout.vue'
 
 const setTitle = (title: string) => {
   return title
@@ -18,7 +19,7 @@ const errorRoutes = [
     meta: {
       title: setTitle("Error 404"),
     },
-    component: () => import("@/views/auth/error-404.vue"),
+    component: () => import("@/modules/auth/views/error-404.vue"),
   },
   {
     path: "/auth/error-500",
@@ -26,7 +27,7 @@ const errorRoutes = [
     meta: {
       title: setTitle("Error 500"),
     },
-    component: () => import("@/views/auth/error-500.vue"),
+    component: () => import("@/modules/auth/views/error-500.vue"),
   },
   {
     path: "/:catchAll(.*)",

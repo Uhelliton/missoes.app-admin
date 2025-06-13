@@ -8,7 +8,7 @@ export const useFormMember = () => {
     name: '',
     email: '',
     cpf: '',
-    churchId: 0,
+    churchId: null,
     cityId: locationDefault.city.id,
     stateId: locationDefault.state.id,
     phoneNumber: '',
@@ -45,6 +45,7 @@ export const useFormMember = () => {
 
   const resetForm = () => {
     Object.assign(form, initialForm)
+    form.select.church = {}
   }
 
   const rules = computed(() => ({
