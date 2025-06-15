@@ -24,7 +24,9 @@
               class="position-relative mb-1"
             >
               <span class="d-flex align-items-center gap-1">
-                <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]">{{ getAgeCategory(item.birthday) }} </b-badge>
+                <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]"
+                  >{{ getAgeCategory(item.birthday) }}
+                </b-badge>
                 {{ item.name }}
               </span>
               <template v-if="item.teamMember !== null">
@@ -61,7 +63,9 @@
               class="mb-1"
             >
               <span class="d-flex align-items-center gap-1">
-                <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]">{{ getAgeCategory(item.birthday) }} </b-badge>
+                <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]"
+                  >{{ getAgeCategory(item.birthday) }}
+                </b-badge>
                 {{ item.name }}
               </span>
             </b-list-group-item>
@@ -176,7 +180,7 @@ function moveToAvailable() {
 }
 
 const onSubmit = async () => {
-  isLoading.value =  true
+  isLoading.value = true
 
   try {
     const payload: ITeamMemberPayload = { memberIds: selectedItems.value.map(({ id }) => id) }

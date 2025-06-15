@@ -81,7 +81,13 @@
       <BRow class="mt-2">
         <BCol md="3">
           <BFormGroup label="Data de Nascimento" label-for="" class="mb-3">
-            <BFormInput type="text" v-model="form.birthday" placeholder="00/00/0000" v-maska="'##/##/####'"  :class="[{ error: v$.birthday.$error }]" />
+            <BFormInput
+              type="text"
+              v-model="form.birthday"
+              placeholder="00/00/0000"
+              v-maska="'##/##/####'"
+              :class="[{ error: v$.birthday.$error }]"
+            />
           </BFormGroup>
         </BCol>
         <BCol md="4">
@@ -132,7 +138,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { locationDefault } from '@/infra/helpers/constants'
 import { useNotify } from '@/infra/composables/useNotify'
 import { useFormMember } from '@/modules/team/composables/useFormMember'
-import { isValidISODate, parseDateBrToDefaultFormat} from "@/infra/helpers/helper";
+import { isValidISODate, numberOnly, parseDateBrToDefaultFormat } from '@/infra/helpers/helper'
 import { wait } from '@/infra/helpers/helper'
 
 interface IModalProps {
@@ -210,17 +216,18 @@ const handleSubmit = async () => {
 }
 
 const createOrUpdateRecord = async () => {
-  const  birthdayFormat = parseDateBrToDefaultFormat(form.birthday)
+  const birthdayFormat = parseDateBrToDefaultFormat(form.birthday)
   if (!isValidISODate(birthdayFormat)) {
     notify.warning('Preencha uma data válida!')
     return
   }
 
   try {
-    isLoading.value =  true
+    isLoading.value = true
     const payload = {
       ...form,
-       birthday: birthdayFormat
+      cpf: numberOnly(form.cpf),
+      birthday: birthdayFormat,
     }
     delete payload.stateId
     delete payload.select

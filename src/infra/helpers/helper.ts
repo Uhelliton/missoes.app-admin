@@ -1,3 +1,20 @@
+/**
+ * Remove todos as strings mantendo apenas numeros
+ * @param {String} str
+ */
+export const numberOnly = (str: string): string => {
+  const strReplace = str.replace(/[^0-9]+/g, '');
+  return strReplace ?? null;
+}
+
+/**
+ * Mantem apenas string de um texto
+ * @param {String} str
+ */
+export const stringOnly = (str: string): string => {
+  return str.replace(/\d+/g, '');
+}
+
 export const parseDateBrToDefaultFormat = (date: string) => {
   const [dia, mes, ano] = date.split("/")
   return `${ano}-${mes}-${dia}`

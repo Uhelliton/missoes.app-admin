@@ -129,7 +129,7 @@ const handleSubmit = async () => {
 
 const createOrUpdateRecord = async () => {
   try {
-    isLoading.value =  true
+    isLoading.value = true
     const payload = { ...form }
     delete payload.select
 

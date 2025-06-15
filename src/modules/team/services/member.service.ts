@@ -4,9 +4,9 @@ import type { IMember, IMemberPayload } from '@/modules/team/types/member.interf
 import type { AxiosResponse } from 'axios'
 
 export const MemberService = () => {
-  const getAll = (query: object = { }): Promise<AxiosResponse<IPaginateResponse<IMember>>> => {
+  const getAll = (query: object = {}): Promise<AxiosResponse<IPaginateResponse<IMember>>> => {
     console.log('query', query)
-    return http.get<IPaginateResponse<IMember>>('/members', { params: query})
+    return http.get<IPaginateResponse<IMember>>('/members', { params: query })
   }
 
   const create = (payload: IMemberPayload): Promise<AxiosResponse<IMember>> => {

@@ -25,7 +25,7 @@ export const useFormMember = () => {
   const form = reactive<IMemberPayload>({ ...initialForm })
 
   const setFormData = (payload: IMember) => {
-    const birthday =  new Date(payload.birthday)
+    const birthday = new Date(payload.birthday)
     form.name = payload.name
     form.email = payload.email
     form.cpf = payload.cpf

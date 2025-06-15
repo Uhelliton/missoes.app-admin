@@ -3,13 +3,16 @@
     <BCol cols="12">
       <BCard no-body>
         <BCardHeader>
-          <BRow class="align-items-center">
+          <BRow class="d-flex align-content-center align-items-center">
             <div class="col">
               <BCardTitle>Gerenciar Membros</BCardTitle>
             </div>
+            <div class="col-3">
+              <b-form-input v-model="filter.search" @input="handleSearch" placeholder="buscar por nome ou cpf..." />
+            </div>
             <div class="col-auto">
               <form class="row g-2">
-                <div class="col-auto">
+                <div class="col-auto -mt-5">
                   <b-button type="button" variant="primary" @click="handleCreate">
                     <i class="fa-solid fa-plus me-1"></i> Novo Membro
                   </b-button>
@@ -48,7 +51,9 @@
               {{ item.city.name }}
             </template>
             <template #cell-category="{ item }">
-              <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]">{{ getAgeCategory(item.birthday) }} </b-badge>
+              <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.birthday)]"
+                >{{ getAgeCategory(item.birthday) }}
+              </b-badge>
             </template>
           </Datatable>
         </BCardBody>
@@ -59,7 +64,7 @@
     :is-open="dialogMember"
     @close="() => (dialogMember = false)"
     :member="dataTable.rowSelected"
-    @created="fetchMembers"
+    @created="fetchMembers()"
   />
 </template>
 
@@ -73,6 +78,7 @@ import { getAgeCategory, getClassBadgeAgeCategory } from '@/infra/helpers/helper
 
 const memberService = MemberService()
 const dialogMember = ref(false)
+const filter = reactive({ search: '' })
 const dataTable = reactive({
   items: [],
   columns: [
@@ -112,5 +118,13 @@ const handleCreate = () => {
 
 const onChangePage = async (page: number) => {
   await fetchMembers({ page: page })
+}
+
+const handleSearch = async () => {
+  if (filter.search && filter.search.length >= 3) {
+    await fetchMembers({ page: 1, search: filter.search })
+  } else if (!filter.search.length) {
+    await fetchMembers({ page: 1 })
+  }
 }
 </script>

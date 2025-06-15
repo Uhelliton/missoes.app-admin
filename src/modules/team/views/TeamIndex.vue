@@ -31,7 +31,11 @@
                   <i class="iconoir-user text-white fs-16"></i> Associar Membros
                 </span>
               </button>
-              <button @click="redirectToTeamAnalytics(item.id)" class="btn btn-sm btn-outline-light mx-2" title="Estatísticas da Equipe">
+              <button
+                @click="redirectToTeamAnalytics(item.id)"
+                class="btn btn-sm btn-outline-light mx-2"
+                title="Estatísticas da Equipe"
+              >
                 <span class="d-flex justify-content-center align-items-center gap-1">
                   <i class="iconoir-graph-down fs-16"></i>
                 </span>
@@ -153,7 +157,7 @@ const associateMember = (row: ITeam) => {
   dialogTeamMemberActive.value = true
 }
 
-const redirectToTeamAnalytics= (id: number) => {
-  router.push({ name: 'team.analytics', params: { id: id.toString()} })
+const redirectToTeamAnalytics = (id: number) => {
+  router.push({ name: 'team.analytics', params: { id: id.toString() } })
 }
 </script>

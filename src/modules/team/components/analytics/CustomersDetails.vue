@@ -17,15 +17,13 @@
           </b-thead>
           <b-tbody>
             <b-tr v-for="(item, idx) in 10" :key="idx">
-              <b-td>AZ-000 {{ idx}}</b-td>
-              <b-td>
-                João Silva Santos
-              </b-td>
+              <b-td>AZ-000 {{ idx }}</b-td>
+              <b-td> João Silva Santos </b-td>
               <b-td>Porto Seguro</b-td>
               <b-td>Frei Calixto</b-td>
-              <b-td>{{ 2 + idx}}</b-td>
+              <b-td>{{ 2 + idx }}</b-td>
               <b-td>Vilson Santos, Felipe Santos</b-td>
-              <b-td>{{ idx +1 }}/07/2025</b-td>
+              <b-td>{{ idx + 1 }}/07/2025</b-td>
               <b-td>
                 <button class="btn btn-sm btn-outline-light mx-2" title="Editar Equipe">
                   <span class="d-flex justify-content-center align-items-center">
@@ -41,6 +39,6 @@
   </b-row>
 </template>
 <script setup lang="ts">
-import UIComponentCard from "@/components/UIComponentCard.vue";
-import { customerTableData } from "@/views/apps/analytics/customers/components/data";
+import UIComponentCard from '@/components/UIComponentCard.vue'
+import { customerTableData } from '@/views/apps/analytics/customers/components/data'
 </script>
