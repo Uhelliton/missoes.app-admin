@@ -37,15 +37,14 @@
 
     <div class="d-flex justify-between justify-content-between align-items-center mt-3 px-3" >
       <span>
-        Exibindo {{ start + 1 }} - {{ end }} de {{ filteredItems.length }}
+        Exibindo {{ start + 1 }} - {{ end }} de {{ totalItems }} registros
       </span>
 
       <b-pagination
         v-model="page"
-        :total-rows="filteredItems.length"
+        :total-rows="totalItems"
         :per-page="perPage"
-        prev-text="Previous"
-        next-text="Next"
+        @update:model-value="handlePageClick"
         class="justify-content-end mt-2"
       />
 
@@ -77,30 +76,48 @@ interface Column {
   label: string
 }
 
-const props = defineProps<{
+interface Props {
   items: any[]
   columns: Column[]
   hasActions?: boolean
-}>()
+  totalItems: number
+  page: number,
+  perPage: number,
+  search: string
+}
 
-const search = ref('')
-const page = ref(1)
-const perPage = ref(12)
+const props = withDefaults(defineProps<Props>(), {
+  page: 1,
+  perPage: 12,
+  search: ''
+})
+
+interface Emits {
+  (event: 'page-click', value: number): void
+}
+
+const emit = defineEmits<Emits>()
+
+const page = ref(props.page)
 
 const filteredItems = computed(() =>
   props.items.filter((item) =>
     Object.values(item).some((value) =>
-      String(value).toLowerCase().includes(search.value.toLowerCase())
+      String(value).toLowerCase().includes(props.search.toLowerCase())
     )
   )
 )
 
-const start = computed(() => (page.value - 1) * perPage.value)
+const start = computed(() => (props.page - 1) * props.perPage)
 const end = computed(() =>
-  Math.min(start.value + perPage.value, filteredItems.value.length)
+  Math.min(start.value + props.perPage)
 )
 
 const paginatedItems = computed(() =>
   filteredItems.value.slice(start.value, end.value)
 )
+
+const handlePageClick = (page: any) => {
+  emit('page-click', page)
+}
 </script>

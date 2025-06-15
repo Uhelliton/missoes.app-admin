@@ -19,7 +19,13 @@
           </BRow>
         </BCardHeader>
         <BCardBody class="pt-0">
-          <Datatable :items="dataTable.items" :columns="dataTable.columns" :has-actions="true">
+          <Datatable
+            :items="dataTable.items"
+            :columns="dataTable.columns"
+            :total-items="dataTable.total"
+            @page-click="onChangePage"
+            :has-actions="true"
+          >
             <template #actions="{ item }">
               <button @click="handleEdit(item)" class="btn btn-sm btn-outline-light mx-2" title="Editar Membro">
                 <span class="d-flex justify-content-center align-items-center">
@@ -87,8 +93,8 @@ onMounted(async () => {
   await fetchMembers()
 })
 
-const fetchMembers = async () => {
-  const response = await memberService.getAll()
+const fetchMembers = async (query: object = {}) => {
+  const response = await memberService.getAll(query)
   dataTable.items = response.data.items
   dataTable.total = response.data.meta.totalItems
   dataTable.currentPage = response.data.meta.currentPage
@@ -102,5 +108,9 @@ const handleEdit = (row: IMember) => {
 const handleCreate = () => {
   dataTable.rowSelected = null
   dialogMember.value = true
+}
+
+const onChangePage = async (page: number) => {
+  await fetchMembers({ page: page })
 }
 </script>
