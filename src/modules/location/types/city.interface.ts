@@ -10,3 +10,7 @@ export interface ICity {
   state: IState
 }
 
+export interface IDistrict {
+  id: number
+  name: string
+}
