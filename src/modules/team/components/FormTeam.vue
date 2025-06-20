@@ -116,7 +116,7 @@ watch(
 )
 
 const fetchMembers = async () => {
-  const response = await memberService.getAll()
+  const response = await memberService.getAll({ limit: 500 })
   members.value = response.data.items
 }
 

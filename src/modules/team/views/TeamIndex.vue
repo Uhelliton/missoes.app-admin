@@ -19,7 +19,13 @@
           </BRow>
         </BCardHeader>
         <BCardBody class="pt-0">
-          <Datatable :items="dataTable.items" :columns="dataTable.columns" :has-actions="true">
+          <Datatable
+            :items="dataTable.items"
+            :columns="dataTable.columns"
+            :total-items="dataTable.total"
+            @page-click="onChangePage"
+            :has-actions="true"
+          >
             <template #actions="{ item }">
               <button @click="handleEdit(item)" class="btn btn-sm btn-outline-light mx-2" title="Editar Equipe">
                 <span class="d-flex justify-content-center align-items-center">
@@ -125,14 +131,14 @@ onMounted(async () => {
 })
 
 const getPrefixName = (name: string) => {
-  const split = name.split(' ')
+  const split = name.replace(/\s+/g, ' ').split(' ')
   const strPart = String(split[1] || '').toUpperCase()
   return strPart[0] + strPart[1]
 }
 
-const fetchTeams = async () => {
+const fetchTeams = async (query: object = {}) => {
   try {
-    const { data } = await teamService.getAll()
+    const { data } = await teamService.getAll(query)
 
     dataTable.items = data?.items ?? []
     dataTable.total = data?.meta?.totalItems ?? 0
@@ -159,5 +165,9 @@ const associateMember = (row: ITeam) => {
 
 const redirectToTeamAnalytics = (id: number) => {
   router.push({ name: 'team.analytics', params: { id: id.toString() } })
+}
+
+const onChangePage = async (page: number) => {
+  await fetchTeams({ page: page })
 }
 </script>

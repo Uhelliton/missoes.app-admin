@@ -4,8 +4,8 @@ import type { ITeam, ITeamMemberPayload, ITeamPayload } from '@/modules/team/typ
 import type { AxiosResponse } from 'axios'
 
 export const TeamService = () => {
-  const getAll = (): Promise<AxiosResponse<IPaginateResponse<ITeam>>> => {
-    return http.get<IPaginateResponse<ITeam>>('/teams')
+  const getAll = (query: object = {}): Promise<AxiosResponse<IPaginateResponse<ITeam>>> => {
+    return http.get<IPaginateResponse<ITeam>>('/teams', { params: query })
   }
 
   const create = (payload: ITeamPayload): Promise<AxiosResponse<ITeam>> => {

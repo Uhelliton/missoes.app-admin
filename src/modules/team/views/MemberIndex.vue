@@ -1,5 +1,6 @@
 <template>
   <BRow>
+    <Preloader :loading="isLoading"></Preloader>
     <BCol cols="12">
       <BCard no-body>
         <BCardHeader>
@@ -12,6 +13,21 @@
             </div>
             <div class="col-auto">
               <form class="row g-2">
+                <div class="col-auto">
+                  <b-dropdown variant="light" menu-class="dropdown-menu-end">
+                    <template #button-content>
+                      Exportar Dados
+                      <i class="las la-angle-down ms-1"></i>
+                    </template>
+                    <b-dropdown-item @click="exportToPDF">
+                      <i class="las la-file-pdf fs-5 me-1"></i>
+                      PDF
+                    </b-dropdown-item>
+                    <b-dropdown-item @click="exportToExcel">
+                      <i class="las la-file-excel fs-5 me-1"></i> Excel
+                    </b-dropdown-item>
+                  </b-dropdown>
+                </div>
                 <div class="col-auto -mt-5">
                   <b-button type="button" variant="primary" @click="handleCreate">
                     <i class="fa-solid fa-plus me-1"></i> Novo Membro
@@ -75,14 +91,20 @@ import { MemberService } from '@/modules/team/services/member.service'
 import type { IMember } from '@/modules/team/types/member.interface'
 import Datatable from '@/components/table/Datatable.vue'
 import { getAgeCategory, getClassBadgeAgeCategory } from '@/infra/helpers/helper'
+import { usePdfExport, useExcelExport } from '@/infra/composables'
+import Preloader from "@/components/Preloader.vue";
 
+const { createPDF } = usePdfExport()
+const { createExcel } = useExcelExport()
 const memberService = MemberService()
 const dialogMember = ref(false)
 const filter = reactive({ search: '' })
+const isLoading = ref(false)
 const dataTable = reactive({
+  preload: false,
   items: [],
   columns: [
-    { key: 'id', label: '#' },
+    { key: 'id', label: 'Cód' },
     { key: 'name', label: 'Nome' },
     { key: 'email', label: 'Email' },
     { key: 'cpf', label: 'CPF' },
@@ -126,5 +148,44 @@ const handleSearch = async () => {
   } else if (!filter.search.length) {
     await fetchMembers({ page: 1 })
   }
+}
+
+const exportToPDF = async () => {
+  isLoading.value = true
+  const response = await memberService.getAll({ limit: 500 })
+  const columns = ['#', 'Código', 'Nome', 'Cpf', 'Classificação', 'Igreja']
+  const body = response.data.items
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((m, i) => [
+    i + 1,
+    m.id,
+    m.name,
+    m.cpf,
+    getAgeCategory(m.birthday),
+    m.church.name,
+  ])
+
+  createPDF('Relatório de Membros', body, columns)
+  isLoading.value = false
+}
+
+const exportToExcel = async () => {
+  isLoading.value = true
+  const response = await memberService.getAll({ limit: 500 })
+  const body = response.data.items
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((m, i) => ({
+      'Código':  m.id,
+      Nome: m.name,
+      Email: m.email,
+      CPF: m.cpf,
+      Sexo: m.gender,
+      Classification: getAgeCategory(m.birthday),
+      Igreja: m.church.name,
+      Cidade: m.city.name,
+    }))
+
+  createExcel('Relatório de Membros', body)
+  isLoading.value = false
 }
 </script>
