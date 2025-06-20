@@ -5,7 +5,7 @@ import type { AxiosResponse } from 'axios'
 
 export const ChurchService = () => {
   const getAll = (query: object = {}): Promise<AxiosResponse<IPaginateResponse<IChurch>>> => {
-    return http.get<IPaginateResponse<IChurch>>('/churches', query)
+    return http.get<IPaginateResponse<IChurch>>('/churches', { params: query })
   }
 
   const create = (payload: IChurchPayload): Promise<AxiosResponse<IChurch>> => {

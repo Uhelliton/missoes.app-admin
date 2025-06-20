@@ -1,4 +1,4 @@
-import Factsheet from '@/modules/evangelism/views/Factsheet.vue'
+import EvangelismRecordIndex from '@/modules/evangelism/views/EvangelismRecordIndex.vue'
 import DefaultLayout from '@/presentation/layouts/DefaultLayout.vue'
 
 const routes = [
@@ -7,7 +7,7 @@ const routes = [
     children: [
       {
         path: '/evangelism/factsheet',
-        component: Factsheet,
+        component: EvangelismRecordIndex,
         name: 'evangelism.factsheet',
         meta: {
           title: 'Ficha de Evangelismo',

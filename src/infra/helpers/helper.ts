@@ -51,8 +51,12 @@ export function getAgeFromDate(dateString: string | Date): number {
   return age
 }
 
-export function getAgeCategory(dateString: string | Date): 'Adolescente' | 'Jovem' | 'Adulto' {
-  const age = getAgeFromDate(dateString)
+export function getAgeCategory(value: string | Date | number): 'Criança' | 'Adolescente' | 'Jovem' | 'Adulto' {
+  let age: number;
+
+  (typeof value === 'number')
+    ?  age = value
+    :  age = getAgeFromDate(String(value));
 
   if (age < 10) return 'Criança'
   if (age >= 10 && age <= 16) return 'Adolescente'
@@ -60,8 +64,12 @@ export function getAgeCategory(dateString: string | Date): 'Adolescente' | 'Jove
   return 'Adulto'
 }
 
-export function getClassBadgeAgeCategory(dateString: string | Date): string {
-  const age = getAgeFromDate(dateString)
+export function getClassBadgeAgeCategory(value: string | Date | number): string {
+  let age: number;
+
+  (typeof value === 'number')
+    ?  age = value
+    :  age = getAgeFromDate(String(value));
 
   if (age < 10) return 'bg-warning-subtle text-warning'
   if (age >= 10 && age <= 16) return 'bg-info-subtle text-info'

@@ -5,7 +5,6 @@ import type { AxiosResponse } from 'axios'
 
 export const MemberService = () => {
   const getAll = (query: object = {}): Promise<AxiosResponse<IPaginateResponse<IMember>>> => {
-    console.log('query', query)
     return http.get<IPaginateResponse<IMember>>('/members', { params: query })
   }
 
