@@ -197,7 +197,7 @@ const fetchCities = async (stateId: number) => {
 }
 
 const fetchChurches = async () => {
-  const response = await churchService.getAll()
+  const response = await churchService.getAll({ limit: 500 })
   churches.value = response.data.items
 }
 
