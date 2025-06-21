@@ -43,6 +43,7 @@
             :columns="dataTable.columns"
             :total-items="dataTable.total"
             @page-click="onChangePage"
+            @update:perPage="onChangePage"
             :has-actions="true"
           >
             <template #actions="{ item }">
@@ -138,8 +139,8 @@ const handleCreate = () => {
   dialogMember.value = true
 }
 
-const onChangePage = async (page: number) => {
-  await fetchMembers({ page: page })
+const onChangePage = async (paginate: object) => {
+  await fetchMembers({ ...paginate })
 }
 
 const handleSearch = async () => {

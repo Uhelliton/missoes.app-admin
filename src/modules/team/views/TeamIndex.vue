@@ -36,6 +36,7 @@
             :columns="dataTable.columns"
             :total-items="dataTable.total"
             @page-click="onChangePage"
+            @update:perPage="onChangePage"
             :has-actions="true"
           >
             <template #actions="{ item }">
@@ -180,12 +181,13 @@ const redirectToTeamAnalytics = (id: number) => {
   router.push({ name: 'team.analytics', params: { id: id.toString() } })
 }
 
-const onChangePage = async (page: number) => {
-  await fetchTeams({ page: page })
+const onChangePage = async (paginate: object) => {
+  await fetchTeams({ ...paginate })
 }
 
-const exportToPDF = () => {
-  const {  exportToPDF } = useTeamExportData(dataTable.items)
+const exportToPDF = async () => {
+  const { data } = await teamService.getAll({ limit: 500 })
+  const {  exportToPDF } = useTeamExportData(data?.items ?? [])
   exportToPDF()
 }
 </script>

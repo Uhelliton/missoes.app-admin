@@ -1,19 +1,5 @@
 <template>
   <div>
-<!--    <div class="d-flex justify-between align-items-center mb-2 gap-2">
-      <input
-        v-model="search"
-        type="text"
-        class="form-control"
-        placeholder="Buscar..."
-      />
-      <select v-model="perPage" class="form-select w-auto">
-        <option :value="5">5</option>
-        <option :value="10">10</option>
-        <option :value="20">20</option>
-      </select>
-    </div>-->
-
     <b-table-simple responsive class="mb-0 checkbox-all text-nowrap">
       <b-thead class="table-light">
         <b-tr>
@@ -36,40 +22,37 @@
     </b-table-simple>
 
     <div class="d-flex justify-between justify-content-between align-items-center mt-3 px-3" >
-      <span>
-        Exibindo {{ start + 1 }} - {{ end }} de {{ totalItems }} registros
-      </span>
+      <div class="col-sm">
+        <div class="d-flex align-items-center gap-2">
+          <div class="text-muted text-nowrap">Exibindo <span class="fw-semibold">{{ start + 1 }} de {{ end }} </span>
+            <span class="fw-semibold"> de {{ totalItems }}</span> registros
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <label for="page-size-select">Por Página</label>
+            <select name="page-size-select" id="page-size-select" class="form-select w-auto" v-model="perPage">
+              <option value="12">12</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-      <b-pagination
-        v-model="page"
-        :total-rows="totalItems"
-        :per-page="perPage"
-        @update:model-value="handlePageClick"
-        class="justify-content-end mt-2"
-      />
-
-<!--      <div>-->
-<!--        <button-->
-<!--          class="btn btn-sm btn-outline-primary me-2"-->
-<!--          :disabled="page === 1"-->
-<!--          @click="page&#45;&#45;"-->
-<!--        >-->
-<!--          Anterior-->
-<!--        </button>-->
-<!--        <button-->
-<!--          class="btn btn-sm btn-outline-primary"-->
-<!--          :disabled="end >= filteredItems.length"-->
-<!--          @click="page++"-->
-<!--        >-->
-<!--          Próxima-->
-<!--        </button>-->
-<!--      </div>-->
+      <div>
+        <b-pagination
+          v-model="page"
+          :total-rows="totalItems"
+          :per-page="perPage"
+          @update:model-value="handlePageClick"
+          class="justify-content-end mt-2"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps } from 'vue'
+import { ref, computed, defineProps, watch } from 'vue'
 
 interface Column {
   key: string
@@ -93,12 +76,18 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 interface Emits {
-  (event: 'page-click', value: number): void
+  (event: 'page-click', value: object): void,
+  (event: 'update:perPage', value: object): void
 }
 
 const emit = defineEmits<Emits>()
 
 const page = ref(props.page)
+const perPage = ref(props.perPage)
+
+watch(perPage, (val) => {
+  emit('update:perPage', { page: page.value, limit: val })
+})
 
 const filteredItems = computed(() =>
   props.items.filter((item) =>
@@ -108,16 +97,14 @@ const filteredItems = computed(() =>
   )
 )
 
-const start = computed(() => (props.page - 1) * props.perPage)
-const end = computed(() =>
-  Math.min(start.value + props.perPage)
-)
+const start = computed(() => (props.page - 1) * perPage.value)
+const end = computed(() => Math.min(start.value + perPage.value, filteredItems.value.length))
 
 const paginatedItems = computed(() =>
   filteredItems.value.slice(start.value, end.value)
 )
 
 const handlePageClick = (page: any) => {
-  emit('page-click', page)
+  emit('page-click', { page: page, limit: perPage.value })
 }
 </script>
