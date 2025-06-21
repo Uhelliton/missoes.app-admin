@@ -10,6 +10,18 @@
             <div class="col-auto">
               <form class="row g-2">
                 <div class="col-auto">
+                  <b-dropdown variant="light" menu-class="dropdown-menu-end">
+                    <template #button-content>
+                      Exportar Dados
+                      <i class="las la-angle-down ms-1"></i>
+                    </template>
+                    <b-dropdown-item @click="exportToPDF">
+                      <i class="las la-file-pdf fs-5 me-1"></i>
+                      Relatório por Equipe
+                    </b-dropdown-item>
+                  </b-dropdown>
+                </div>
+                <div class="col-auto">
                   <b-button type="button" variant="primary" @click="handleCreate">
                     <i class="fa-solid fa-plus me-1"></i> Nova Equipe
                   </b-button>
@@ -104,6 +116,7 @@ import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam } from '@/modules/team/types/team.interface'
 import Datatable from '@/components/table/Datatable.vue'
 import DualListbox from '@/modules/team/components/DualListbox.vue'
+import { useTeamExportData } from '@/modules/team/composables/useTeamExportData'
 import Preloader from '@/components/Preloader.vue'
 import { useRouter } from 'vue-router'
 
@@ -169,5 +182,10 @@ const redirectToTeamAnalytics = (id: number) => {
 
 const onChangePage = async (page: number) => {
   await fetchTeams({ page: page })
+}
+
+const exportToPDF = () => {
+  const {  exportToPDF } = useTeamExportData(dataTable.items)
+  exportToPDF()
 }
 </script>
