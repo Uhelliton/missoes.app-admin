@@ -64,7 +64,7 @@ export const audienceOverviewChart: ApexChartType = {
           label: {
             borderWidth: 1,
             offsetY: -110,
-            text: "50k",
+            text: "meta: 500",
             style: {
               background: "var(--bs-primary)",
               fontSize: "14px",
@@ -104,9 +104,6 @@ export const audienceOverviewChart: ApexChartType = {
       labels: {
         offsetX: -12,
         offsetY: 0,
-        formatter: function (value) {
-          return "$" + value;
-        },
       },
     },
     grid: {
