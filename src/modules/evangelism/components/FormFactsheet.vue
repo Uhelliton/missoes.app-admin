@@ -270,10 +270,11 @@ const onChangeTeam = (option: ITeam) => {
 const handleFocusFieldCode = (event: any) => {
   const code = event.target.value
   const [fist, last] = code.split('-')
-  const teamFiltered = teams.value.find((team) => team.name.includes(fist))
-  const { members: teamMembers, leader, ...team } = teamFiltered
+  const teamFiltered = teams.value.find((team) => team.name.toLowerCase().includes(fist))
+  console.log(teamFiltered)
 
   if (teamFiltered) {
+    const { members: teamMembers, leader, ...team } = teamFiltered
     form.select.team = team
     form.teamId = team.id
     members.value = teamMembers

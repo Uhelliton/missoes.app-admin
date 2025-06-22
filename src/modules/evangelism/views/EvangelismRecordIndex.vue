@@ -8,7 +8,7 @@
               <BCardTitle>Gerenciar Fichas de Evangelismo</BCardTitle>
             </div>
             <div class="col-3">
-              <b-form-input v-model="filter.search" @input="handleSearch" placeholder="buscar por nome..." />
+              <b-form-input v-model="filter.search" @input="handleSearch" placeholder="buscar por nome ou código.." />
             </div>
             <div class="col-auto">
               <form class="row g-2">
