@@ -99,14 +99,14 @@
     :is-open="dialogTeamActive"
     @close="() => (dialogTeamActive = false)"
     :team="dataTable.rowSelected"
-    @created="fetchTeams"
+    @created="fetchTeams()"
   />
   <DualListbox
     :is-open="dialogTeamMemberActive"
     :team-members="dataTable.rowSelected?.members"
     :team="dataTable.rowSelected"
     @close="() => (dialogTeamMemberActive = false)"
-    @update:list="fetchTeams"
+    @update:list="fetchTeams()"
   />
 </template>
 

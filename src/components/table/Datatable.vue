@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="col-sm">
         <b-pagination
           v-model="page"
           :total-rows="totalItems"

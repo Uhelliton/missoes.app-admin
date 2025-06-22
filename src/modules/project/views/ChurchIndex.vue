@@ -45,7 +45,7 @@
     :is-open="dialogMember"
     @close="() => (dialogMember = false)"
     :church="dataTable.rowSelected"
-    @created="fetchChurches"
+    @created="fetchChurches()"
   />
 </template>
 

@@ -27,6 +27,7 @@
             :columns="dataTable.columns"
             :total-items="dataTable.total"
             @page-click="onChangePage"
+            @update:perPage="onChangePage"
             :has-actions="true"
           >
             <template #actions="{ item }">
@@ -47,6 +48,14 @@
                 {{ item.gender }}
               </BBadge>
             </template>
+            <template #cell-name="{ item }">
+              {{ item.name }}
+              <span
+                v-if="item.additionalPeople.length"
+                class="badge rounded text-white bg-secondary ms-1">
+                + {{ item.additionalPeople.length }}
+              </span>
+            </template>
             <template #cell-acceptedCourse="{ item }">
                {{ item.acceptedCourse ? 'Sim' : 'Não' }}
             </template>
@@ -57,26 +66,50 @@
               {{ item.madeDecision ? 'Sim' : 'Não' }}
             </template>
             <template #cell-age="{ item }">
-              <b-badge :variant="null" pill :class="[getClassBadgeAgeCategory(item.age)]">
-                {{ getAgeCategory(item.age) }}
+              <b-badge :variant="null" pill :class="[ageCategoryClasses[item.ageCategory]]">
+                {{ item.ageCategory }}
               </b-badge>
             </template>
             <template #cell-members="{ item }">
-              {{ item.members.map(({ name }) => name ).join(', ') }}
+              <div class="img-group">
+                <template v-for="member in item.members" :key="member.id">
+                  <a
+                    class="user-avatar position-relative d-inline-block"
+                    href="javascript:"
+                    :title="member.name"
+                    :class="member.id && 'ms-n2'"
+                  >
+                    <span class="thumb-md bg-secondary text-white rounded-circle me-0">
+                      {{ member.name[0] }}
+                    </span>
+                  </a>
+                </template>
+              </div>
+            </template>
+            <template #cell-team="{ item }">
+              {{ item.team.name }}
+            </template>
+            <template #cell-evangelizedAt="{ item }">
+              {{ formatDateToPtBr(item.evangelizedAt) }}
             </template>
           </Datatable>
         </BCardBody>
       </BCard>
     </BCol>
   </BRow>
-  <FormFactsheet  :is-open="dialogFactsheetIsActive" />
+  <FormFactsheet
+    :is-open="dialogFactsheetIsActive"
+    @close="() => (dialogFactsheetIsActive = false)"
+    :evangelismRecord="dataTable.rowSelected"
+    @created="fetchRecords()"
+  />
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, reactive, Ref } from 'vue'
 import { EvangelismRecordService } from '@/modules/evangelism/services/evangelism-record.service'
 import Datatable from '@/components/table/Datatable.vue'
-import { getAgeCategory, getClassBadgeAgeCategory} from '@/infra/helpers/helper'
+import {ageCategoryClasses, formatDateToPtBr } from '@/infra/helpers/helper'
 import type {IEvangelismRecord} from "@/modules/evangelism/types/evangelism-record.interface";
 import FormFactsheet from "@/modules/evangelism/components/FormFactsheet.vue";
 
@@ -88,11 +121,13 @@ const dataTable = reactive({
   columns: [
     { key: 'code', label: 'Cod' },
     { key: 'name', label: 'Nome' },
-    { key: 'acceptedCourse', label: 'Aceitou Curso' },
-    { key: 'acceptedCell', label: 'Aceitou Célula' },
+    { key: 'team', label: 'Equipe' },
+    { key: 'acceptedCourse', label: 'Curso' },
+    { key: 'acceptedCell', label: 'Célula' },
     { key: 'madeDecision', label: 'Tomou Decisão' },
     { key: 'age', label: 'Classificação' },
     { key: 'members', label: 'Evangelistas' },
+    { key: 'evangelizedAt', label: 'Data Evangelismo' },
   ],
   rowSelected: {} as Ref<IEvangelismRecord>,
   currentPage: 1,
@@ -120,8 +155,8 @@ const handleCreate = () => {
   dialogFactsheetIsActive.value = true
 }
 
-const onChangePage = async (page: number) => {
-  await fetchRecords({ page: page })
+const onChangePage = async (paginate: object) => {
+  await fetchRecords({ ...paginate })
 }
 
 const handleSearch = async () => {
@@ -131,4 +166,5 @@ const handleSearch = async () => {
     await fetchRecords({ page: 1 })
   }
 }
+
 </script>

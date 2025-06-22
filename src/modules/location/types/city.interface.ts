@@ -8,6 +8,7 @@ export interface ICity {
   name: string
   stateId: number
   state: IState
+  districts?: Array<IDistrict>
 }
 
 export interface IDistrict {
