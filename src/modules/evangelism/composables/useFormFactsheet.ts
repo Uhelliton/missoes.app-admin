@@ -72,6 +72,9 @@ export const useFormFactSheet = () => {
 
   const resetForm = () => {
     Object.assign(form, initialForm)
+    form.recordAddress.street = ''
+    form.recordAddress.number = ''
+    form.recordAddress.reference = ''
     form.select.distric = {}
     form.select.team = {}
     form.select.members = []

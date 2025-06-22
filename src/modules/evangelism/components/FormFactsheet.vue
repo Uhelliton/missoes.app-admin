@@ -286,6 +286,7 @@ const handleSubmit = async () => {
   if (v$.value.$invalid) return
 
   await createOrUpdateRecord()
+  v$.value.$reset()
 }
 
 const createOrUpdateRecord = async () => {
