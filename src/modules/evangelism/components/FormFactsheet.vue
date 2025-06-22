@@ -301,7 +301,7 @@ const createOrUpdateRecord = async () => {
     const payload = {
       ...form,
       code: form.code.toUpperCase(),
-      membersIds: members.value.map(({ id }) => id),
+      membersIds: form.select.members.map(({ id }) => id),
       evangelizedAt: evangelizedAt,
       projectId: project.value?.id
     }
