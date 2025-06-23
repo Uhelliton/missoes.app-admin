@@ -90,6 +90,11 @@
             <template #cell-evangelizedAt="{ item }">
               {{ formatDateToPtBr(item.evangelizedAt) }}
             </template>
+            <template #cell-notes="{ item }">
+              <span class="d-flex justify-content-end align-items-end" v-if="item.notes">
+                <i class="iconoir-message-text  text-secondary fs-20" v-b-tooltip.hover.top="`${ item.notes }`"></i>
+              </span>
+            </template>
           </Datatable>
         </BCardBody>
       </BCard>
@@ -126,6 +131,7 @@ const dataTable = reactive({
     { key: 'age', label: 'Classificação' },
     { key: 'members', label: 'Evangelistas' },
     { key: 'evangelizedAt', label: 'Data Evangelismo' },
+    { key: 'notes', label: '' },
   ],
   rowSelected: {} as Ref<IEvangelismRecord>,
   currentPage: 1,

@@ -56,4 +56,7 @@ declare module 'vue' {
     Select: typeof import('./src/components/forms/Select.vue')['default']
     UIComponentCard: typeof import('./src/components/UIComponentCard.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vBTooltip: typeof import('bootstrap-vue-next')['vBTooltip']
+  }
 }
