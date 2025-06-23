@@ -1,7 +1,10 @@
 import http from '@/infra/plugins/http'
 import type { IPaginateResponse } from '@/infra/types/http.interfaces'
 import type { AxiosResponse } from 'axios'
-import type {IEvangelismRecord, IEvangelismRecordPayload} from "@/modules/evangelism/types/evangelism-record.interface";
+import type {
+  IEvangelismRecord,
+  IEvangelismRecordPayload,
+} from '@/modules/evangelism/types/evangelism-record.interface'
 
 export const EvangelismRecordService = () => {
   const getAll = (query: object = {}): Promise<AxiosResponse<IPaginateResponse<IEvangelismRecord>>> => {
