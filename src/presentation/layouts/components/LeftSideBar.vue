@@ -18,7 +18,7 @@
             <p class="mb-3 text-muted">
              Acesso Rápido
             </p>
-            <a href="javascript: void(0);" class="btn text-primary shadow-sm rounded-pill">Lançar Ficha</a>
+            <button @click="redirectToFactSheet" class="btn text-primary bg-black rounded-pill">Lançar Ficha</button>
           </div>
         </div>
       </simplebar>
@@ -29,6 +29,13 @@
 .
 <script setup lang="ts">
 import simplebar from "simplebar-vue";
+import { useRouter } from 'vue-router'
 import { getMenuItems } from "@/infra/helpers/menu";
 import LogoBox from "@/components/LogoBox.vue";
+
+const router = useRouter()
+
+const redirectToFactSheet = () => {
+  router.push({ name: 'evangelism.factsheet' })
+}
 </script>
