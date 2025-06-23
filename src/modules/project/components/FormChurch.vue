@@ -23,7 +23,12 @@
       <BRow>
         <BCol md="6">
           <BFormGroup label="CNPJ" label-for="Cpf" class="mb-3">
-            <BFormInput type="text" v-model="form.cnpj"  v-maska="'##.###.###/####-##'"  :class="[{ error: v$.cnpj.$error }]" />
+            <BFormInput
+              type="text"
+              v-model="form.cnpj"
+              v-maska="'##.###.###/####-##'"
+              :class="[{ error: v$.cnpj.$error }]"
+            />
           </BFormGroup>
         </BCol>
         <BCol md="6">
@@ -151,7 +156,7 @@ const handleSubmit = async () => {
 
 const createOrUpdateRecord = async () => {
   try {
-    isLoading.value =  true
+    isLoading.value = true
     const payload = { ...form }
     delete payload.stateId
     delete payload.select

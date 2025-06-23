@@ -9,9 +9,7 @@
           <div class="col-auto">
             <b-dropdown variant="light" menu-class="dropdown-menu-end">
               <template #button-content>
-                <i class="icofont-calendar fs-5 me-1"></i> This Year<i
-                  class="las la-angle-down ms-1"
-                ></i>
+                <i class="icofont-calendar fs-5 me-1"></i> This Year<i class="las la-angle-down ms-1"></i>
               </template>
               <b-dropdown-item>Today</b-dropdown-item>
               <b-dropdown-item>Last Week</b-dropdown-item>
@@ -36,12 +34,7 @@
             <b-tr v-for="(item, idx) in productList" :key="idx">
               <b-td>
                 <div class="d-flex align-items-center">
-                  <img
-                    :src="item.image"
-                    height="40"
-                    class="me-3 align-self-center rounded"
-                    alt="..."
-                  />
+                  <img :src="item.image" height="40" class="me-3 align-self-center rounded" alt="..." />
                   <div class="flex-grow-1 text-truncate">
                     <h6 class="m-0">{{ item.name }}</h6>
                     <a href="#" class="fs-12 text-primary">ID: {{ item.id }}</a>
@@ -50,35 +43,25 @@
               </b-td>
               <b-td
                 >{{ currency }}{{ item.price }}
-                <del class="text-muted fs-10"
-                  >{{ currency }}{{ item.originalPrice }}</del
-                ></b-td
+                <del class="text-muted fs-10">{{ currency }}{{ item.originalPrice }}</del></b-td
               >
               <b-td
-                >{{ item.stockQuantity }}
-                <small class="text-muted"
-                  >({{ item.soldQuantity }})</small
-                ></b-td
+                >{{ item.stockQuantity }} <small class="text-muted">({{ item.soldQuantity }})</small></b-td
               >
               <b-td>
                 <b-badge
                   :variant="null"
                   class="px-2"
                   :class="
-                    item.status === 'in-stock'
-                      ? 'bg-primary-subtle text-primary'
-                      : 'bg-danger-subtle text-danger'
+                    item.status === 'in-stock' ? 'bg-primary-subtle text-primary' : 'bg-danger-subtle text-danger'
                   "
                 >
                   {{ kebabToTitleCase(item.status) }}
                 </b-badge>
               </b-td>
               <b-td>
-                <a href="#"><i class="las la-pen text-secondary fs-18"></i></a
-                >{{ " " }}
-                <a href="#"
-                  ><i class="las la-trash-alt text-secondary fs-18"></i
-                ></a>
+                <a href="#"><i class="las la-pen text-secondary fs-18"></i></a>{{ ' ' }}
+                <a href="#"><i class="las la-trash-alt text-secondary fs-18"></i></a>
               </b-td>
             </b-tr>
           </b-tbody>
@@ -88,7 +71,7 @@
   </b-col>
 </template>
 <script setup lang="ts">
-import { currency } from "@/infra/helpers/constants";
-import { kebabToTitleCase } from "@/infra/helpers/change-casing";
-import { productList } from "@/views/dashboards/ecommerce/components/data";
+import { currency } from '@/infra/helpers/constants'
+import { kebabToTitleCase } from '@/infra/helpers/change-casing'
+import { productList } from '@/views/dashboards/ecommerce/components/data'
 </script>

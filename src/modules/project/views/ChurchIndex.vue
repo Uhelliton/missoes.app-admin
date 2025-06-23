@@ -25,7 +25,8 @@
             :total-items="dataTable.total"
             @page-click="onChangePage"
             @update:perPage="onChangePage"
-            :has-actions="true">
+            :has-actions="true"
+          >
             <template #actions="{ item }">
               <button @click="handleEdit(item)" class="btn btn-sm btn-outline-light mx-2" title="Editar Membro">
                 <span class="d-flex justify-content-center align-items-center">

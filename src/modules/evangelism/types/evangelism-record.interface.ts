@@ -1,9 +1,9 @@
 import { Gender } from '@/modules/team/types/member.type'
 import type { ISelect } from '@/components/forms/Select.vue'
-import type { IDistrict} from '@/modules/location/types/city.interface'
-import type {IMemberSimplified} from "@/modules/team/types/member.interface";
+import type { IDistrict } from '@/modules/location/types/city.interface'
+import type { IMemberSimplified } from '@/modules/team/types/member.interface'
 
-type FormSelectFields =  'district' | 'team' | 'members'
+type FormSelectFields = 'district' | 'team' | 'members'
 export type SelectMap = {
   [key in FormSelectFields]: ISelect
 }
@@ -39,8 +39,8 @@ export interface IEvangelismRecordPayload {
   notes: string
   additionalPeople?: Array<string>
   evangelizedAt: string
-  gender: Gender.MALE | Gender.FEMALE,
+  gender: Gender.MALE | Gender.FEMALE
   recordAddress: IEvangelismRecordAddressPayload
-  membersIds: number[],
+  membersIds: number[]
   select: SelectMap
 }

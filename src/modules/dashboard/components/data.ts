@@ -1,43 +1,38 @@
-import { currency } from "@/infra/helpers/constants";
-import type { ApexChartType } from "@/types";
-import type {
-  OrderType,
-  ProductType,
-  SellingType,
-  StatType,
-} from "@/views/dashboards/ecommerce/components/types";
+import { currency } from '@/infra/helpers/constants'
+import type { ApexChartType } from '@/types'
+import type { OrderType, ProductType, SellingType, StatType } from '@/views/dashboards/ecommerce/components/types'
 
-import usFlag from "@/assets/images/flags/us_flag.jpg";
-import spainFlag from "@/assets/images/flags/spain_flag.jpg";
-import frenchFlag from "@/assets/images/flags/french_flag.jpg";
-import germanyFlag from "@/assets/images/flags/germany_flag.jpg";
-import bahaFlag from "@/assets/images/flags/baha_flag.jpg";
+import usFlag from '@/assets/images/flags/us_flag.jpg'
+import spainFlag from '@/assets/images/flags/spain_flag.jpg'
+import frenchFlag from '@/assets/images/flags/french_flag.jpg'
+import germanyFlag from '@/assets/images/flags/germany_flag.jpg'
+import bahaFlag from '@/assets/images/flags/baha_flag.jpg'
 
-import avatar1 from "@/assets/images/users/avatar-1.jpg";
-import avatar2 from "@/assets/images/users/avatar-2.jpg";
-import avatar3 from "@/assets/images/users/avatar-3.jpg";
-import avatar4 from "@/assets/images/users/avatar-4.jpg";
-import avatar5 from "@/assets/images/users/avatar-5.jpg";
+import avatar1 from '@/assets/images/users/avatar-1.jpg'
+import avatar2 from '@/assets/images/users/avatar-2.jpg'
+import avatar3 from '@/assets/images/users/avatar-3.jpg'
+import avatar4 from '@/assets/images/users/avatar-4.jpg'
+import avatar5 from '@/assets/images/users/avatar-5.jpg'
 
-import products01 from "@/assets/images/products/01.png";
-import products02 from "@/assets/images/products/02.png";
-import products04 from "@/assets/images/products/04.png";
-import products06 from "@/assets/images/products/06.png";
-import products05 from "@/assets/images/products/05.png";
+import products01 from '@/assets/images/products/01.png'
+import products02 from '@/assets/images/products/02.png'
+import products04 from '@/assets/images/products/04.png'
+import products06 from '@/assets/images/products/06.png'
+import products05 from '@/assets/images/products/05.png'
 
 export const monthlyIncomeChart: ApexChartType = {
   height: 270,
-  type: "bar",
+  type: 'bar',
   series: [
     {
-      name: "Pessoas Evangelizadas",
+      name: 'Pessoas Evangelizadas',
       data: [98, 102, 78, 116, 77, 115, 99, 81, 97, 60, 68, 55],
     },
   ],
   options: {
     chart: {
       height: 270,
-      type: "bar",
+      type: 'bar',
 
       toolbar: {
         show: false,
@@ -49,31 +44,31 @@ export const monthlyIncomeChart: ApexChartType = {
         // bottom: 5,
         // right: 0,
         blur: 5,
-        color: "#45404a2e",
+        color: '#45404a2e',
         opacity: 0.35,
       },
     },
     colors: [
-      "#95a0c5",
-      "#95a0c5",
-      "#95a0c5",
-      "#22c55e",
-      "#95a0c5",
-      "#95a0c5",
-      "#95a0c5",
-      "#95a0c5",
-      "#95a0c5",
-      "#95a0c5",
-      "#95a0c5",
-      "#95a0c5",
+      '#95a0c5',
+      '#95a0c5',
+      '#95a0c5',
+      '#22c55e',
+      '#95a0c5',
+      '#95a0c5',
+      '#95a0c5',
+      '#95a0c5',
+      '#95a0c5',
+      '#95a0c5',
+      '#95a0c5',
+      '#95a0c5',
     ],
     plotOptions: {
       bar: {
         borderRadius: 6,
         dataLabels: {
-          position: "top", // top, center, bottom
+          position: 'top', // top, center, bottom
         },
-        columnWidth: "20",
+        columnWidth: '20',
         distributed: true,
       },
     },
@@ -84,26 +79,26 @@ export const monthlyIncomeChart: ApexChartType = {
       // },
       offsetY: -20,
       style: {
-        fontSize: "12px",
-        colors: ["#8997bd"],
+        fontSize: '12px',
+        colors: ['#8997bd'],
       },
     },
     xaxis: {
       categories: [
-        "01/07",
-        "02/07",
-        "03/07",
-        "04/07",
-        "05/07",
-        "06/07",
-        "07/07",
-        "08/07",
-        "09/07",
-        "10/07",
-        "11/07",
-        "12/07",
+        '01/07',
+        '02/07',
+        '03/07',
+        '04/07',
+        '05/07',
+        '06/07',
+        '07/07',
+        '08/07',
+        '09/07',
+        '10/07',
+        '11/07',
+        '12/07',
       ],
-      position: "bottom",
+      position: 'bottom',
       axisBorder: {
         show: false,
       },
@@ -112,10 +107,10 @@ export const monthlyIncomeChart: ApexChartType = {
       },
       crosshairs: {
         fill: {
-          type: "gradient",
+          type: 'gradient',
           gradient: {
-            colorFrom: "#D8E3F0",
-            colorTo: "#BED1E6",
+            colorFrom: '#D8E3F0',
+            colorTo: '#BED1E6',
             stops: [0, 100],
             opacityFrom: 0.4,
             opacityTo: 0.5,
@@ -142,7 +137,7 @@ export const monthlyIncomeChart: ApexChartType = {
     },
     grid: {
       row: {
-        colors: ["transparent", "transparent"], // takes an array which will be repeated on columns
+        colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
         opacity: 0.2,
       },
       strokeDashArray: 2.5,
@@ -151,21 +146,21 @@ export const monthlyIncomeChart: ApexChartType = {
       show: false,
     },
   },
-};
+}
 
 export const customersChart: ApexChartType = {
   height: 280,
-  type: "donut",
+  type: 'donut',
   series: [50, 25, 25],
   options: {
     chart: {
       height: 280,
-      type: "donut",
+      type: 'donut',
     },
     plotOptions: {
       pie: {
         donut: {
-          size: "80%",
+          size: '80%',
         },
       },
     },
@@ -176,21 +171,21 @@ export const customersChart: ApexChartType = {
     stroke: {
       show: true,
       width: 2,
-      colors: ["transparent"],
+      colors: ['transparent'],
     },
     legend: {
       show: true,
-      position: "bottom",
-      horizontalAlign: "center",
+      position: 'bottom',
+      horizontalAlign: 'center',
       // verticalAlign: 'middle',
       floating: false,
-      fontSize: "13px",
-      fontFamily: "Be Vietnam Pro, sans-serif",
+      fontSize: '13px',
+      fontFamily: 'Be Vietnam Pro, sans-serif',
       offsetX: 0,
       offsetY: 0,
     },
-    labels: ["Currenet", "New", "Retargeted"],
-    colors: ["#22c55e", "#08b0e7", "#ffc728"],
+    labels: ['Currenet', 'New', 'Retargeted'],
+    colors: ['#22c55e', '#08b0e7', '#ffc728'],
 
     responsive: [
       {
@@ -213,25 +208,25 @@ export const customersChart: ApexChartType = {
     tooltip: {
       y: {
         formatter: function (val) {
-          return val + " %";
+          return val + ' %'
         },
       },
     },
   },
-};
+}
 
 export const categoriesChart: ApexChartType = {
   height: 275,
-  type: "bar",
+  type: 'bar',
   series: [
     {
-      name: "Items",
+      name: 'Items',
       data: [1380, 1100, 990, 880, 740, 548, 330, 200],
     },
   ],
   options: {
     chart: {
-      type: "bar",
+      type: 'bar',
       height: 275,
       toolbar: {
         show: false,
@@ -242,7 +237,7 @@ export const categoriesChart: ApexChartType = {
         borderRadius: 6,
         horizontal: true,
         distributed: true,
-        barHeight: "85%",
+        barHeight: '85%',
         isFunnel: true,
         isFunnel3d: false,
       },
@@ -251,48 +246,39 @@ export const categoriesChart: ApexChartType = {
     dataLabels: {
       enabled: true,
       formatter: function (val, opt) {
-        return opt.w.globals.labels[opt.dataPointIndex];
+        return opt.w.globals.labels[opt.dataPointIndex]
       },
       dropShadow: {
         enabled: false,
       },
       style: {
-        colors: ["#22c55e"],
+        colors: ['#22c55e'],
         fontWeight: 400,
-        fontSize: "13px",
+        fontSize: '13px',
       },
     },
     xaxis: {
-      categories: [
-        "Mobile",
-        "Men Fishion",
-        "Women Fishion",
-        "Beauty",
-        "Health",
-        "Sports",
-        "Kids",
-        "Music",
-      ],
+      categories: ['Mobile', 'Men Fishion', 'Women Fishion', 'Beauty', 'Health', 'Sports', 'Kids', 'Music'],
     },
     colors: [
-      "rgba(34, 197, 94, 0.45)",
-      "rgba(34, 197, 94, 0.4)",
-      "rgba(34, 197, 94, 0.35)",
-      "rgba(34, 197, 94, 0.3)",
-      "rgba(34, 197, 94, 0.25)",
-      "rgba(34, 197, 94, 0.2)",
-      "rgba(34, 197, 94, 0.15)",
-      "rgba(34, 197, 94, 0.1)",
+      'rgba(34, 197, 94, 0.45)',
+      'rgba(34, 197, 94, 0.4)',
+      'rgba(34, 197, 94, 0.35)',
+      'rgba(34, 197, 94, 0.3)',
+      'rgba(34, 197, 94, 0.25)',
+      'rgba(34, 197, 94, 0.2)',
+      'rgba(34, 197, 94, 0.15)',
+      'rgba(34, 197, 94, 0.1)',
     ],
     legend: {
       show: false,
     },
   },
-};
+}
 
 export const statWidgetsChart: ApexChartType = {
   height: 35,
-  type: "line",
+  type: 'line',
   series: [
     {
       data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54],
@@ -300,7 +286,7 @@ export const statWidgetsChart: ApexChartType = {
   ],
   options: {
     chart: {
-      type: "line",
+      type: 'line',
       width: 120,
       height: 35,
       sparkline: {
@@ -313,16 +299,16 @@ export const statWidgetsChart: ApexChartType = {
         // bottom: 0,
         // right: 0,
         blur: 2,
-        color: "rgba(132, 145, 183, 0.3)",
+        color: 'rgba(132, 145, 183, 0.3)',
         opacity: 0.35,
       },
     },
-    colors: ["#95a0c5"],
+    colors: ['#95a0c5'],
     stroke: {
       show: true,
-      curve: "smooth",
+      curve: 'smooth',
       width: [3],
-      lineCap: "round",
+      lineCap: 'round',
     },
     tooltip: {
       fixed: {
@@ -334,7 +320,7 @@ export const statWidgetsChart: ApexChartType = {
       y: {
         title: {
           formatter: function () {
-            return "";
+            return ''
           },
         },
       },
@@ -343,161 +329,161 @@ export const statWidgetsChart: ApexChartType = {
       },
     },
   },
-};
+}
 
 export const statData: StatType[] = [
   {
-    title: "Total Revenue",
-    icon: "icofont-money-bag",
+    title: 'Total Revenue',
+    icon: 'icofont-money-bag',
     stat: `${currency}8365.00`,
     change: 8.5,
-    subTitle: "New Sessions Today",
-    buttonVariant: "primary",
+    subTitle: 'New Sessions Today',
+    buttonVariant: 'primary',
   },
   {
-    title: "New Order",
-    icon: "icofont-opencart",
-    stat: "722",
+    title: 'New Order',
+    icon: 'icofont-opencart',
+    stat: '722',
     change: 8.5,
-    subTitle: "New Sessions Today",
-    buttonVariant: "outline-secondary",
+    subTitle: 'New Sessions Today',
+    buttonVariant: 'outline-secondary',
   },
-];
+]
 
 export const monthlyIncomeData: StatType[] = [
   {
-    title: "Total Evangelizados",
+    title: 'Total Evangelizados',
     stat: `780`,
   },
   {
-    title: "Cursos",
+    title: 'Cursos',
     stat: `118`,
   },
   {
-    title: "Celulas",
+    title: 'Celulas',
     stat: `77`,
   },
   {
-    title: "Conversões",
+    title: 'Conversões',
     stat: `112`,
   },
-];
+]
 
 export const topSelling: SellingType[] = [
   {
-    name: "USA",
+    name: 'USA',
     flag: usFlag,
     progress: 85,
     sales: 5860.0,
   },
   {
-    name: "Spain",
+    name: 'Spain',
     flag: spainFlag,
     progress: 78,
     sales: 5422.0,
   },
   {
-    name: "French",
+    name: 'French',
     flag: frenchFlag,
     progress: 71,
     sales: 4587.0,
   },
   {
-    name: "Germany",
+    name: 'Germany',
     flag: germanyFlag,
     progress: 65,
     sales: 3655.0,
   },
   {
-    name: "Bahamas",
+    name: 'Bahamas',
     flag: bahaFlag,
     progress: 48,
     sales: 3325.0,
   },
-];
+]
 
 export const orderList: OrderType[] = [
   {
-    name: "Scott Holland",
+    name: 'Scott Holland',
     avatar: avatar1,
-    id: "#3652",
+    id: '#3652',
     amount: 3325.0,
   },
   {
-    name: "Karen Savage",
+    name: 'Karen Savage',
     avatar: avatar2,
-    id: "#4789",
+    id: '#4789',
     amount: 2548.0,
   },
   {
-    name: "Steven Sharp",
+    name: 'Steven Sharp',
     avatar: avatar3,
-    id: "#4521",
+    id: '#4521',
     amount: 2985.0,
   },
   {
-    name: "Teresa Himes",
+    name: 'Teresa Himes',
     avatar: avatar4,
-    id: "#3269",
+    id: '#3269',
     amount: 1845.0,
   },
   {
-    name: "Ralph Denton",
+    name: 'Ralph Denton',
     avatar: avatar5,
-    id: "#4521",
+    id: '#4521',
     amount: 1422.0,
   },
-];
+]
 
 export const productList: ProductType[] = [
   {
-    name: "History Book",
+    name: 'History Book',
     image: products01,
-    id: "A3652",
+    id: 'A3652',
     price: 50,
     originalPrice: 70,
     stockQuantity: 450,
     soldQuantity: 550,
-    status: "in-stock",
+    status: 'in-stock',
   },
   {
-    name: "Colorful Pots",
+    name: 'Colorful Pots',
     image: products02,
-    id: "A5002",
+    id: 'A5002',
     price: 99,
     originalPrice: 150,
     stockQuantity: 750,
     soldQuantity: 0,
-    status: "out-of-stock",
+    status: 'out-of-stock',
   },
   {
-    name: "Pearl Bracelet",
+    name: 'Pearl Bracelet',
     image: products04,
-    id: "A6598",
+    id: 'A6598',
     price: 199,
     originalPrice: 250,
     stockQuantity: 280,
     soldQuantity: 220,
-    status: "in-stock",
+    status: 'in-stock',
   },
   {
-    name: "Dancing Man",
+    name: 'Dancing Man',
     image: products06,
-    id: "A9547",
+    id: 'A9547',
     price: 40,
     originalPrice: 49,
     stockQuantity: 500,
     soldQuantity: 1000,
-    status: "out-of-stock",
+    status: 'out-of-stock',
   },
   {
-    name: "Fire Lamp",
+    name: 'Fire Lamp',
     image: products05,
-    id: "A2047",
+    id: 'A2047',
     price: 80,
     originalPrice: 59,
     stockQuantity: 800,
     soldQuantity: 2000,
-    status: "out-of-stock",
+    status: 'out-of-stock',
   },
-];
+]

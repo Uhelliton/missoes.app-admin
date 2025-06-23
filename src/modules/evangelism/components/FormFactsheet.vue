@@ -51,21 +51,22 @@
         </BCol>
         <BCol md="2">
           <BFormGroup label="Nº" label-for="number" class="mb-3">
-            <BFormInput type="text" v-model="form.recordAddress.number" :class="[{ error: v$.recordAddress.number.$error }]" />
+            <BFormInput
+              type="text"
+              v-model="form.recordAddress.number"
+              :class="[{ error: v$.recordAddress.number.$error }]"
+            />
           </BFormGroup>
         </BCol>
         <BCol md="4">
           <BFormGroup label="Referêcia" label-for="address" class="mb-3">
-            <BFormInput
-              type="text"
-              v-model="form.recordAddress.reference"
-            />
+            <BFormInput type="text" v-model="form.recordAddress.reference" />
           </BFormGroup>
         </BCol>
       </BRow>
       <BRow>
         <BCol md="8">
-          <BFormGroup label="Outras Pessoas na Casa"  label-for="address" class="mb-3">
+          <BFormGroup label="Outras Pessoas na Casa" label-for="address" class="mb-3">
             <BFormTags
               type="text"
               v-model="form.additionalPeople"
@@ -132,8 +133,8 @@
         <BCol md="5">
           <BFormGroup label="Decisões" label-for="decision" class="mb-3">
             <b-form-checkbox v-model="form.acceptedCourse" size="lg" inline><small>Curso</small></b-form-checkbox>
-            <b-form-checkbox  v-model="form.acceptedCell" size="lg" inline><small>Célula</small></b-form-checkbox>
-            <b-form-checkbox  v-model="form.madeDecision" size="lg" inline><small>Aceitou Jesus</small></b-form-checkbox>
+            <b-form-checkbox v-model="form.acceptedCell" size="lg" inline><small>Célula</small></b-form-checkbox>
+            <b-form-checkbox v-model="form.madeDecision" size="lg" inline><small>Aceitou Jesus</small></b-form-checkbox>
           </BFormGroup>
         </BCol>
         <BCol md="3">
@@ -161,7 +162,7 @@
       <BRow class="mt-2">
         <BCol md="12">
           <BFormGroup label="Observação" label-for="" class="mb-3">
-             <BFormTextarea v-model="form.notes" rows="3" />
+            <BFormTextarea v-model="form.notes" rows="3" />
           </BFormGroup>
         </BCol>
       </BRow>
@@ -191,10 +192,10 @@ import { useNotify } from '@/infra/composables/useNotify'
 import { useFormFactSheet } from '@/modules/evangelism/composables/useFormFactsheet'
 import { isValidISODate, parseDateBrToDefaultFormat } from '@/infra/helpers/helper'
 import { wait } from '@/infra/helpers/helper'
-import type {IEvangelismRecord} from "@/modules/evangelism/types/evangelism-record.interface";
-import type {IProject} from "@/modules/project/types/project.interface";
-import type {ITeam} from "@/modules/team/types/team.interface";
-import type {IMemberSimplified} from "@/modules/team/types/member.interface";
+import type { IEvangelismRecord } from '@/modules/evangelism/types/evangelism-record.interface'
+import type { IProject } from '@/modules/project/types/project.interface'
+import type { ITeam } from '@/modules/team/types/team.interface'
+import type { IMemberSimplified } from '@/modules/team/types/member.interface'
 
 interface IModalProps {
   isOpen: boolean
@@ -231,7 +232,7 @@ onMounted(async () => {
 
 const isFormCreate = computed(() => !evangelismRecord.value)
 const districts = computed(() => project.value?.city.districts ?? [])
-const teamsListCompact = computed(() => teams.value.map(({ members, leader, ...team }) => team ) ?? [])
+const teamsListCompact = computed(() => teams.value.map(({ members, leader, ...team }) => team) ?? [])
 
 watch(
   () => isOpen.value,
@@ -245,7 +246,6 @@ watch(
     form.evangelizedAt = new Date().toLocaleDateString('pt-BR')
   },
 )
-
 
 const fetchProject = async () => {
   const response = await projectService.getProjectActive()
@@ -302,7 +302,7 @@ const createOrUpdateRecord = async () => {
       code: form.code.toUpperCase(),
       membersIds: form.select.members.map(({ id }) => id),
       evangelizedAt: evangelizedAt,
-      projectId: project.value?.id
+      projectId: project.value?.id,
     }
     delete payload.select
 

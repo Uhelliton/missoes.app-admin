@@ -6,6 +6,6 @@
   </b-col>
 </template>
 <script setup lang="ts">
-import { statData } from "@/views/dashboards/ecommerce/components/data";
-import StatWidgetCard from "@/views/dashboards/ecommerce/components/StatWidgetCard.vue";
+import { statData } from '@/views/dashboards/ecommerce/components/data'
+import StatWidgetCard from '@/views/dashboards/ecommerce/components/StatWidgetCard.vue'
 </script>

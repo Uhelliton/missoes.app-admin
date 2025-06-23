@@ -1,12 +1,15 @@
 import { computed, reactive } from 'vue'
 import { required, numeric, helpers, email, minLength } from '@vuelidate/validators'
-import type {IEvangelismRecord, IEvangelismRecordPayload} from "@/modules/evangelism/types/evangelism-record.interface";
-import type {ISelect} from "@/components/forms/Select.vue";
-import {formatDateToPtBr, } from "@/infra/helpers/helper";
+import type {
+  IEvangelismRecord,
+  IEvangelismRecordPayload,
+} from '@/modules/evangelism/types/evangelism-record.interface'
+import type { ISelect } from '@/components/forms/Select.vue'
+import { formatDateToPtBr } from '@/infra/helpers/helper'
 
 const minOneSelected = helpers.withMessage(
   'Selecione pelo menos um item',
-  value => Array.isArray(value) && value.length > 0
+  (value) => Array.isArray(value) && value.length > 0,
 )
 
 export const useFormFactSheet = () => {
@@ -33,7 +36,7 @@ export const useFormFactSheet = () => {
     },
     membersIds: [],
     select: {
-      distric:  {} as ISelect,
+      distric: {} as ISelect,
       team: {} as ISelect,
       members: [] as Array<ISelect>,
     },
@@ -55,14 +58,14 @@ export const useFormFactSheet = () => {
     form.gender = payload.gender
     form.additionalPeople = payload.additionalPeople
     form.notes = payload.notes
-    form.recordAddress = {
+    ;(form.recordAddress = {
       street: payload.recordAddress.street,
       number: payload.recordAddress.number,
       reference: payload.recordAddress.reference,
       cityId: payload.recordAddress.district.cityId,
       districtId: payload.recordAddress.district.id,
-    },
-    form.membersIds = payload.members.map(({ id }) => id)
+    }),
+      (form.membersIds = payload.members.map(({ id }) => id))
     form.select = {
       district: payload.recordAddress.district,
       team: payload.team,
@@ -104,7 +107,7 @@ export const useFormFactSheet = () => {
         },
       },
       members: {
-        minOneSelected
+        minOneSelected,
       },
     },
   }))

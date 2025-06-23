@@ -1,4 +1,4 @@
-import Dashboard from '@/modules/dashaboard/views/Dashboard.vue'
+import Dashboard from '@/modules/dashboard/views/Dashboard.vue'
 import DefaultLayout from '@/presentation/layouts/DefaultLayout.vue'
 
 const routes = [

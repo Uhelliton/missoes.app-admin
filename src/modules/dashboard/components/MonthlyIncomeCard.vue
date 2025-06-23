@@ -11,13 +11,13 @@
   </b-card>
 </template>
 <script setup lang="ts">
-import type { PropType } from "vue";
-import type { StatType } from "@/views/dashboards/ecommerce/components/types";
+import type { PropType } from 'vue'
+import type { StatType } from '@/views/dashboards/ecommerce/components/types'
 
 defineProps({
   item: {
     type: Object as PropType<StatType>,
     required: true,
   },
-});
+})
 </script>

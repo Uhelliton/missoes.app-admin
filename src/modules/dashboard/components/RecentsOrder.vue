@@ -22,17 +22,14 @@
                   />
                   <div class="flex-grow-1 text-truncate">
                     <h6 class="m-0 text-truncate">{{ item.name }}</h6>
-                    <span
-                      class="font-12 text-muted"
-                      >{{ item.id }}</span
-                    >
+                    <span class="font-12 text-muted">{{ item.id }}</span>
                   </div>
                 </div>
               </b-td>
               <b-td class="px-0 text-end"
-                ><span class="text-secondary-emphasis fw-semibold ps-2 align-self-center text-end"
-                  >{{ item.amount }}</span
-                >
+                ><span class="text-secondary-emphasis fw-semibold ps-2 align-self-center text-end">{{
+                  item.amount
+                }}</span>
               </b-td>
             </b-tr>
           </b-tbody>
@@ -42,6 +39,6 @@
   </b-col>
 </template>
 <script setup lang="ts">
-import { currency } from "@/infra/helpers/constants";
-import { orderList } from "@/views/dashboards/ecommerce/components/data";
+import { currency } from '@/infra/helpers/constants'
+import { orderList } from '@/views/dashboards/ecommerce/components/data'
 </script>

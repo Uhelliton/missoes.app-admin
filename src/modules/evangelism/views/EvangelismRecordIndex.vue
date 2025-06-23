@@ -50,14 +50,12 @@
             </template>
             <template #cell-name="{ item }">
               {{ item.name }}
-              <span
-                v-if="item.additionalPeople.length"
-                class="badge rounded text-white bg-secondary ms-1">
+              <span v-if="item.additionalPeople.length" class="badge rounded text-white bg-secondary ms-1">
                 + {{ item.additionalPeople.length }}
               </span>
             </template>
             <template #cell-acceptedCourse="{ item }">
-               {{ item.acceptedCourse ? 'Sim' : 'Não' }}
+              {{ item.acceptedCourse ? 'Sim' : 'Não' }}
             </template>
             <template #cell-acceptedCell="{ item }">
               {{ item.acceptedCell ? 'Sim' : 'Não' }}
@@ -109,9 +107,9 @@
 import { onMounted, ref, reactive, Ref } from 'vue'
 import { EvangelismRecordService } from '@/modules/evangelism/services/evangelism-record.service'
 import Datatable from '@/components/table/Datatable.vue'
-import {ageCategoryClasses, formatDateToPtBr } from '@/infra/helpers/helper'
-import type {IEvangelismRecord} from "@/modules/evangelism/types/evangelism-record.interface";
-import FormFactsheet from "@/modules/evangelism/components/FormFactsheet.vue";
+import { ageCategoryClasses, formatDateToPtBr } from '@/infra/helpers/helper'
+import type { IEvangelismRecord } from '@/modules/evangelism/types/evangelism-record.interface'
+import FormFactsheet from '@/modules/evangelism/components/FormFactsheet.vue'
 
 const evangelismRecordService = EvangelismRecordService()
 const dialogFactsheetIsActive = ref(false)
@@ -166,5 +164,4 @@ const handleSearch = async () => {
     await fetchRecords({ page: 1 })
   }
 }
-
 </script>
