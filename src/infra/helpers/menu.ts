@@ -1,9 +1,13 @@
-import { MENU_ITEMS } from "@/assets/data/menu-items";
+import { MENU_ITEMS, MENU_ITEMS_TEAM } from "@/assets/data/menu-items";
 import type { MenuItemType } from "@/types/menu";
+import { useAuthStore } from '@/modules/auth/stores/auth'
+
+
 
 export const getMenuItems = () => {
   // NOTE - You can fetch from server and return here as well
-  return MENU_ITEMS;
+  const { isAdministrator } = useAuthStore()
+  return isAdministrator ? MENU_ITEMS : MENU_ITEMS_TEAM;
 };
 
 export const findAllParent = (

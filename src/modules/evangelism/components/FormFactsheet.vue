@@ -182,6 +182,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, toRefs, watch, computed } from 'vue'
+import { useAuthStore } from '@/modules/auth/stores/auth'
 import AppSelect, { type ISelect } from '@/components/forms/Select.vue'
 import { TeamService } from '@/modules/team/services/team.service'
 import { ProjectService } from '@/modules/project/services/project.service'
@@ -217,6 +218,7 @@ const evangelismRecordService = EvangelismRecordService()
 
 const { form, setFormData, resetForm, rules } = useFormFactSheet()
 const notify = useNotify()
+const { isTenancyTeam, isAdministrator, userAuth } = useAuthStore()
 
 const { isOpen, evangelismRecord } = toRefs(props)
 const teams = ref<Array<ITeam>>([])
@@ -244,6 +246,11 @@ watch(
 
     resetForm()
     form.evangelizedAt = new Date().toLocaleDateString('pt-BR')
+
+    if (isTenancyTeam && isFormCreate.value) {
+      form.select.team = userAuth.team
+      onChangeTeam(userAuth.team)
+    }
   },
 )
 
@@ -272,7 +279,7 @@ const handleFocusFieldCode = (event: any) => {
   const [fist, last] = code.split('-')
   const teamFiltered = teams.value.find((team) => team.name.toLowerCase().includes(fist))
 
-  if (teamFiltered) {
+  if (teamFiltered && isAdministrator) {
     const { members: teamMembers, leader, ...team } = teamFiltered
     form.select.team = team
     form.teamId = team.id

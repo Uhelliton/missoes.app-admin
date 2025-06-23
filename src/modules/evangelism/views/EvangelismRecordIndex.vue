@@ -110,6 +110,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, reactive, Ref } from 'vue'
+import { useAuthStore } from '@/modules/auth/stores/auth'
 import { EvangelismRecordService } from '@/modules/evangelism/services/evangelism-record.service'
 import Datatable from '@/components/table/Datatable.vue'
 import { ageCategoryClasses, formatDateToPtBr } from '@/infra/helpers/helper'
@@ -117,6 +118,8 @@ import type { IEvangelismRecord } from '@/modules/evangelism/types/evangelism-re
 import FormFactsheet from '@/modules/evangelism/components/FormFactsheet.vue'
 
 const evangelismRecordService = EvangelismRecordService()
+const { isTenancyTeam,  userAuth } = useAuthStore()
+
 const dialogFactsheetIsActive = ref(false)
 const filter = reactive({ search: '' })
 const dataTable = reactive({
@@ -143,7 +146,12 @@ onMounted(async () => {
 })
 
 const fetchRecords = async (query: object = {}) => {
-  const response = await evangelismRecordService.getAll(query)
+  const queryTeams =  isTenancyTeam ? { team: userAuth.team.name } : null
+  const querystring = {
+    ...query,
+    ...queryTeams
+  }
+  const response = await evangelismRecordService.getAll(querystring)
   dataTable.items = response.data.items
   dataTable.total = response.data.meta.totalItems
   dataTable.currentPage = response.data.meta.currentPage

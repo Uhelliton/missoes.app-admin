@@ -49,6 +49,7 @@ export const MENU_ITEMS: MenuItemType[] = [
       },
     ],
   },
+
   {
     key: "project",
     icon: "iconoir-grid-plus",
@@ -59,6 +60,38 @@ export const MENU_ITEMS: MenuItemType[] = [
         label: "Gestão de Igrejas",
         route: { name: 'church.index' },
         parentKey: "project",
+      },
+    ],
+  },
+];
+
+export const MENU_ITEMS_TEAM: MenuItemType[] = [
+  {
+    key: "main",
+    label: "Menu",
+    isTitle: true,
+  },
+  {
+    key: "dashboards",
+    icon: "iconoir-home-simple",
+    label: "Dashboards",
+    route: { name: "dashboard.index" },
+  },
+  {
+    key: "main",
+    label: "",
+    isTitle: true,
+  },
+  {
+    key: "evangelism",
+    icon: "iconoir-journal-page",
+    label: "Envangelismo",
+    children: [
+      {
+        key: "evangelism.factsheet",
+        label: "Lançamento de Fichas",
+        route: { name: 'evangelism.factsheet' },
+        parentKey: "evangelism",
       },
     ],
   },

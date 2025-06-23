@@ -18,6 +18,15 @@ export const useAuthStore = defineStore("auth", () => {
     return session?.user
   })
 
+  const isAdministrator = computed(() => {
+    return userAuth.value?.tenancy.name === 'Administrador'
+  })
+
+  const isTenancyTeam = computed(() => {
+    return userAuth.value?.tenancy.name === 'Equipe'
+  })
+
+
   const removeSession = () => {
     localStorage.removeItem('app_user')
     localStorage.removeItem('app_token')
@@ -33,5 +42,7 @@ export const useAuthStore = defineStore("auth", () => {
     removeSession,
     isAuthenticated,
     userAuth,
+    isTenancyTeam,
+    isAdministrator,
   };
 });
