@@ -51,7 +51,7 @@ export const useChart = () => {
               label: {
                 borderWidth: 1,
                 offsetY: -110,
-                text: 'meta: s',
+                text: 'meta: 200 pessoas',
                 style: {
                   background: 'var(--bs-primary)',
                   fontSize: '14px',
