@@ -1,5 +1,5 @@
 <template>
-  <b-col lg="6">
+  <b-col lg="5  ">
     <b-card no-body class="card-h-100">
       <b-card-header>
         <b-row class="align-items-center">

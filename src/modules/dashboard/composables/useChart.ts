@@ -112,63 +112,118 @@ export const useChart = () => {
     }
   }
 
-  const buildConfigChatBar = (series: IChatSeries[], labels: string[], colors: string[]): ApexChartType => {
+  const buildConfigChatBar = (series: IChatSeries[], labels: string[]): ApexChartType => {
     return {
-      height: 275,
-      type: 'bar',
+      height: 270,
+      type: "bar",
       series: series,
       options: {
         chart: {
-          type: 'bar',
-          height: 275,
+          height: 270,
+          type: "bar",
+
           toolbar: {
             show: false,
           },
+          dropShadow: {
+            enabled: true,
+            top: 0,
+            left: 5,
+            // bottom: 5,
+            // right: 0,
+            blur: 5,
+            color: "#45404a2e",
+            opacity: 0.35,
+          },
         },
+        colors: [
+          "#95a0c5",
+          "#95a0c5",
+          "#95a0c5",
+          "#22c55e",
+          "#95a0c5",
+          "#95a0c5",
+          "#95a0c5",
+          "#95a0c5",
+          "#95a0c5",
+          "#95a0c5",
+          "#95a0c5",
+          "#95a0c5",
+        ],
         plotOptions: {
           bar: {
             borderRadius: 6,
-            horizontal: true,
+            dataLabels: {
+              position: "top", // top, center, bottom
+            },
+            columnWidth: "20",
             distributed: true,
-            barHeight: '85%',
-            isFunnel: true,
-            isFunnel3d: false,
           },
         },
-
         dataLabels: {
           enabled: true,
-          formatter: function (val, opt) {
-            return opt.w.globals.labels[opt.dataPointIndex]
-          },
-          dropShadow: {
-            enabled: false,
-          },
+          // formatter: function (val) {
+          //   return val + "%";
+          // },
+          offsetY: -20,
           style: {
-            colors: ['#22c55e'],
-            fontWeight: 400,
-            fontSize: '13px',
+            fontSize: "12px",
+            colors: ["#8997bd"],
           },
         },
         xaxis: {
           categories: labels,
+          position: "bottom",
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+          crosshairs: {
+            fill: {
+              type: "gradient",
+              gradient: {
+                colorFrom: "#D8E3F0",
+                colorTo: "#BED1E6",
+                stops: [0, 100],
+                opacityFrom: 0.4,
+                opacityTo: 0.5,
+              },
+            },
+          },
+          tooltip: {
+            enabled: true,
+          },
         },
-        colors: [
-          'rgb(39, 159, 253)',
-          'rgb(33, 233, 169)',
-          'red',
-          'yellow',
-          'purple',
-          'rgb(142, 117, 211)',
-          'grey',
-          'rgb(253, 189, 57)',
-        ],
+        yaxis: {
+          axisBorder: {
+            show: false,
+          },
+          axisTicks: {
+            show: false,
+          },
+          labels: {
+            show: true,
+            // formatter: function (val) {
+            //   return "$" + val + "k";
+            // },
+          },
+        },
+        grid: {
+          row: {
+            colors: ["transparent", "transparent"], // takes an array which will be repeated on columns
+            opacity: 0.2,
+          },
+          strokeDashArray: 2.5,
+        },
         legend: {
           show: false,
         },
       },
-    }
+    };
   }
+
 
   return {
     buildConfigChatArea,

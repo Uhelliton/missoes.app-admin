@@ -1,6 +1,6 @@
 <template>
-  <b-col md="6" lg="6">
-    <b-card no-body>
+  <b-col md="7" lg="7">
+    <b-card no-body >
       <b-card-header>
         <b-row class="align-items-center">
           <div class="col">
@@ -8,11 +8,11 @@
           </div>
         </b-row>
       </b-card-header>
-      <b-card-body class="pt-0" style="min-height: 300px">
-        <b-table-simple responsive class="mb-0">
-          <b-tbody>
-            <b-tr v-for="(item, idx) in summaryData" :key="idx">
-              <b-td class="px-0">
+      <b-card-body class="pt-0">
+        <b-table-simple responsive class="mb-0"  style="overflow-x: hidden">
+          <b-tbody class="row">
+            <b-tr v-for="(item, idx) in summaryData" :key="idx" class="col-6">
+              <b-td class="px-0 col-12">
                 <div class="d-flex align-items-center">
                   <div class="flex-grow-1 text-truncate">
                     <h6 class="m-0 text-truncate">{{ item.district }}</h6>
@@ -33,8 +33,10 @@
                   </div>
                 </div>
               </b-td>
-              <b-td class="px-0 text-end">
-                <span class="text-body ps-2 align-self-center text-end">{{ item.total }}</span>
+              <b-td class="px-2 text-end">
+                <h6 class="text-nowrap ps-2 align-self-center text-end"  style="position: relative; margin-bottom: -20px">
+                  {{ item.total }}
+                </h6>
               </b-td>
             </b-tr>
           </b-tbody>
@@ -60,7 +62,7 @@ const totalSumRecord = computed(() => {
 })
 
 const toPercent = (value: number) => {
-  return Number((value / totalSumRecord.value) * 100).toFixed(2)
+  return Number((value / totalSumRecord.value) * 100).toFixed(1)
 }
 
 const fetchData = async () => {
