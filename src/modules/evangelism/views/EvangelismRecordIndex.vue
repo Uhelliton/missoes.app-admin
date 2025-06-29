@@ -7,7 +7,24 @@
             <div class="col">
               <BCardTitle>Gerenciar Fichas de Evangelismo</BCardTitle>
             </div>
-            <div class="col-3">
+            <div class="col-2">
+              <BFormGroup label="Ordenar por" label-for="sort" class="mb-3">
+                <BFormSelect
+                  v-model="filter.sort"
+                  class="form-control"
+                  placeholder="Selecione uma opção"
+                  @change="handleSortBy"
+                >
+                  <template #first>
+                    <option disabled value="">Selecione uma opção</option>
+                  </template>
+                  <option value="code:desc">Código: Maior > Menor</option>
+                  <option value="code:asc">Código: Menor > Maior</option>
+                  <option value="name:asc">Nome: A-Z</option>
+                </BFormSelect>
+              </BFormGroup>
+            </div>
+            <div class="col-2">
               <b-form-input v-model="filter.search" @input="handleSearch" placeholder="buscar por nome ou código.." />
             </div>
             <div class="col-auto">
@@ -121,7 +138,7 @@ const evangelismRecordService = EvangelismRecordService()
 const { isTenancyTeam,  userAuth } = useAuthStore()
 
 const dialogFactsheetIsActive = ref(false)
-const filter = reactive({ search: '' })
+const filter = reactive({ search: '', sort: 'id:desc' })
 const dataTable = reactive({
   items: [],
   columns: [
@@ -168,14 +185,18 @@ const handleCreate = () => {
 }
 
 const onChangePage = async (paginate: object) => {
-  await fetchRecords({ ...paginate })
+  await fetchRecords({ ...paginate, sort: filter.sort })
 }
 
 const handleSearch = async () => {
   if (filter.search && filter.search.length >= 3) {
-    await fetchRecords({ page: 1, search: filter.search })
+    await fetchRecords({ page: 1, search: filter.search, sort: filter.sort  })
   } else if (!filter.search.length) {
-    await fetchRecords({ page: 1 })
+    await fetchRecords({ page: 1, sort: filter.sort  })
   }
+}
+
+const handleSortBy = async () => {
+  await fetchRecords({ page: 1, sort: filter.sort })
 }
 </script>
