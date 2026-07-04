@@ -6,6 +6,6 @@ RUN mkdir /home/node/app
 
 WORKDIR /home/node/app
 
-EXPOSE 5173
+EXPOSE 9007
 
 CMD /bin/sh

@@ -1,16 +1,29 @@
 <template>
-  <RouterView />
+	<component v-if="ready" :is="layout">
+		<router-view />
+	</component>
 </template>
 
 <script setup lang="ts">
-import { RouterView } from "vue-router";
-import { useLayoutStore } from "@/stores/layout";
-// import configureFakeBackend from "@/infra/helpers/fake-backend";
-import { onMounted } from "vue";
+import { ref, computed, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import DefaultLayout from '@/ui/layouts/default.vue';
+import AuthLayout from '@/ui/layouts/AuthLayout.vue';
+import { useLayout } from '~/stores/layout'
 
-onMounted(() => {
-  useLayoutStore().init();
+const route = useRoute();
+const router = useRouter();
+const layoutStore = useLayout()
+
+const ready = ref(false);
+
+const layout = computed(() => {
+	return route.meta.layout === 'auth' ? AuthLayout : DefaultLayout;
 });
 
-// configureFakeBackend();
+// waits for the first navigation to be ready
+onMounted(async () => {
+	await router.isReady();
+	ready.value = true;
+});
 </script>

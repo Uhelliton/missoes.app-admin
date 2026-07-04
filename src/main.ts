@@ -1,45 +1,36 @@
-import { createApp } from "vue";
-import { createPinia } from "pinia";
-
-import App from "./App.vue";
-import router from "./core/router";
-
-import { createBootstrap } from "bootstrap-vue-next";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { createBootstrap } from 'bootstrap-vue-next'
 import VueApexCharts from "vue3-apexcharts";
-import Vue3Toastify, { toast } from 'vue3-toastify'
+import { MaskInput } from "vue-mask-next";
+import MasonryWall from "@yeger/vue-masonry-wall";
+import { QuillEditor } from '@vueup/vue-quill';
+import flatPickr from 'vue-flatpickr-component';
+import VueECharts from 'vue-echarts';
+import PDF from 'pdf-vue3';
+import SimpleTypeahead from 'vue3-simple-typeahead';
+import Vidle from 'v-idle';
+
+import '~/ui/theme/app.scss'
 import 'vue3-toastify/dist/index.css'
 
-import jQuery from "jquery";
-// @ts-ignore
-window.$ = window.jQuery = jQuery;
+import App from './App.vue'
+import router from './infra/lib/router';
 
-import "simplebar";
-import "cropperjs/dist/cropper.css";
-import "huebee/dist/huebee.min.css";
-import "sweetalert2/dist/sweetalert2.css";
-import "magic.css/dist/magic.css";
-import "tobii/dist/css/tobii.min.css";
-import "starability/starability-css/starability-all.css";
-import "leaflet/dist/leaflet.css";
-import "nouislider/dist/nouislider.css";
-import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import "uppy/dist/uppy.min.css";
-import "flatpickr/dist/flatpickr.css";
-import "listree/dist/listree.min.css";
-import "bootstrap-vue-next/dist/bootstrap-vue-next.css";
-import "@/assets/scss/app.scss";
-import "@/assets/scss/icons.scss";
+const app = createApp(App)
 
-const app = createApp(App);
+app.use(createPinia().use(piniaPluginPersistedstate))
+app.use(createBootstrap())
+app.use(router)
+app.component('VueApexCharts', VueApexCharts);
+app.component("MaskInput", MaskInput);
+app.use(MasonryWall);
+app.component('QuillEditor', QuillEditor)
+app.component('FlatPickr', flatPickr);
+app.component('VueECharts', VueECharts);
+app.component('PDF', PDF);
+app.component('SimpleTypeahead', SimpleTypeahead);
+app.component('Vidle', Vidle);
 
-app.use(createPinia());
-app.use(router);
-app.use(createBootstrap({ components: true, directives: true }));
-app.use(VueApexCharts);
-app.use(Vue3Toastify, {
-  autoClose: 3000,
-  position: 'top-right',
-  theme: 'light'
-})
-
-app.mount("#app");
+app.mount('#app')

@@ -1,9 +1,10 @@
+version: '3'
 services:
-  missoes-admin:
+  genesiis-admin:
     build: .
-    container_name: missoes-admin
+    container_name: genesiis-admin
     ports:
-      - "5173:5173"
+      - '9007:9007'
     volumes:
       - .:/home/node/app:rw
     restart: 'no'

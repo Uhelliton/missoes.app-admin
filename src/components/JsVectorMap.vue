@@ -1,21 +1,34 @@
 <template>
-  <div :id="id" :style="{ width: '100%', height: height + 'px' }"></div>
+  <div :id="id" v-bind="$attrs"></div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import "jsvectormap";
-import "jsvectormap/dist/maps/world";
-import "jsvectormap/dist/maps/world-merc";
+import { nextTick, onMounted } from 'vue'
 
-type VectorMapPropsType = {
-  id: string;
-  height: number;
-  options: object;
-};
-const props = defineProps<VectorMapPropsType>();
+type PropsType = {
+  id: string
+  options: object
+}
 
-onMounted(() => {
-  new (window as any)["jsVectorMap"](props.options);
-});
+const props = defineProps<PropsType>()
+
+onMounted(async () => {
+  await nextTick()
+
+  requestAnimationFrame(async () => {
+    const JsVectorMap = (await import('jsvectormap')).default
+    await import('jsvectormap/dist/maps/world.js')
+    await import('jsvectormap/dist/maps/world-merc')
+    await import('jsvectormap/dist/maps/us-aea-en')
+    await import('jsvectormap/dist/maps/canada')
+    await import('jsvectormap/dist/maps/russia')
+    await import('jsvectormap/dist/maps/spain')
+    await import('jsvectormap/dist/maps/iraq')
+
+    new JsVectorMap({
+      selector: `#${props.id}`,
+      ...props.options,
+    })
+  })
+})
 </script>
