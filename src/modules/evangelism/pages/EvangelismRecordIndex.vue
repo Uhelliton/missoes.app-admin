@@ -129,8 +129,8 @@
 import { onMounted, ref, reactive, Ref } from 'vue'
 import { useAuthStore } from '@/modules/auth/stores/auth'
 import { EvangelismRecordService } from '@/modules/evangelism/services/evangelism-record.service'
-import Datatable from '@/components/table/Datatable.vue'
-import { ageCategoryClasses, formatDateToPtBr } from '@/infra/helpers/helper'
+import Datatable from '@/ui/components/table/Datatable2.vue'
+import { ageCategoryClasses, formatDateToPtBr } from '@/infra/utils/helper'
 import type { IEvangelismRecord } from '@/modules/evangelism/types/evangelism-record.interface'
 import FormFactsheet from '@/modules/evangelism/components/FormFactsheet.vue'
 

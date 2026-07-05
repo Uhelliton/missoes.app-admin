@@ -5,7 +5,7 @@ import type {
   IEvangelismRecordPayload,
 } from '@/modules/evangelism/types/evangelism-record.interface'
 import type { ISelect } from '@/components/forms/Select.vue'
-import { formatDateToPtBr } from '@/infra/helpers/helper'
+import { formatDateToPtBr } from '@/infra/utils/helper'
 
 const minOneSelected = helpers.withMessage(
   'Selecione pelo menos um item',

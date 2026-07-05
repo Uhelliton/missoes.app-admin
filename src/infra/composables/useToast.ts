@@ -22,10 +22,17 @@ export function useToast() {
     })
   }
 
+  const httpError = (messages: string[] | string) => {
+    if (Array.isArray(messages)) {
+      messages.forEach((message) => toast.error(message))
+    } else toast.error(messages);
+  }
+
   return {
     toast,
     success,
     error,
     warning,
+    httpError,
   }
 }

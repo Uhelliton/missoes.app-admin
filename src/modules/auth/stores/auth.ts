@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import router from "@/core/router";
+import router from "@/infra/lib/router";
 import { useLocalStorage } from "@vueuse/core";
 import type { User } from "@/types/auth";
 import {computed} from "vue";

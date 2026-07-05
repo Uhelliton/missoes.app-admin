@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
-import router from '@/core/router'
+import router from '../lib/router'
 
 const getToken = (): string | null => localStorage.getItem('app_token')
 

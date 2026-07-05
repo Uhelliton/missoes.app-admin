@@ -26,13 +26,14 @@
         <!-- Sidebar Menu Toggle Button -->
         <MenuToggler />
 
-        <!-- Horizontal Menu Toggle Button
+        <!-- Horizontal Menu Toggle Button -->
         <button class="topnav-toggle-button px-2" data-bs-toggle="collapse" data-bs-target="#topnav-menu">
           <Icon icon="menu-4" />
         </button>
       </div>
 
       <div class="d-flex align-items-center gap-2">
+        <!--
         <ThemeDropdown />
 
         <NotificationDropdownPeople />
@@ -43,7 +44,8 @@
 
         <CustomizerToggler />
 
-        <LanguageSelectorRounded /> -->
+        <LanguageSelectorRounded />
+        -->
 
         <UserDropdownDetailed />
       </div>

@@ -189,14 +189,14 @@ import { ProjectService } from '@/modules/project/services/project.service'
 import { EvangelismRecordService } from '@/modules/evangelism/services/evangelism-record.service'
 import { vMaska } from 'maska/vue'
 import { useVuelidate } from '@vuelidate/core'
-import { useNotify } from '@/infra/composables/useNotify'
 import { useFormFactSheet } from '@/modules/evangelism/composables/useFormFactsheet'
-import { isValidISODate, parseDateBrToDefaultFormat } from '@/infra/helpers/helper'
-import { wait } from '@/infra/helpers/helper'
+import { isValidISODate, parseDateBrToDefaultFormat } from '@/infra/utils/helper'
+import { wait } from '@/infra/utils/helper'
 import type { IEvangelismRecord } from '@/modules/evangelism/types/evangelism-record.interface'
 import type { IProject } from '@/modules/project/types/project.interface'
 import type { ITeam } from '@/modules/team/types/team.interface'
 import type { IMemberSimplified } from '@/modules/team/types/member.interface'
+import { useToast } from '~/infra/composables/useToast.ts'
 
 interface IModalProps {
   isOpen: boolean
@@ -217,7 +217,7 @@ const teamService = TeamService()
 const evangelismRecordService = EvangelismRecordService()
 
 const { form, setFormData, resetForm, rules } = useFormFactSheet()
-const notify = useNotify()
+const notify = useToast()
 const { isTenancyTeam, isAdministrator, userAuth } = useAuthStore()
 
 const { isOpen, evangelismRecord } = toRefs(props)
