@@ -83,7 +83,7 @@ import type { IChurch } from '@/modules/project/types/church.interface'
 import { vMaska } from 'maska/vue'
 import { useVuelidate } from '@vuelidate/core'
 import { locationDefault } from '@/infra/helpers/constants'
-import { useNotify } from '@/infra/composables/useNotify'
+import { useToast } from '@/infra/composables/useToast'
 import { useFormChurch } from '@/modules/project/composables'
 import { wait } from '@/infra/helpers/helper'
 
@@ -104,7 +104,7 @@ const emit = defineEmits<IModalEmits>()
 const locationService = LocationService()
 const churchService = ChurchService()
 const { form, setFormData, resetForm, rules } = useFormChurch()
-const notify = useNotify()
+const notify = useToast()
 
 const { isOpen, church } = toRefs(props)
 const states = ref([])

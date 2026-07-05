@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import type {ITeam} from "@/modules/team/types/team.interface";
-import {getAgeFromDate} from "@/infra/helpers/helper";
+import {getAgeFromDate} from "@/infra/utils/helper";
 
 export const useTeamExportData = (data: Array<ITeam>) => {
   function exportToPDF() {

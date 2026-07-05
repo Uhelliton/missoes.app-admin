@@ -1,14 +1,14 @@
 <template>
   <BModal
     v-model="isOpen"
-    :title="'Associar Membros: ' + team.name"
+    :title="'Associar Membros: ' + team?.name"
     title-class="m-0"
     size="xl"
     cancel-variant="outline-danger"
     @close="closeModal"
     :hideFooter="false"
   >
-    <div class="row px-2 py-2 list-box">
+    <div class="row px-2 py-2 list-box" v-if="team">
       <div class="col-md-6">
         <h5>Membros Disponíveis</h5>
         <b-form-input v-model="searchQuery" placeholder="Filtrar membro..." class="mb-2" />
@@ -91,8 +91,8 @@ import type { IMember, IMemberSimplified } from '@/modules/team/types/member.int
 import { MemberService } from '@/modules/team/services/member.service'
 import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam, ITeamMemberPayload } from '@/modules/team/types/team.interface'
-import { useNotify } from '@/infra/composables/useNotify'
-import { wait, getAgeCategory, getClassBadgeAgeCategory } from '@/infra/helpers/helper'
+import { useToast } from '@/infra/composables/useToast'
+import { wait, getAgeCategory, getClassBadgeAgeCategory } from '@/infra/utils/helper'
 
 interface IProps {
   isOpen: boolean
@@ -114,7 +114,7 @@ const emit = defineEmits<IEmits>()
 
 const memberService = MemberService()
 const { updateTeamMembers } = TeamService()
-const notify = useNotify()
+const notify = useToast()
 
 const { isOpen } = toRefs(props)
 const searchQuery = ref('')

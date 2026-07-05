@@ -2,105 +2,95 @@
   <BRow>
     <BCol cols="12">
       <BCard no-body>
-        <BCardHeader>
-          <BRow class="align-items-center">
-            <div class="col">
-              <BCardTitle>Gerenciar Equipes</BCardTitle>
-            </div>
-            <div class="col-auto">
-              <form class="row g-2">
-                <div class="col-auto">
-                  <b-dropdown variant="light" menu-class="dropdown-menu-end">
-                    <template #button-content>
-                      Exportar Dados
-                      <i class="las la-angle-down ms-1"></i>
-                    </template>
-                    <b-dropdown-item @click="exportToPDF">
-                      <i class="las la-file-pdf fs-5 me-1"></i>
-                      Relatório por Equipe
-                    </b-dropdown-item>
-                  </b-dropdown>
-                </div>
-                <div class="col-auto">
-                  <b-button type="button" variant="primary" @click="handleCreate">
-                    <i class="fa-solid fa-plus me-1"></i> Nova Equipe
-                  </b-button>
-                </div>
-              </form>
-            </div>
-          </BRow>
-        </BCardHeader>
-        <BCardBody class="pt-0">
-          <Datatable
-            :items="dataTable.items"
-            :columns="dataTable.columns"
-            :total-items="dataTable.total"
-            @page-click="onChangePage"
-            @update:perPage="onChangePage"
-            :has-actions="true"
-          >
-            <template #actions="{ item }">
-              <button @click="handleEdit(item)" class="btn btn-sm btn-outline-light mx-2" title="Editar Equipe">
-                <span class="d-flex justify-content-center align-items-center">
-                  <i class="iconoir-edit-pencil text-secondary fs-16"></i>
-                </span>
-              </button>
-              <button @click="associateMember(item)" class="btn btn-sm btn-warning">
-                <span class="d-flex justify-content-center align-items-center gap-1">
-                  <i class="iconoir-user text-white fs-16"></i> Associar Membros
-                </span>
-              </button>
-              <button
-                @click="redirectToTeamAnalytics(item.id)"
-                class="btn btn-sm btn-outline-light mx-2"
-                title="Estatísticas da Equipe"
-              >
-                <span class="d-flex justify-content-center align-items-center gap-1">
-                  <i class="iconoir-graph-down fs-16"></i>
-                </span>
-              </button>
-            </template>
-            <template #cell-leader="{ item }">
-              {{ item.leader.name }}
-            </template>
-            <template #cell-name="{ item }">
-              <div class="d-flex align-items-center">
-                <span
-                  class="thumb-md justify-content-center d-flex align-items-center bg-purple-subtle text-purple rounded-circle me-1"
-                >
-                  {{ getPrefixName(item.name) }}
-                </span>
-                {{ item.name }}
-              </div>
-            </template>
+        <BCardHeader class="border-light justify-content-between">
+          <div class="d-flex gap-2 align-items-center">
+            <BCardTitle class="mb-0">Gerenciar Equipes</BCardTitle>
 
-            <template #cell-members="{ item }">
-              <div class="img-group">
-                <template v-for="member in item.members" :key="member.id">
-                  <a
-                    class="user-avatar position-relative d-inline-block"
-                    href="javascript:"
-                    :title="member.name"
-                    :class="member.id && 'ms-n2'"
-                  >
-                    <span class="thumb-md bg-secondary text-white rounded-circle me-0">
-                      {{ member.name[0] }}
-                    </span>
-                  </a>
-                </template>
-              </div>
-            </template>
-          </Datatable>
-        </BCardBody>
+            <BButton variant="primary" @click="handleCreate"> <Icon icon="plus" class="me-1" /> Nova Equipe </BButton>
+          </div>
+
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <BDropdown variant="light" menu-class="dropdown-menu-end">
+              <template #button-content>
+                Exportar Dados
+                <Icon icon="chevron-down" class="ms-1" />
+              </template>
+              <BDropdownItem @click="exportToPDF">
+                <Icon icon="file-text" class="me-1" />
+                Relatório por Equipe
+              </BDropdownItem>
+            </BDropdown>
+
+            <div>
+              <BFormSelect v-model="perPage" :options="perPageOptions" class="form-control my-1 my-md-0" />
+            </div>
+          </div>
+        </BCardHeader>
+
+        <BTable
+          show-empty
+          hover
+          responsive
+          empty-text="Nenhuma equipe encontrada."
+          :items="dataTable.items"
+          :fields="fields"
+          thead-class="bg-light bg-opacity-25 thead-sm"
+          class="table table-custom table-centered mb-0 w-100"
+        >
+          <template #head()="item">
+            <span class="text-uppercase fs-xxs">{{ item.label }}</span>
+          </template>
+
+          <template #head(action)>
+            <span class="text-uppercase d-flex justify-content-center fs-xxs">Ações</span>
+          </template>
+
+          <template #cell(name)="{ item }">
+            <div class="d-flex align-items-center">
+              <span class="thumb-md justify-content-center d-flex align-items-center bg-purple-subtle text-purple rounded-circle me-1">
+                {{ getPrefixName(item.name) }}
+              </span>
+              {{ item.name }}
+            </div>
+          </template>
+
+          <template #cell(leader)="{ item }">{{ item.leader?.name }}</template>
+
+          <template #cell(members)="{ item }">
+            <div class="avatar-group avatar-group-xs">
+              <template v-for="member in item.members" :key="member.id">
+                <div class="avatar-sm me-n2">
+                  <div class="avatar-title text-bg-secondary fw-bold rounded-circle" v-b-tooltip.hover.top="`${member.name}`">
+                    {{ member.name[0] }}
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <template #cell(action)="{ item }">
+            <div class="d-flex justify-content-center gap-1">
+              <button class="btn btn-default btn-icon btn-sm" title="Editar Equipe" @click="handleEdit(item)">
+                <Icon icon="edit" class="fs-lg" />
+              </button>
+              <button class="btn btn-warning btn-sm" title="Associar Membros" @click="associateMember(item)">
+                <Icon icon="user" class="fs-lg me-1" /> Associar Membros
+              </button>
+              <button class="btn btn-default btn-icon btn-sm" title="Estatísticas da Equipe" @click="redirectToTeamAnalytics(item.id)">
+                <Icon icon="chart-bar" class="fs-lg" />
+              </button>
+            </div>
+          </template>
+        </BTable>
+
+        <BCardFooter class="border-0">
+          <TablePagination :currentPage="currentPage" :per-page="perPage" :total-items="dataTable.total" label="equipes" @update:currentPage="onPageChange" />
+        </BCardFooter>
       </BCard>
     </BCol>
   </BRow>
-  <FormTeam
-    :is-open="dialogTeamActive"
-    @close="() => (dialogTeamActive = false)"
-    :team="dataTable.rowSelected"
-    @created="fetchTeams()"
-  />
+
+  <FormTeam :is-open="dialogTeamActive" @close="() => (dialogTeamActive = false)" :team="dataTable.rowSelected" @created="fetchTeams()" />
   <DualListbox
     :is-open="dialogTeamMemberActive"
     :team-members="dataTable.rowSelected?.members"
@@ -111,34 +101,43 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive, Ref } from 'vue'
+import { BButton, BCard, BCardFooter, BCardHeader, BCardTitle, BCol, BDropdown, BDropdownItem, BFormSelect, BRow, BTable } from 'bootstrap-vue-next'
+import { onMounted, reactive, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import FormTeam from '@/modules/team/components/FormTeam.vue'
+import DualListbox from '@/modules/team/components/DualListbox.vue'
 import { TeamService } from '@/modules/team/services/team.service'
 import type { ITeam } from '@/modules/team/types/team.interface'
-import Datatable from '@/components/table/Datatable.vue'
-import DualListbox from '@/modules/team/components/DualListbox.vue'
 import { useTeamExportData } from '@/modules/team/composables/useTeamExportData'
-import Preloader from '@/components/Preloader.vue'
-import { useRouter } from 'vue-router'
+import TablePagination from '~/components/TablePagination.vue'
+import Icon from '~/components/wrappers/Icon.vue'
 
 const teamService = TeamService()
 const router = useRouter()
 
 const dialogTeamActive = ref(false)
 const dialogTeamMemberActive = ref(false)
+
+// Pagination state (server-side)
+const currentPage = ref(1)
+const perPage = ref(12)
+const perPageOptions = [12, 20, 50]
+
 const dataTable = reactive({
-  items: [],
-  columns: [
-    { key: 'id', label: '#' },
-    { key: 'name', label: 'Nome' },
-    { key: 'color', label: 'Cor' },
-    { key: 'leader', label: 'Lider' },
-    { key: 'members', label: 'Membros' },
-  ],
-  rowSelected: {} as Ref<ITeam>,
-  currentPage: 1,
+  items: [] as ITeam[],
+  rowSelected: null as ITeam | null,
   total: 0,
 })
+
+// Table fields
+const fields = [
+  { key: 'id', label: '#', sortable: false },
+  { key: 'name', label: 'Nome', sortable: false },
+  { key: 'color', label: 'Cor', sortable: false },
+  { key: 'leader', label: 'Lider', sortable: false },
+  { key: 'members', label: 'Membros', sortable: false },
+  { key: 'action', label: 'Ações', sortable: false },
+]
 
 onMounted(async () => {
   await fetchTeams()
@@ -152,11 +151,11 @@ const getPrefixName = (name: string) => {
 
 const fetchTeams = async (query: object = {}) => {
   try {
-    const { data } = await teamService.getAll(query)
-
+    const querystring = { page: currentPage.value, limit: perPage.value, ...query }
+    const { data } = await teamService.getAll(querystring)
     dataTable.items = data?.items ?? []
     dataTable.total = data?.meta?.totalItems ?? 0
-    dataTable.currentPage = data?.meta?.currentPage ?? 1
+    currentPage.value = data?.meta?.currentPage ?? 1
   } catch (error) {
     console.error('Erro ao buscar equipes:', error)
   }
@@ -181,13 +180,21 @@ const redirectToTeamAnalytics = (id: number) => {
   router.push({ name: 'team.analytics', params: { id: id.toString() } })
 }
 
-const onChangePage = async (paginate: object) => {
-  await fetchTeams({ ...paginate })
+// Page changes from TablePagination
+const onPageChange = async (page: number) => {
+  currentPage.value = page
+  await fetchTeams({ page })
 }
+
+// React to per-page changes
+watch(perPage, async () => {
+  currentPage.value = 1
+  await fetchTeams({ page: 1 })
+})
 
 const exportToPDF = async () => {
   const { data } = await teamService.getAll({ limit: 500 })
-  const {  exportToPDF } = useTeamExportData(data?.items ?? [])
+  const { exportToPDF } = useTeamExportData(data?.items ?? [])
   exportToPDF()
 }
 </script>

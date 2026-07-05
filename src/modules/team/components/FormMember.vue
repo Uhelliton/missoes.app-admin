@@ -135,11 +135,11 @@ import { MemberService } from '@/modules/team/services/member.service'
 import type { IMember } from '@/modules/team/types/member.interface'
 import { vMaska } from 'maska/vue'
 import { useVuelidate } from '@vuelidate/core'
-import { locationDefault } from '@/infra/helpers/constants'
-import { useNotify } from '@/infra/composables/useNotify'
+import { locationDefault } from '@/infra/utils/constants'
+import { useToast } from '@/infra/composables/useToast'
 import { useFormMember } from '@/modules/team/composables/useFormMember'
-import { isValidISODate, numberOnly, parseDateBrToDefaultFormat } from '@/infra/helpers/helper'
-import { wait } from '@/infra/helpers/helper'
+import { isValidISODate, numberOnly, parseDateBrToDefaultFormat } from '@/infra/utils/helper'
+import { wait } from '@/infra/utils/helper'
 
 interface IModalProps {
   isOpen: boolean
@@ -159,7 +159,7 @@ const locationService = LocationService()
 const churchService = ChurchService()
 const memberService = MemberService()
 const { form, setFormData, resetForm, rules } = useFormMember()
-const notify = useNotify()
+const notify = useToast()
 
 const { isOpen, member } = toRefs(props)
 const states = ref([])

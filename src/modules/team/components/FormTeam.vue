@@ -67,11 +67,11 @@ import AppSelect, { type ISelect } from '@/components/forms/Select.vue'
 import { MemberService } from '@/modules/team/services/member.service'
 import { TeamService } from '@/modules/team/services/team.service'
 import { useVuelidate } from '@vuelidate/core'
-import { useNotify } from '@/infra/composables/useNotify'
+import { useToast } from '@/infra/composables/useToast'
 import { useFormTeam } from '@/modules/team/composables/useFormTeam'
 import type { ITeam } from '@/modules/team/types/team.interface'
-import { colors } from '@/infra/helpers/constants'
-import { wait } from '@/infra/helpers/helper'
+import { colors } from '@/infra/utils/constants'
+import { wait } from '@/infra/utils/helper'
 
 interface IModalProps {
   isOpen: boolean
@@ -90,7 +90,7 @@ const emit = defineEmits<IModalEmits>()
 const memberService = MemberService()
 const teamService = TeamService()
 const { form, setFormData, resetForm, rules } = useFormTeam()
-const notify = useNotify()
+const notify = useToast()
 
 const { isOpen, team } = toRefs(props)
 const members = ref([])
