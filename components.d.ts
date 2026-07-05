@@ -62,6 +62,7 @@ declare module 'vue' {
     MultiSelect: typeof import('./src/components/MultiSelect.vue')['default']
     PageBreadcrumb: typeof import('./src/components/PageBreadcrumb.vue')['default']
     PasswordStrengthBar: typeof import('./src/components/PasswordStrengthBar.vue')['default']
+    Preloader: typeof import('./src/components/Preloader.vue')['default']
     Rating: typeof import('./src/components/Rating.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
