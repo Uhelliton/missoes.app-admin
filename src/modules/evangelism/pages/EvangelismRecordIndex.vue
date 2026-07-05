@@ -1,177 +1,173 @@
 <template>
+  <PageBreadcrumb title="Gerenciar Fichas de Evangelismo" subtitle="evangelismo" />
   <BRow>
     <BCol cols="12">
       <BCard no-body>
-        <BCardHeader>
-          <BRow class="d-flex align-content-center align-items-center">
-            <div class="col">
-              <BCardTitle>Gerenciar Fichas de Evangelismo</BCardTitle>
+        <BCardHeader class="border-light justify-content-between">
+          <div class="d-flex gap-2 align-items-center">
+            <BCardTitle class="mb-0"></BCardTitle>
+
+            <div class="app-search">
+              <BFormInput v-model="filter.search" type="text" placeholder="Buscar por nome ou código..." @input="handleSearch" />
+              <Icon icon="search" class="app-search-icon text-muted" />
             </div>
-            <div class="col-2">
-              <BFormGroup label="Ordenar por" label-for="sort" class="mb-3">
-                <BFormSelect
-                  v-model="filter.sort"
-                  class="form-control"
-                  placeholder="Selecione uma opção"
-                  @change="handleSortBy"
-                >
-                  <template #first>
-                    <option disabled value="">Selecione uma opção</option>
-                  </template>
-                  <option value="code:desc">Código: Maior > Menor</option>
-                  <option value="code:asc">Código: Menor > Maior</option>
-                  <option value="name:asc">Nome: A-Z</option>
-                </BFormSelect>
-              </BFormGroup>
+
+            <BButton variant="primary" @click="handleCreate"> <Icon icon="plus" class="me-1" /> Nova Ficha </BButton>
+          </div>
+
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <span class="me-2 fw-semibold">Ordenar por:</span>
+
+            <div class="app-search">
+              <BFormSelect v-model="filter.sort" class="form-control my-1 my-md-0" @change="handleSortBy">
+                <option disabled value="">Selecione uma opção</option>
+                <option value="code:desc">Código: Maior &gt; Menor</option>
+                <option value="code:asc">Código: Menor &gt; Maior</option>
+                <option value="name:asc">Nome: A-Z</option>
+              </BFormSelect>
+              <Icon icon="arrows-sort" class="app-search-icon text-muted" />
             </div>
-            <div class="col-2">
-              <b-form-input v-model="filter.search" @input="handleSearch" placeholder="buscar por nome ou código.." />
+
+            <div>
+              <BFormSelect v-model="perPage" :options="perPageOptions" class="form-control my-1 my-md-0" />
             </div>
-            <div class="col-auto">
-              <form class="row g-2">
-                <div class="col-auto -mt-5">
-                  <b-button type="button" variant="primary" @click="handleCreate">
-                    <i class="fa-solid fa-plus me-1"></i> Nova Ficha
-                  </b-button>
-                </div>
-              </form>
-            </div>
-          </BRow>
+          </div>
         </BCardHeader>
-        <BCardBody class="pt-0">
-          <Datatable
-            :items="dataTable.items"
-            :columns="dataTable.columns"
-            :total-items="dataTable.total"
-            @page-click="onChangePage"
-            @update:perPage="onChangePage"
-            :has-actions="true"
-          >
-            <template #actions="{ item }">
-              <button @click="handleEdit(item)" class="btn btn-sm btn-outline-light mx-2" title="Editar Ficha">
-                <span class="d-flex justify-content-center align-items-center">
-                  <i class="iconoir-edit-pencil text-secondary fs-16"></i>
-                </span>
+
+        <BTable
+          show-empty
+          hover
+          responsive
+          empty-text="Nenhuma ficha encontrada."
+          :items="dataTable.items"
+          :fields="fields"
+          thead-class="bg-light bg-opacity-25 thead-sm"
+          class="table table-custom table-centered mb-0 w-100"
+        >
+          <template #head()="item">
+            <span class="text-uppercase fs-xxs">{{ item.label }}</span>
+          </template>
+
+          <template #head(action)>
+            <span class="text-uppercase d-flex justify-content-center fs-xxs">Ações</span>
+          </template>
+
+          <template #cell(name)="{ item }">
+            {{ item.name }}
+            <span v-if="item.additionalPeople?.length" class="badge rounded text-white bg-secondary ms-1"> + {{ item.additionalPeople.length }} </span>
+          </template>
+
+          <template #cell(team)="{ item }">{{ item.team?.name }}</template>
+
+          <template #cell(acceptedCourse)="{ item }">{{ item.acceptedCourse ? 'Sim' : 'Não' }}</template>
+          <template #cell(acceptedCell)="{ item }">{{ item.acceptedCell ? 'Sim' : 'Não' }}</template>
+          <template #cell(madeDecision)="{ item }">{{ item.madeDecision ? 'Sim' : 'Não' }}</template>
+
+          <template #cell(age)="{ item }">
+            <span class="badge fs-xxs py-1 px-2 fw-semibold" :class="[ageCategoryClasses[item.ageCategory]]">{{ item.ageCategory }}</span>
+          </template>
+
+          <template #cell(members)="{ item }">
+            <div class="avatar-group avatar-group-xs">
+              <template v-for="member in item.members" :key="member.id">
+                <div class="avatar-sm me-n2">
+                  <div class="avatar-title text-bg-primary fw-bold rounded-circle"  v-b-tooltip.hover.top="`${member.name}`" >
+                    {{ member.name[0] }}
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <template #cell(evangelizedAt)="{ item }">{{ formatDateToPtBr(item.evangelizedAt) }}</template>
+
+          <template #cell(notes)="{ item }">
+            <span class="d-flex justify-content-end align-items-end" v-if="item.notes">
+               <Icon icon="message-circle" class="fs-lg"  v-b-tooltip.hover.top="`${item.notes}`" />
+            </span>
+          </template>
+
+          <template #cell(action)="{ item }">
+            <div class="d-flex justify-content-center gap-1">
+              <button class="btn btn-default btn-icon btn-sm" title="Editar Ficha" @click="handleEdit(item)">
+                <Icon icon="edit" class="fs-lg" />
               </button>
-            </template>
-            <template #cell-gender="{ item }">
-              <BBadge
-                :variant="null"
-                :class="[
-                  { 'bg-transparent border  border-primary text-primary': item.gender === 'Masculino' },
-                  { 'bg-transparent border  border-danger text-danger': item.gender === 'Feminino' },
-                ]"
-              >
-                {{ item.gender }}
-              </BBadge>
-            </template>
-            <template #cell-name="{ item }">
-              {{ item.name }}
-              <span v-if="item.additionalPeople.length" class="badge rounded text-white bg-secondary ms-1">
-                + {{ item.additionalPeople.length }}
-              </span>
-            </template>
-            <template #cell-acceptedCourse="{ item }">
-              {{ item.acceptedCourse ? 'Sim' : 'Não' }}
-            </template>
-            <template #cell-acceptedCell="{ item }">
-              {{ item.acceptedCell ? 'Sim' : 'Não' }}
-            </template>
-            <template #cell-madeDecision="{ item }">
-              {{ item.madeDecision ? 'Sim' : 'Não' }}
-            </template>
-            <template #cell-age="{ item }">
-              <b-badge :variant="null" pill :class="[ageCategoryClasses[item.ageCategory]]">
-                {{ item.ageCategory }}
-              </b-badge>
-            </template>
-            <template #cell-members="{ item }">
-              <div class="img-group">
-                <template v-for="member in item.members" :key="member.id">
-                  <a
-                    class="user-avatar position-relative d-inline-block"
-                    href="javascript:"
-                    :title="member.name"
-                    :class="member.id && 'ms-n2'"
-                  >
-                    <span class="thumb-md bg-secondary text-white rounded-circle me-0">
-                      {{ member.name[0] }}
-                    </span>
-                  </a>
-                </template>
-              </div>
-            </template>
-            <template #cell-team="{ item }">
-              {{ item.team.name }}
-            </template>
-            <template #cell-evangelizedAt="{ item }">
-              {{ formatDateToPtBr(item.evangelizedAt) }}
-            </template>
-            <template #cell-notes="{ item }">
-              <span class="d-flex justify-content-end align-items-end" v-if="item.notes">
-                <i class="iconoir-message-text  text-secondary fs-20" v-b-tooltip.hover.top="`${ item.notes }`"></i>
-              </span>
-            </template>
-          </Datatable>
-        </BCardBody>
+            </div>
+          </template>
+        </BTable>
+
+        <BCardFooter class="border-0">
+          <TablePagination :currentPage="currentPage" :per-page="perPage" :total-items="dataTable.total" label="fichas" @update:currentPage="onPageChange" />
+        </BCardFooter>
       </BCard>
     </BCol>
   </BRow>
-  <FormFactsheet
-    :is-open="dialogFactsheetIsActive"
-    @close="() => (dialogFactsheetIsActive = false)"
-    :evangelismRecord="dataTable.rowSelected"
-    @created="fetchRecords()"
-  />
+
+  <FormFactsheet :is-open="dialogFactsheetIsActive" @close="() => (dialogFactsheetIsActive = false)" :evangelismRecord="dataTable.rowSelected" @created="fetchRecords()" />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive, Ref } from 'vue'
+import { BBadge, BButton, BCard, BCardFooter, BCardHeader, BCardTitle, BCol, BFormInput, BFormSelect, BRow, BTable } from 'bootstrap-vue-next'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { useAuthStore } from '@/modules/auth/stores/auth'
 import { EvangelismRecordService } from '@/modules/evangelism/services/evangelism-record.service'
-import Datatable from '@/ui/components/table/Datatable2.vue'
+import TablePagination from '~/components/TablePagination.vue'
+import Icon from '~/components/wrappers/Icon.vue'
 import { ageCategoryClasses, formatDateToPtBr } from '@/infra/utils/helper'
 import type { IEvangelismRecord } from '@/modules/evangelism/types/evangelism-record.interface'
 import FormFactsheet from '@/modules/evangelism/components/FormFactsheet.vue'
+import PageBreadcrumb from '~/components/PageBreadcrumb.vue'
 
 const evangelismRecordService = EvangelismRecordService()
-const { isTenancyTeam,  userAuth } = useAuthStore()
+const { isTenancyTeam, userAuth } = useAuthStore()
 
 const dialogFactsheetIsActive = ref(false)
 const filter = reactive({ search: '', sort: 'id:desc' })
+
+// Pagination state (server-side)
+const currentPage = ref(1)
+const perPage = ref(12)
+const perPageOptions = [12, 20, 50]
+
 const dataTable = reactive({
-  items: [],
-  columns: [
-    { key: 'code', label: 'Cod' },
-    { key: 'name', label: 'Nome' },
-    { key: 'team', label: 'Equipe' },
-    { key: 'acceptedCourse', label: 'Curso' },
-    { key: 'acceptedCell', label: 'Célula' },
-    { key: 'madeDecision', label: 'Tomou Decisão' },
-    { key: 'age', label: 'Classificação' },
-    { key: 'members', label: 'Evangelistas' },
-    { key: 'evangelizedAt', label: 'Data Evangelismo' },
-    { key: 'notes', label: '' },
-  ],
-  rowSelected: {} as Ref<IEvangelismRecord>,
-  currentPage: 1,
+  items: [] as IEvangelismRecord[],
+  rowSelected: null as IEvangelismRecord | null,
   total: 0,
 })
+
+// Table fields
+const fields = [
+  { key: 'code', label: 'Cod', sortable: false },
+  { key: 'name', label: 'Nome', sortable: false },
+  { key: 'team', label: 'Equipe', sortable: false },
+  { key: 'acceptedCourse', label: 'Curso', sortable: false },
+  { key: 'acceptedCell', label: 'Célula', sortable: false },
+  { key: 'madeDecision', label: 'Tomou Decisão', sortable: false },
+  { key: 'age', label: 'Classificação', sortable: false },
+  { key: 'members', label: 'Evangelistas', sortable: false },
+  { key: 'evangelizedAt', label: 'Data Evangelismo', sortable: false },
+  { key: 'notes', label: '', sortable: false },
+  { key: 'action', label: 'Ações', sortable: false },
+]
 
 onMounted(async () => {
   await fetchRecords()
 })
 
 const fetchRecords = async (query: object = {}) => {
-  const queryTeams =  isTenancyTeam ? { team: userAuth.team.name } : null
+  const queryTeams = isTenancyTeam ? { team: userAuth.team.name } : null
   const querystring = {
+    page: currentPage.value,
+    limit: perPage.value,
+    sort: filter.sort,
+    ...(filter.search && filter.search.length >= 3 ? { search: filter.search } : {}),
     ...query,
-    ...queryTeams
+    ...queryTeams,
   }
   const response = await evangelismRecordService.getAll(querystring)
   dataTable.items = response.data.items
   dataTable.total = response.data.meta.totalItems
-  dataTable.currentPage = response.data.meta.currentPage
+  currentPage.value = response.data.meta.currentPage
 }
 
 const handleEdit = (row: IEvangelismRecord) => {
@@ -184,19 +180,30 @@ const handleCreate = () => {
   dialogFactsheetIsActive.value = true
 }
 
-const onChangePage = async (paginate: object) => {
-  await fetchRecords({ ...paginate, sort: filter.sort })
-}
-
 const handleSearch = async () => {
   if (filter.search && filter.search.length >= 3) {
-    await fetchRecords({ page: 1, search: filter.search, sort: filter.sort  })
+    currentPage.value = 1
+    await fetchRecords({ page: 1 })
   } else if (!filter.search.length) {
-    await fetchRecords({ page: 1, sort: filter.sort  })
+    currentPage.value = 1
+    await fetchRecords({ page: 1 })
   }
 }
 
 const handleSortBy = async () => {
-  await fetchRecords({ page: 1, sort: filter.sort })
+  currentPage.value = 1
+  await fetchRecords({ page: 1 })
 }
+
+// Page changes from TablePagination
+const onPageChange = async (page: number) => {
+  currentPage.value = page
+  await fetchRecords({ page })
+}
+
+// React to per-page changes (only triggered by user select, no feedback loop)
+watch(perPage, async () => {
+  currentPage.value = 1
+  await fetchRecords({ page: 1 })
+})
 </script>
