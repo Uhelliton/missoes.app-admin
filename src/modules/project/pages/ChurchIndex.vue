@@ -2,86 +2,103 @@
   <BRow>
     <BCol cols="12">
       <BCard no-body>
-        <BCardHeader>
-          <BRow class="align-items-center">
-            <div class="col">
-              <BCardTitle>Gerenciar Igrejas</BCardTitle>
+        <BCardHeader class="border-light justify-content-between">
+          <div class="d-flex gap-2 align-items-center">
+            <BCardTitle class="mb-0">Gerenciar Igrejas</BCardTitle>
+
+            <BButton variant="primary" @click="handleCreate"> <Icon icon="plus" class="me-1" /> Nova Igreja </BButton>
+          </div>
+
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <div>
+              <BFormSelect v-model="perPage" :options="perPageOptions" class="form-control my-1 my-md-0" />
             </div>
-            <div class="col-auto">
-              <form class="row g-2">
-                <div class="col-auto">
-                  <b-button type="button" variant="primary" @click="handleCreate">
-                    <i class="fa-solid fa-plus me-1"></i> Nova Igreja
-                  </b-button>
-                </div>
-              </form>
-            </div>
-          </BRow>
+          </div>
         </BCardHeader>
-        <BCardBody class="pt-0">
-          <Datatable
-            :items="dataTable.items"
-            :columns="dataTable.columns"
-            :total-items="dataTable.total"
-            @page-click="onChangePage"
-            @update:perPage="onChangePage"
-            :has-actions="true"
-          >
-            <template #actions="{ item }">
-              <button @click="handleEdit(item)" class="btn btn-sm btn-outline-light mx-2" title="Editar Membro">
-                <span class="d-flex justify-content-center align-items-center">
-                  <i class="iconoir-edit-pencil text-secondary fs-16"></i>
-                </span>
+
+        <BTable
+          show-empty
+          hover
+          responsive
+          empty-text="Nenhuma igreja encontrada."
+          :items="dataTable.items"
+          :fields="fields"
+          thead-class="bg-light bg-opacity-25 thead-sm"
+          class="table table-custom table-centered mb-0 w-100"
+        >
+          <template #head()="item">
+            <span class="text-uppercase fs-xxs">{{ item.label }}</span>
+          </template>
+
+          <template #head(action)>
+            <span class="text-uppercase d-flex justify-content-center fs-xxs">Ações</span>
+          </template>
+
+          <template #cell(city)="{ item }">{{ item.city?.name }}</template>
+
+          <template #cell(action)="{ item }">
+            <div class="d-flex justify-content-center gap-1">
+              <button class="btn btn-default btn-icon btn-sm" title="Editar Igreja" @click="handleEdit(item)">
+                <Icon icon="edit" class="fs-lg" />
               </button>
-            </template>
-            <template #cell-city="{ item }">
-              {{ item.city.name }}
-            </template>
-          </Datatable>
-        </BCardBody>
+            </div>
+          </template>
+        </BTable>
+
+        <BCardFooter class="border-0">
+          <TablePagination :currentPage="currentPage" :per-page="perPage" :total-items="dataTable.total" label="igrejas" @update:currentPage="onPageChange" />
+        </BCardFooter>
       </BCard>
     </BCol>
   </BRow>
-  <FormChurch
-    :is-open="dialogMember"
-    @close="() => (dialogMember = false)"
-    :church="dataTable.rowSelected"
-    @created="fetchChurches()"
-  />
+
+  <FormChurch :is-open="dialogMember" @close="() => (dialogMember = false)" :church="dataTable.rowSelected" @created="fetchChurches()" />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive, Ref } from 'vue'
+import { BButton, BCard, BCardFooter, BCardHeader, BCardTitle, BCol, BFormSelect, BRow, BTable } from 'bootstrap-vue-next'
+import { onMounted, reactive, ref, watch } from 'vue'
 import FormChurch from '@/modules/project/components/FormChurch.vue'
 import { ChurchService } from '@/modules/project/services/church.service'
 import type { IChurch } from '@/modules/project/types/church.interface'
-import Datatable from '@/components/table/Datatable.vue'
+import TablePagination from '~/components/TablePagination.vue'
+import Icon from '~/components/wrappers/Icon.vue'
 
 const churchService = ChurchService()
+
 const dialogMember = ref(false)
+
+// Pagination state (server-side)
+const currentPage = ref(1)
+const perPage = ref(12)
+const perPageOptions = [12, 20, 50]
+
 const dataTable = reactive({
-  items: [],
-  columns: [
-    { key: 'id', label: '#' },
-    { key: 'name', label: 'Nome' },
-    { key: 'email', label: 'Email' },
-    { key: 'cnpj', label: 'CNPJ' },
-    { key: 'city', label: 'Cidade' },
-  ],
-  rowSelected: {} as Ref<IChurch>,
-  currentPage: 1,
+  items: [] as IChurch[],
+  rowSelected: null as IChurch | null,
   total: 0,
 })
+
+// Table fields
+const fields = [
+  { key: 'id', label: '#', sortable: false },
+  { key: 'name', label: 'Nome', sortable: false },
+  { key: 'email', label: 'Email', sortable: false },
+  { key: 'cnpj', label: 'CNPJ', sortable: false },
+  { key: 'city', label: 'Cidade', sortable: false },
+  { key: 'action', label: 'Ações', sortable: false },
+]
 
 onMounted(async () => {
   await fetchChurches()
 })
 
 const fetchChurches = async (query: object = {}) => {
-  const response = await churchService.getAll(query)
+  const querystring = { page: currentPage.value, limit: perPage.value, ...query }
+  const response = await churchService.getAll(querystring)
   dataTable.items = response.data.items
   dataTable.total = response.data.meta.totalItems
-  dataTable.currentPage = response.data.meta.currentPage
+  currentPage.value = response.data.meta.currentPage
 }
 
 const handleEdit = (row: IChurch) => {
@@ -94,7 +111,15 @@ const handleCreate = () => {
   dialogMember.value = true
 }
 
-const onChangePage = async (paginate: object) => {
-  await fetchChurches({ ...paginate })
+// Page changes from TablePagination
+const onPageChange = async (page: number) => {
+  currentPage.value = page
+  await fetchChurches({ page })
 }
+
+// React to per-page changes
+watch(perPage, async () => {
+  currentPage.value = 1
+  await fetchChurches({ page: 1 })
+})
 </script>

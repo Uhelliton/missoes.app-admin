@@ -1,5 +1,5 @@
 import { computed, reactive } from 'vue'
-import { locationDefault } from '@/infra/helpers/constants'
+import { locationDefault } from '@/infra/utils/constants'
 import { required, helpers, email } from '@vuelidate/validators'
 import type { IChurchPayload, IChurch } from '@/modules/project/types/church.interface'
 

@@ -82,10 +82,10 @@ import { ChurchService } from '@/modules/project/services/church.service'
 import type { IChurch } from '@/modules/project/types/church.interface'
 import { vMaska } from 'maska/vue'
 import { useVuelidate } from '@vuelidate/core'
-import { locationDefault } from '@/infra/helpers/constants'
+import { locationDefault } from '@/infra/utils/constants'
 import { useToast } from '@/infra/composables/useToast'
 import { useFormChurch } from '@/modules/project/composables'
-import { wait } from '@/infra/helpers/helper'
+import { wait } from '@/infra/utils/helper'
 
 interface IModalProps {
   isOpen: boolean
