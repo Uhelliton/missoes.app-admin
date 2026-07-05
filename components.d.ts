@@ -35,6 +35,8 @@ declare module 'vue' {
     BFormSelect: typeof import('bootstrap-vue-next/components/BFormSelect')['BFormSelect']
     BFormTags: typeof import('bootstrap-vue-next/components/BFormTags')['BFormTags']
     BFormTextarea: typeof import('bootstrap-vue-next/components/BFormTextarea')['BFormTextarea']
+    BListGroup: typeof import('bootstrap-vue-next/components/BListGroup')['BListGroup']
+    BListGroupItem: typeof import('bootstrap-vue-next/components/BListGroup')['BListGroupItem']
     BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
     BOffcanvas: typeof import('bootstrap-vue-next/components/BOffcanvas')['BOffcanvas']
     BPagination: typeof import('bootstrap-vue-next/components/BPagination')['BPagination']

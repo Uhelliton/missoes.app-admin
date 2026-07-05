@@ -27,6 +27,30 @@ const routes: RouteRecordRaw[] = [
     name: 'evangelism.factsheet',
     meta: { layout: 'default', requiresAuth: true, },
   },
+  {
+    path: '/teams',
+    component: () => import('@/modules/team/pages/TeamIndex.vue'),
+    name: 'team.index',
+    meta: { layout: 'default', requiresAuth: true, },
+  },
+  {
+    path: '/members',
+    component: () => import('@/modules/team/pages/MemberIndex.vue'),
+    name: 'members.index',
+    meta: { layout: 'default', requiresAuth: true, },
+  },
+  {
+    path: '/teams/:id/analytics',
+    component: () => import('@/modules/team/pages/TeamAnalytics.vue'),
+    name: 'team.analytics',
+    meta: { layout: 'default', requiresAuth: true, },
+  },
+  {
+    path: '/churches',
+    component: () => import('@/modules/project/pages/ChurchIndex.vue'),
+    name: 'church.index',
+    meta: { layout: 'default', requiresAuth: true, },
+  },
 ];
 
 export default routes;

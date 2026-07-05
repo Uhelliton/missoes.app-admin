@@ -10,5 +10,10 @@
 <script setup lang="ts">
 import MenuItemWithChildren from '~/ui/layouts/components/horizontal-nav/components/MenuItemWithChildren.vue'
 import MenuItem from '~/ui/layouts/components/horizontal-nav/components/MenuItem.vue'
-import { menuItems } from '~/ui/layouts/components/data'
+import { MENU_ITEMS, MENU_ITEMS_TEAM } from '~/ui/layouts/components/data'
+import { useAuthStore } from '~/modules/auth/stores/auth'
+import { computed } from 'vue'
+
+const { isTenancyTeam } = useAuthStore()
+const menuItems = computed(() => (isTenancyTeam ? MENU_ITEMS_TEAM : MENU_ITEMS))
 </script>

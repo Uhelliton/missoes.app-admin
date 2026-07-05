@@ -13,9 +13,13 @@
 <script setup lang="ts">
 import MenuItemWithChildren from '~/ui/layouts/components/sidenav/components/MenuItemWithChildren.vue'
 import MenuItem from '~/ui/layouts/components/sidenav/components/MenuItem.vue'
-import { menuItems } from '~/ui/layouts/components/data'
+import { MENU_ITEMS, MENU_ITEMS_TEAM } from '~/ui/layouts/components/data'
+import { useAuthStore } from '~/modules/auth/stores/auth'
 import { scrollToElement } from '~/infra/utils/helpers'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+
+const { isTenancyTeam } = useAuthStore()
+const menuItems = computed(() => (isTenancyTeam ? MENU_ITEMS_TEAM : MENU_ITEMS))
 
 const openMenuKey = ref<string | null>(null)
 
