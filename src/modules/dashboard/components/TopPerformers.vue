@@ -1,11 +1,11 @@
 <template>
   <BCard no-body>
     <BCardHeader class="border-light justify-content-between">
-      <BCardTitle class="card-title">Top Performing</BCardTitle>
+      <BCardTitle class="card-title">Desempenho por Equipe</BCardTitle>
 
       <div class="d-flex align-items-center gap-2">
         <div class="app-search">
-          <BFormInput v-model="searchQuery" type="search" placeholder="Search..." />
+          <BFormInput v-model="searchQuery" type="search" placeholder="Buscar..." />
           <Icon icon="search" class="app-search-icon text-muted" />
         </div>
       </div>
@@ -14,58 +14,71 @@
     <BTable
       show-empty
       :filter="searchQuery"
-      empty-text="Nothing found."
+      empty-text="Nenhum resultado encontrado."
       thead-class="bg-light align-middle bg-opacity-25 thead-sm"
       hover
       :fields="fields"
-      :items="saleExecutives"
+      :items="teams"
       :per-page="perPage"
       :current-page="currentPage"
       @filtered="onFiltered"
       responsive
       class="table table-custom table-nowrap table-centered mb-0 w-100"
     >
-      <template #cell(user)="{ item }">
-        <h5 class="fs-14 mb-0 fw-normal">{{ item.user.name }}</h5>
-        <span class="text-muted fs-12">{{ item.user.designation }}</span>
-      </template>
-      <template #head(action)> ••• </template>
-      <template #cell(action)>
-        <RouterLink to="" class="text-muted fs-20"> <Icon icon="eye" /></RouterLink>
+      <template #cell(team)="{ item }">
+        <div class="d-flex align-items-center">
+          <span class="thumb-md justify-content-center d-flex align-items-center bg-purple-subtle text-purple rounded-circle me-1">
+            {{ getPrefixName(item.team) }}
+          </span>
+          <h5 class="fs-14 mb-0 fw-normal">{{ item.team }}</h5>
+        </div>
       </template>
     </BTable>
 
     <BCardFooter class="border-0">
-      <TablePagination v-model:currentPage="currentPage" :per-page="perPage" :total-items="totalRows" label="deals" />
+      <TablePagination v-model:currentPage="currentPage" :per-page="perPage" :total-items="totalRows" label="equipes" />
     </BCardFooter>
   </BCard>
 </template>
 
 <script setup lang="ts">
 import type { TableFieldRaw } from 'bootstrap-vue-next'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import TablePagination from '~/components/TablePagination.vue'
 import Icon from '~/components/wrappers/Icon.vue'
-import { saleExecutiveData, type SaleExecutiveType } from './data.ts'
+import { BiEvangelismService } from '../services/bi-evangelism.service'
+import type { ISummaryEvangelismTeam } from '../types/bi-evangelism.interface'
 
-const fields: Exclude<TableFieldRaw<SaleExecutiveType>, string>[] = [
-  { key: 'user', label: 'User', sortable: false },
-  { key: 'leads', label: 'Leads', sortable: true },
-  { key: 'deals', label: 'Deals', sortable: false },
-  { key: 'tasks', label: 'Tasks', sortable: true },
+const biEvangelismService = BiEvangelismService()
 
-  { key: 'action', label: 'Actions', sortable: false },
+const fields: Exclude<TableFieldRaw<ISummaryEvangelismTeam>, string>[] = [
+  { key: 'team', label: 'Equipe', sortable: false },
+  { key: 'total', label: 'Evangelizados', sortable: true },
+  { key: 'courses', label: 'Cursos', sortable: true },
+  { key: 'cells', label: 'Células', sortable: true },
+  { key: 'decision', label: 'Conversões', sortable: true },
 ]
 
 const searchQuery = ref('')
-
 const currentPage = ref(1)
 const perPage = ref(5)
-const totalRows = ref(saleExecutiveData.length)
-const saleExecutives = ref<SaleExecutiveType[]>(saleExecutiveData)
+const totalRows = ref(0)
+const teams = ref<ISummaryEvangelismTeam[]>([])
 
-function onFiltered(filteredItems: SaleExecutiveType[]) {
+const getPrefixName = (name: string) => {
+  const split = String(name).replace(/\s+/g, ' ').trim().split(' ')
+  const strPart = String(split[1] || split[0] || '').toUpperCase()
+  return (strPart[0] || '') + (strPart[1] || '')
+}
+
+function onFiltered(filteredItems: ISummaryEvangelismTeam[]) {
   totalRows.value = filteredItems.length
   currentPage.value = 1
 }
+
+onMounted(async () => {
+  const response = await biEvangelismService.getSumEvangelismByTeams()
+  teams.value = response.data ?? []
+  totalRows.value = teams.value.length
+})
 </script>

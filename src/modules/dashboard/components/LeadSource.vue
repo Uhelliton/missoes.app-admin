@@ -1,61 +1,86 @@
 <template>
   <BCard no-body class="card-h-100">
     <BCardHeader class="justify-content-between">
-      <BCardTitle>Lead Source</BCardTitle>
-      <div>
-        <RouterLink to="" class="btn btn-sm btn-default me-1"><Icon icon="cloud-upload" class="me-1" /> Export</RouterLink>
-        <RouterLink to="" class="btn btn-sm btn-light"><Icon icon="download" class="me-1" /> Import</RouterLink>
-      </div>
+      <BCardTitle>Evangelismo por Bairro</BCardTitle>
     </BCardHeader>
 
     <BCardBody>
       <div id="most-leads-chart" class="apex-charts">
-        <ApexChart :get-options="leadSourceChartOptions" :series="leadSourceChartOptions().series" />
+        <ApexChart v-if="ready && series.length" :get-options="leadSourceChartOptions" :series="leadSourceChartOptions().series" />
+        <p v-else-if="ready" class="text-muted text-center my-5">Sem dados disponíveis.</p>
       </div>
 
-      <BRow class="mt-2">
-        <BCol>
-          <div class="d-flex justify-content-between align-items-center p-1">
-            <div>
-              <Icon icon="speakerphone" class="fs-16 align-middle me-1 text-primary" />
-              <span class="align-middle fw-semibold ms-1">Newsletter</span>
+      <simplebar class="mt-2 pe-1" style="height: 200px">
+        <div class="row g-0">
+          <div v-for="(item, idx) in districts" :key="idx" class="col-6 d-flex justify-content-between align-items-center p-1">
+            <div class="text-truncate">
+              <span class="badge-dot me-1" :style="`background:${colorFor(idx)}`"></span>
+              <span class="align-middle fw-semibold ms-1 text-truncate">{{ item.district }}</span>
             </div>
-            <span class="fw-semibold text-muted float-end d-flex gap-1 align-items-center"> <Icon icon="chevron-up" class="text-success" /> 6.37% </span>
+            <span class="fw-semibold text-muted flex-shrink-0 ms-1 d-flex gap-1 align-items-center">{{ toPercent(Number(item.total)) }}%</span>
           </div>
-
-          <div class="d-flex justify-content-between align-items-center p-1">
-            <div>
-              <Icon icon="user-hexagon" class="fs-16 align-middle me-1 text-danger" />
-              <span class="align-middle fw-semibold ms-1">Instagram</span>
-            </div>
-            <span class="fw-semibold text-muted float-end d-flex gap-1 align-items-center"> <Icon icon="chevron-up" class="text-success" /> 34.8% </span>
-          </div>
-        </BCol>
-
-        <BCol>
-          <div class="d-flex justify-content-between align-items-center p-1">
-            <div>
-              <Icon icon="settings-2" class="fs-16 align-middle me-1 text-success" />
-              <span class="align-middle fw-semibold ms-1">WhatsApp</span>
-            </div>
-            <span class="fw-semibold text-muted float-end d-flex gap-1 align-items-center"> <Icon icon="chevron-down" class="text-danger" /> 8.9% </span>
-          </div>
-
-          <div class="d-flex justify-content-between align-items-center p-1">
-            <div>
-              <Icon icon="world" class="fs-16 align-middle me-1 text-warning" />
-              <span class="align-middle fw-semibold ms-1">Website</span>
-            </div>
-            <span class="fw-semibold text-muted float-end d-flex gap-1 align-items-center"> <Icon icon="chevron-up" class="text-success" />44.3% </span>
-          </div>
-        </BCol>
-      </BRow>
+        </div>
+      </simplebar>
     </BCardBody>
   </BCard>
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+import type { ApexOptions } from 'apexcharts'
+import simplebar from 'simplebar-vue'
 import ApexChart from '~/components/wrappers/ApexChart.vue'
-import Icon from '~/components/wrappers/Icon.vue'
-import { leadSourceChartOptions } from './data.ts'
+import { getColor } from '~/infra/utils/helpers.ts'
+import { BiEvangelismService } from '../services/bi-evangelism.service'
+import type { ISummaryEvangelismDistrict } from '../types/bi-evangelism.interface'
+
+const biEvangelismService = BiEvangelismService()
+
+const ready = ref(false)
+const districts = ref<ISummaryEvangelismDistrict[]>([])
+
+const palette = ['chart-primary', 'chart-secondary', 'chart-alpha', 'chart-gray', 'chart-delta', 'chart-gamma']
+const colorFor = (idx: number) => getColor(palette[idx % palette.length] ?? 'chart-primary')
+
+const series = computed(() => districts.value.map((d) => Number(d.total)))
+const labels = computed(() => districts.value.map((d) => d.district))
+
+const totalSum = computed(() => series.value.reduce((acc, v) => acc + v, 0))
+const toPercent = (value: number) => (totalSum.value ? Number((value / totalSum.value) * 100).toFixed(1) : '0.0')
+
+const leadSourceChartOptions = (): ApexOptions => ({
+  chart: {
+    height: 243,
+    type: 'donut',
+  },
+  legend: { show: false },
+  stroke: { width: 0 },
+  plotOptions: {
+    pie: {
+      donut: {
+        size: '75%',
+        labels: {
+          show: true,
+          total: { showAlways: true, show: true },
+        },
+      },
+    },
+  },
+  series: series.value,
+  labels: labels.value,
+  colors: districts.value.map((_, idx) => colorFor(idx)),
+  dataLabels: { enabled: false },
+  responsive: [
+    {
+      breakpoint: 480,
+      options: { chart: { width: 200 } },
+    },
+  ],
+})
+
+onMounted(async () => {
+  const response = await biEvangelismService.getSumEvangelismByDistricts()
+  districts.value = response.data ?? []
+  ready.value = true
+})
 </script>

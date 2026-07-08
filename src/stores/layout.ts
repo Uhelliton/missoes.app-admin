@@ -144,6 +144,8 @@ export const useLayout = defineStore(
     }
 
     onMounted(() => {
+      handleResize()
+
       const debouncedResize = debounce(handleResize, 200)
       window.addEventListener('resize', debouncedResize)
     })

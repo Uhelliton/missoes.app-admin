@@ -10,7 +10,7 @@
                 <Icon :icon="stat.icon" />
               </span>
             </div>
-            <h3 class="mb-0 fw-bold"><CountUp :end-val="stat.value" :options="{ decimalPlaces: 2, prefix: stat.prefix || '', suffix: stat.suffix || '' }" /></h3>
+            <h3 class="mb-0 fw-bold"><CountUp :end-val="stat.value" :options="{ decimalPlaces: Number.isInteger(stat.value) ? 0 : 2, prefix: stat.prefix || '', suffix: stat.suffix || '' }" /></h3>
           </div>
           <p class="mb-0 text-muted">
             <span :class="['me-2', stat.change > 0 ? 'text-success' : 'text-danger']"
