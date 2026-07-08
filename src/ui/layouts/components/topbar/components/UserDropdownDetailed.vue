@@ -6,7 +6,7 @@
           <img src="/images/users/user-1.jpg" width="32" class="rounded-circle me-lg-2 d-flex" alt="user-image" />
           <div class="d-lg-flex align-items-center gap-1 d-none">
             <span>
-              <h5 class="my-0 lh-1 pro-username">{{ META_DATA.username }}</h5>
+              <h5 class="my-0 lh-1 pro-username">{{ userAuth.email.split('@')[0] }}</h5>
               <span class="fs-xs lh-1">{{ userAuth.name }}</span>
             </span>
             <Icon icon="chevron-down" class="align-middle" />
