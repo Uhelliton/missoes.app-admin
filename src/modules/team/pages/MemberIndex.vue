@@ -28,6 +28,17 @@
               </BDropdownItem>
             </BDropdown>
 
+            <span class="me-2 fw-semibold">Ordenar por:</span>
+
+            <div class="app-search">
+              <BFormSelect v-model="filter.sort" class="form-control my-1 my-md-0" @change="handleSortBy">
+                <option disabled value="">Selecione uma opção</option>
+                <option value="name:asc">Nome: A-Z</option>
+                <option value="name:desc">Nome: Z-A</option>
+              </BFormSelect>
+              <Icon icon="arrows-sort" class="app-search-icon text-muted" />
+            </div>
+
             <div>
               <BFormSelect v-model="perPage" :options="perPageOptions" class="form-control my-1 my-md-0" />
             </div>
@@ -107,7 +118,7 @@ const { createExcel } = useExcelExport()
 const memberService = MemberService()
 
 const dialogMember = ref(false)
-const filter = reactive({ search: '' })
+const filter = reactive({ search: '', sort: 'name:asc' })
 const isLoading = ref(false)
 
 // Pagination state (server-side)
@@ -141,6 +152,7 @@ const fetchMembers = async (query: object = {}) => {
   const querystring = {
     page: currentPage.value,
     limit: perPage.value,
+    sort: filter.sort,
     ...(filter.search && filter.search.length >= 3 ? { search: filter.search } : {}),
     ...query,
   }
@@ -168,6 +180,11 @@ const handleSearch = async () => {
     currentPage.value = 1
     await fetchMembers({ page: 1 })
   }
+}
+
+const handleSortBy = async () => {
+  currentPage.value = 1
+  await fetchMembers({ page: 1 })
 }
 
 // Page changes from TablePagination
