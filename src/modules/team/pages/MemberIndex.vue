@@ -1,12 +1,11 @@
 <template>
   <BRow>
+    <PageBreadcrumb title="Gerenciar Membros" subtitle="Equipes" />
     <Preloader :loading="isLoading"></Preloader>
     <BCol cols="12">
       <BCard no-body>
         <BCardHeader class="border-light justify-content-between">
           <div class="d-flex gap-2 align-items-center">
-            <BCardTitle class="mb-0">Gerenciar Membros</BCardTitle>
-
             <div class="app-search">
               <BFormInput v-model="filter.search" type="text" placeholder="Buscar por nome ou cpf..." @input="handleSearch" />
               <Icon icon="search" class="app-search-icon text-muted" />
@@ -101,6 +100,7 @@ import { usePdfExport, useExcelExport } from '@/infra/composables'
 import Preloader from '@/components/Preloader.vue'
 import TablePagination from '~/components/TablePagination.vue'
 import Icon from '~/components/wrappers/Icon.vue'
+import PageBreadcrumb from '~/components/PageBreadcrumb.vue'
 
 const { createPDF } = usePdfExport()
 const { createExcel } = useExcelExport()

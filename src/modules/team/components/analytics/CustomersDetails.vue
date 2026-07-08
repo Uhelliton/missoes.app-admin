@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col cols="12">
-      <UIComponentCard title="Fichas de Evangelismo">
+      <section title="Fichas de Evangelismo">
         <b-table-simple responsive class="mb-0">
           <b-thead class="table-light">
             <b-tr>
@@ -34,11 +34,9 @@
             </b-tr>
           </b-tbody>
         </b-table-simple>
-      </UIComponentCard>
+      </section>
     </b-col>
   </b-row>
 </template>
 <script setup lang="ts">
-import UIComponentCard from '@/components/UIComponentCard.vue'
-import { customerTableData } from '@/views/apps/analytics/customers/components/data'
 </script>

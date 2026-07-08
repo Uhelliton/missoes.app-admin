@@ -2,8 +2,8 @@
   <div class="sidenav-menu">
     <RouterLink to="/" class="logo">
       <span class="logo logo-light">
-        <span class="logo-lg"><img src="/images/inuvy-logo.png"  style="height: 60px" alt="logo" /></span>
-        <span class="logo-sm"><img src="/images/inuvy-logo.png"  style="height: 60px" alt="small logo" /></span>
+        <span class="logo-lg"><img src="/images/logo.png"  style="height: 40px" alt="logo" /></span>
+        <span class="logo-sm"><img src="/images/logo.png"  style="height: 60px" alt="small logo" /></span>
       </span>
 
       <span class="logo logo-dark">

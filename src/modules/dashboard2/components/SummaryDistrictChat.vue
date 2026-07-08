@@ -1,5 +1,5 @@
 <template>
-  <b-col md="12" lg="8">
+  <b-col md="12" lg="12">
     <b-card no-body>
       <b-card-header>
         <b-row class="align-items-center">
@@ -26,52 +26,36 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import ApexChart from '@/components/ApexChart.vue'
-import { BiEvangelismService } from '@/modules/dashboard/services/bi-evangelism.service'
-import type { ISummaryEvangelismDaily } from '@/modules/dashboard/types/bi-evangelism.interface'
-import { useChart } from '@/modules/dashboard/composables/useChart'
-import { formatDateToPtBr } from '@/infra/helpers/helper'
+import ApexChart from './ApexChart.vue'
+import { BiEvangelismService } from '@/modules/dashboard2/services/bi-evangelism.service'
+import type { ISummaryEvangelismDistrict } from '@/modules/dashboard2/types/bi-evangelism.interface'
+import { useChart } from '@/modules/dashboard2/composables/useChart'
 
 const biEvangelismService = BiEvangelismService()
 const chart = useChart()
 
-const summaryData = ref<ISummaryEvangelismDaily[]>()
+const summaryData = ref<ISummaryEvangelismDistrict[]>()
 const chartConfig = ref()
 
 onMounted(async () => {
   await fetchData()
 
   const total = summaryData.value?.map(({ total }) => total)
-  const cells = summaryData.value?.map(({ cells }) => cells)
-  const courses = summaryData.value?.map(({ courses }) => courses)
-  const decision = summaryData.value?.map(({ decision }) => decision)
-  const labels = summaryData.value?.map(({ date }) => formatDateToPtBr(date))
+  const labels = summaryData.value?.map(({ district }) => district)
 
-  chartConfig.value = chart.buildConfigChatArea(
+  chartConfig.value = chart.buildConfigChatBar(
     [
       {
         name: 'Pessoas Evangelizadas',
         data: total,
-      },
-      {
-        name: 'Cursos',
-        data: courses,
-      },
-      {
-        name: 'Células',
-        data: cells,
-      },
-      {
-        name: 'Conversões',
-        data: decision,
-      },
+      }
     ],
     labels,
   )
 })
 
 const fetchData = async () => {
-  const response = await biEvangelismService.getSummaryEvangelismDaily()
+  const response = await biEvangelismService.getSumEvangelismByDistricts()
   summaryData.value = response.data
 }
 </script>

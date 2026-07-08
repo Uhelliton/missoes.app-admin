@@ -57,6 +57,10 @@
             <span v-if="item.additionalPeople?.length" class="badge rounded text-white bg-secondary ms-1"> + {{ item.additionalPeople.length }} </span>
           </template>
 
+          <template #cell(code)="{ item }">
+          <span class="fw-semibold link-reset">#{{ item.code }}</span>
+          </template>
+
           <template #cell(team)="{ item }">{{ item.team?.name }}</template>
 
           <template #cell(acceptedCourse)="{ item }">{{ item.acceptedCourse ? 'Sim' : 'Não' }}</template>

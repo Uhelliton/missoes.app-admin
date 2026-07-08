@@ -2,7 +2,7 @@
   <BModal
     v-model="isOpen"
     :title="isFormCreate ? 'Cadastro de Igreja' : 'Editar Igreja'"
-    title-class="m-0"
+    title-class="m-0 fw-semibold"
     size="lg"
     cancel-variant="outline-danger"
     @close="closeModal"

@@ -3,6 +3,13 @@ import type { MenuItemType } from '~/types'
 // Menu completo (administrador / tenant global)
 export const MENU_ITEMS: MenuItemType[] = [
   {
+    'icon': '',
+    'slug': '',
+    'label': '',
+    'isTitle': true,
+    'children': [],
+  },
+  {
     'slug': 'main',
     'label': '',
     'isTitle': false,

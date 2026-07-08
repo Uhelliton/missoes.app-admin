@@ -130,6 +130,7 @@
   border-bottom: var(--#{$prefix}modal-header-border-width) solid var(--#{$prefix}modal-header-border-color);
   @include border-top-radius(var(--#{$prefix}modal-inner-border-radius));
 
+  background-color: rgba(238, 242, 247, 1) !important;
   .btn-close {
     padding: calc(var(--#{$prefix}modal-header-padding-y) * .5) calc(var(--#{$prefix}modal-header-padding-x) * .5);
     // Split properties to avoid invalid calc() function if value is 0

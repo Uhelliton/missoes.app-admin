@@ -1,11 +1,10 @@
 <template>
+  <PageBreadcrumb title="Gerenciar Equipes" subtitle="Equipes" />
   <BRow>
     <BCol cols="12">
       <BCard no-body>
         <BCardHeader class="border-light justify-content-between">
           <div class="d-flex gap-2 align-items-center">
-            <BCardTitle class="mb-0">Gerenciar Equipes</BCardTitle>
-
             <BButton variant="primary" @click="handleCreate"> <Icon icon="plus" class="me-1" /> Nova Equipe </BButton>
           </div>
 
@@ -111,6 +110,7 @@ import type { ITeam } from '@/modules/team/types/team.interface'
 import { useTeamExportData } from '@/modules/team/composables/useTeamExportData'
 import TablePagination from '~/components/TablePagination.vue'
 import Icon from '~/components/wrappers/Icon.vue'
+import PageBreadcrumb from '~/components/PageBreadcrumb.vue'
 
 const teamService = TeamService()
 const router = useRouter()

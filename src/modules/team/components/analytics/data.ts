@@ -1,11 +1,6 @@
 import type { ApexChartType } from '@/types'
 import type { CustomerTableType, SocialStatType, StatType } from '@/views/apps/analytics/customers/components/types'
 
-import avatar1 from '@/assets/images/users/avatar-1.jpg'
-import avatar2 from '@/assets/images/users/avatar-2.jpg'
-import avatar3 from '@/assets/images/users/avatar-3.jpg'
-import avatar4 from '@/assets/images/users/avatar-4.jpg'
-import avatar5 from '@/assets/images/users/avatar-5.jpg'
 
 export const customerLineChart: ApexChartType = {
   height: 233,
@@ -120,96 +115,5 @@ export const socialStatData: SocialStatType[] = [
       change: 0.2,
     },
     variant: 'bg-warning',
-  },
-]
-
-export const customerTableData: CustomerTableType[] = [
-  {
-    name: 'Unity Pugh',
-    avatar: avatar1,
-    ext: 9958,
-    city: 'Curicó',
-    startDate: '2005/02/11',
-    completion: '37%',
-  },
-  {
-    name: 'Theodore Duran',
-    avatar: avatar2,
-    ext: 8971,
-    city: 'Dhanbad',
-    startDate: '1999/04/07',
-    completion: '97%',
-  },
-  {
-    name: 'Kylie Bishop',
-    avatar: avatar3,
-    ext: 3147,
-    city: 'Norman',
-    startDate: '2005/09/08',
-    completion: '63%',
-  },
-  {
-    name: 'Willow Gilliam',
-    avatar: avatar4,
-    ext: 3497,
-    city: 'Amqui',
-    startDate: '2009/11/29',
-    completion: '30%',
-  },
-  {
-    name: 'Blossom Dickerson',
-    avatar: avatar5,
-    ext: 5018,
-    city: 'Kempten',
-    startDate: '2006/11/09',
-    completion: '17%',
-  },
-  {
-    name: 'Elliott Snyder',
-    avatar: avatar3,
-    ext: 3925,
-    city: 'Enines',
-    startDate: '2006/08/03',
-    completion: '57%',
-  },
-  {
-    name: 'Castor Pugh',
-    avatar: avatar1,
-    ext: 9488,
-    city: 'Neath',
-    startDate: '2014/12/23',
-    completion: '93%',
-  },
-  {
-    name: 'Pearl Carlson',
-    avatar: avatar2,
-    ext: 6231,
-    city: 'Cobourg',
-    startDate: '2014/08/31',
-    completion: '100%',
-  },
-  {
-    name: 'Deirdre Bridges',
-    avatar: avatar3,
-    ext: 1579,
-    city: 'Eberswalde-Finow',
-    startDate: '2014/08/26',
-    completion: '44%',
-  },
-  {
-    name: 'Daniel Baldwin',
-    avatar: avatar4,
-    ext: 6095,
-    city: 'Moircy',
-    startDate: '2000/01/11',
-    completion: '33%',
-  },
-  {
-    name: 'Pearl Carlson',
-    avatar: avatar5,
-    ext: 6231,
-    city: 'Cobourg',
-    startDate: '2014/08/31',
-    completion: '100%',
   },
 ]

@@ -47,8 +47,8 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import { BiEvangelismService } from '@/modules/dashboard/services/bi-evangelism.service'
-import type { ISummaryEvangelismDistrict } from '@/modules/dashboard/types/bi-evangelism.interface'
+import { BiEvangelismService } from '@/modules/dashboard2/services/bi-evangelism.service'
+import type { ISummaryEvangelismDistrict } from '@/modules/dashboard2/types/bi-evangelism.interface'
 
 const biEvangelismService = BiEvangelismService()
 const summaryData = ref<ISummaryEvangelismDistrict[]>([])

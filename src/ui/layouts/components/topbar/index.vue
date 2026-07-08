@@ -33,19 +33,19 @@
       </div>
 
       <div class="d-flex align-items-center gap-2">
-        <!--
+
         <ThemeDropdown />
+        <!--
+               <NotificationDropdownPeople />
 
-        <NotificationDropdownPeople />
+               <FullscreenToggler />
 
-        <FullscreenToggler />
+              <MonochromeToggler />
 
-       <MonochromeToggler />
+               <CustomizerToggler />
 
-        <CustomizerToggler />
-
-        <LanguageSelectorRounded />
-        -->
+               <LanguageSelectorRounded />
+               -->
 
         <UserDropdownDetailed />
       </div>
