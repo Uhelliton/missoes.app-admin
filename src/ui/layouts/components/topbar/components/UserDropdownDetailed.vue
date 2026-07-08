@@ -7,20 +7,29 @@
           <div class="d-lg-flex align-items-center gap-1 d-none">
             <span>
               <h5 class="my-0 lh-1 pro-username">{{ META_DATA.username }}</h5>
-              <span class="fs-xs lh-1">Admin</span>
+              <span class="fs-xs lh-1">{{ userAuth.name }}</span>
             </span>
             <Icon icon="chevron-down" class="align-middle" />
           </div>
         </template>
         <BDropdownHeader class="noti-title">
-          <h6 class="text-overflow m-0">Welcome back 👋!</h6>
+          <h6 class="text-overflow m-0">{{ userAuth.email }}</h6>
         </BDropdownHeader>
 
         <template v-for="(item, idx) in userProfileMenuData" :key="idx">
-          <RouterLink :to="item.href" :class="['dropdown-item', item.className]">
-            <Icon :icon="item.icon" class="me-1 fs-lg align-middle" />
-            <span class="align-middle">{{ item.label }}</span>
-          </RouterLink>
+
+          <template v-if="item.action">
+            <button class="dropdown-item" @click="item.action">
+              <Icon :icon="item.icon" class="me-1 fs-lg align-middle" />
+              <span class="align-middle">{{ item.label }}</span>
+            </button>
+          </template>
+          <template v-else>
+            <RouterLink :to="item.href" :class="['dropdown-item', item.className]">
+              <Icon :icon="item.icon" class="me-1 fs-lg align-middle" />
+              <span class="align-middle">{{ item.label }}</span>
+            </RouterLink>
+          </template>
 
           <BDropdownDivider v-if="item.isDivider" />
         </template>
@@ -33,6 +42,7 @@
 import { BDropdown } from 'bootstrap-vue-next'
 import Icon from '~/components/wrappers/Icon.vue'
 import { META_DATA } from '~/ui/config/constants'
+import { useAuthStore } from '@/modules/auth/stores/auth.ts'
 
 type UserProfileMenuType = {
   icon: string
@@ -42,6 +52,7 @@ type UserProfileMenuType = {
   isDivider?: boolean
 }
 
+const  { userAuth, logout  } = useAuthStore();
 const userProfileMenuData: UserProfileMenuType[] = [
   {
     icon: 'user-circle',
@@ -50,30 +61,21 @@ const userProfileMenuData: UserProfileMenuType[] = [
   },
   {
     icon: 'bell-ringing',
-    label: 'Notifications',
+    label: 'Notificação',
     href: '',
-  },
-  {
-    icon: 'settings-2',
-    label: 'Account Settings',
-    href: '',
-  },
-  {
-    icon: 'headset',
-    label: 'Support Center',
-    href: '',
-    isDivider: true,
   },
   {
     icon: 'lock',
     label: 'Lock Screen',
     href: '/auth/lock-screen',
+    isDivider: true,
   },
   {
     icon: 'logout',
-    label: 'Log Out',
+    label: 'Sair',
     href: '',
     className: 'fw-semibold',
+    action: logout
   },
 ]
 </script>

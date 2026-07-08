@@ -17,11 +17,6 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: 'auth', requiresAuth: false },
   },
   {
-    path: '/dashboard2',
-    component: () => import('@/modules/dashboard2/views/Dashboard.vue'),
-    meta: { layout: 'default', requiresAuth: true },
-  },
-  {
     path: '/dashboard',
     component: () => import('@/modules/dashboard/pages/index.vue'),
     meta: { layout: 'default', requiresAuth: true },

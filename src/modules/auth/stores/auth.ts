@@ -27,7 +27,7 @@ export const useAuthStore = defineStore("auth", () => {
   })
 
 
-  const removeSession = () => {
+  const logout = () => {
     localStorage.removeItem('app_user')
     localStorage.removeItem('app_token')
     user.value = null;
@@ -39,7 +39,7 @@ export const useAuthStore = defineStore("auth", () => {
   return {
     user,
     saveSession,
-    removeSession,
+    logout,
     isAuthenticated,
     userAuth,
     isTenancyTeam,

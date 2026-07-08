@@ -4,13 +4,12 @@
       <div class="row">
         <div class="col-md-6 text-center text-md-start">
           {{ currentYear }}
-          © {{ META_DATA.name }} - By <span class="fw-bold text-decoration-underline text-uppercase text-reset fs-12">{{ META_DATA.author }}</span>
+          © {{ META_DATA.name }}
         </div>
         <div class="col-md-6">
           <div class="d-none d-md-flex justify-content-end gap-3">
-            <RouterLink to="" class="link-reset">About</RouterLink>
-            <RouterLink to="" class="link-reset">Support</RouterLink>
-            <RouterLink to="" class="link-reset">Contact Us</RouterLink>
+            <a href="https://wa.me/5573988185493" target="_blank" class="link-reset">Support</a>
+<!--            <RouterLink to="https://wa.me/5573988185493" target="_blank" class="link-reset">Support</RouterLink>-->
           </div>
         </div>
       </div>
