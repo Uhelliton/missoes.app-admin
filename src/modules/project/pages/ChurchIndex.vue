@@ -1,11 +1,10 @@
 <template>
+  <PageBreadcrumb title="Gerenciar Igrejas" subtitle="Projeto" />
   <BRow>
     <BCol cols="12">
       <BCard no-body>
         <BCardHeader class="border-light justify-content-between">
           <div class="d-flex gap-2 align-items-center">
-            <BCardTitle class="mb-0">Gerenciar Igrejas</BCardTitle>
-
             <BButton variant="primary" @click="handleCreate"> <Icon icon="plus" class="me-1" /> Nova Igreja </BButton>
           </div>
 
@@ -63,6 +62,7 @@ import { ChurchService } from '@/modules/project/services/church.service'
 import type { IChurch } from '@/modules/project/types/church.interface'
 import TablePagination from '~/components/TablePagination.vue'
 import Icon from '~/components/wrappers/Icon.vue'
+import PageBreadcrumb from '~/components/PageBreadcrumb.vue'
 
 const churchService = ChurchService()
 

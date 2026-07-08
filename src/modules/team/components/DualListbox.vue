@@ -74,7 +74,7 @@
       </div>
     </div>
     <template #ok>
-      <b-button type="button" variant="primary" @click="onSubmit" :disabled="isLoading">
+      <b-button type="button" variant="primary" @click="onSubmit" :disabled="isLoading || currentYear !== team?.project.year">
         <b-spinner small v-if="isLoading" />
         {{ isLoading ? 'Salvando...' : 'Confimar' }}
       </b-button>
@@ -123,6 +123,7 @@ const selectedSelected = ref([])
 const selected = ref<IMemberSimplified[]>([...props.teamMembers]) // copia
 const items = ref<IMember[]>([])
 const isLoading = ref(false)
+const currentYear = ref(new Date().getFullYear())
 
 watch(
   () => isOpen.value,
