@@ -3,10 +3,13 @@
     <BCardHeader class="justify-content-between">
       <BCardTitle>Visão Geral <span class="text-muted fw-normal fs-base">(Evangelismo)</span></BCardTitle>
       <div>
-        <button type="button" class="btn btn-light btn-sm me-1">Tudo</button>
-        <button type="button" class="btn btn-light btn-sm me-1">1M</button>
-        <button type="button" class="btn btn-light btn-sm me-1">6M</button>
-        <button type="button" class="btn btn-light active btn-sm">1A</button>
+        <button
+          v-for="y in [2025, 2026]" :key="y"
+          type="button" class="btn btn-light btn-sm me-1"
+          :class="y === year ? 'active' : ''"
+          @click="handleChangeYear(y)">
+          {{ y }}
+        </button>
       </div>
     </BCardHeader>
 
@@ -58,11 +61,13 @@ import { formatDateToPtBr } from '~/infra/utils/helper'
 import type { OverviewType } from './data.ts'
 import { BiEvangelismService } from '../services/bi-evangelism.service'
 import type { ISummaryEvangelismDaily } from '../types/bi-evangelism.interface'
+import { BCard, BCardHeader } from 'bootstrap-vue-next'
 
 const biEvangelismService = BiEvangelismService()
 
 const isLoading = ref(false)
 const ready = ref(false)
+const year = ref(new Date().getFullYear())
 
 const overviewData = ref<OverviewType[]>([])
 const chartSeries = ref<ApexOptions['series']>([])
@@ -170,12 +175,16 @@ const buildOverview = (daily: ISummaryEvangelismDaily[]) => {
   ]
 }
 
+const handleChangeYear = (y: number) => {
+  year.value = y
+  fetchData()
+}
+
 const fetchData = async () => {
   isLoading.value = true
-  // Desmonta o gráfico para forçar o wrapper a recomputar as opções com os novos dados.
   ready.value = false
   try {
-    const response = await biEvangelismService.getSummaryEvangelismDaily()
+    const response = await biEvangelismService.getSummaryEvangelismDaily({ year: year.value })
     buildOverview(response.data ?? [])
     ready.value = true
   } finally {

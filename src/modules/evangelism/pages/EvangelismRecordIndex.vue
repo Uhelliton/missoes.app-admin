@@ -16,7 +16,17 @@
           </div>
 
           <div class="d-flex align-items-center gap-2 flex-wrap">
-            <span class="me-2 fw-semibold">Ordenar por:</span>
+            <span class="me-2 fw-semibold">Ano:</span>
+
+            <div class="app-search">
+              <BFormSelect v-model="filter.year" class="form-control my-1 my-md-0" @change="handleSortBy">
+                <option disabled value="">Selecione uma opção</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2025">Todos</option>
+              </BFormSelect>
+              <Icon icon="arrows-sort" class="app-search-icon text-muted" />
+            </div>
 
             <div class="app-search">
               <BFormSelect v-model="filter.sort" class="form-control my-1 my-md-0" @change="handleSortBy">
@@ -126,7 +136,7 @@ const evangelismRecordService = EvangelismRecordService()
 const { isTenancyTeam, userAuth } = useAuthStore()
 
 const dialogFactsheetIsActive = ref(false)
-const filter = reactive({ search: '', sort: 'id:desc' })
+const filter = reactive({ search: '', sort: 'id:desc', year: new Date().getFullYear() })
 
 // Pagination state (server-side)
 const currentPage = ref(1)
@@ -164,6 +174,7 @@ const fetchRecords = async (query: object = {}) => {
     page: currentPage.value,
     limit: perPage.value,
     sort: filter.sort,
+    year: filter.year,
     ...(filter.search && filter.search.length >= 3 ? { search: filter.search } : {}),
     ...query,
     ...queryTeams,

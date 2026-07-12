@@ -2,6 +2,15 @@
   <BCard no-body class="card-h-100">
     <BCardHeader class="justify-content-between">
       <BCardTitle>Evangelismo por Bairro</BCardTitle>
+      <div>
+        <button
+          v-for="y in [2025, 2026]" :key="y"
+          type="button" class="btn btn-light btn-sm me-1"
+          :class="y === year ? 'active' : ''"
+          @click="handleChangeYear(y)">
+          {{ y }}
+        </button>
+      </div>
     </BCardHeader>
 
     <BCardBody>
@@ -37,6 +46,7 @@ import type { ISummaryEvangelismDistrict } from '../types/bi-evangelism.interfac
 const biEvangelismService = BiEvangelismService()
 
 const ready = ref(false)
+const year = ref(new Date().getFullYear())
 const districts = ref<ISummaryEvangelismDistrict[]>([])
 
 const palette = ['chart-primary', 'chart-secondary', 'chart-alpha', 'chart-gray', 'chart-delta', 'chart-gamma']
@@ -78,9 +88,18 @@ const leadSourceChartOptions = (): ApexOptions => ({
   ],
 })
 
-onMounted(async () => {
-  const response = await biEvangelismService.getSumEvangelismByDistricts()
+const handleChangeYear = (y: number) => {
+  year.value = y
+  fetchData()
+}
+
+const fetchData = async () => {
+  const response = await biEvangelismService.getSumEvangelismByDistricts({ year: year.value })
   districts.value = response.data ?? []
   ready.value = true
+}
+
+onMounted(async () => {
+  await fetchData()
 })
 </script>

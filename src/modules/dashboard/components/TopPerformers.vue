@@ -8,6 +8,15 @@
           <BFormInput v-model="searchQuery" type="search" placeholder="Buscar..." />
           <Icon icon="search" class="app-search-icon text-muted" />
         </div>
+        <div>
+          <button
+            v-for="y in [2025, 2026]" :key="y"
+            type="button" class="btn btn-light btn-sm me-1"
+            :class="y === year ? 'active' : ''"
+            @click="handleChangeYear(y)">
+            {{ y }}
+          </button>
+        </div>
       </div>
     </BCardHeader>
 
@@ -64,6 +73,7 @@ const currentPage = ref(1)
 const perPage = ref(5)
 const totalRows = ref(0)
 const teams = ref<ISummaryEvangelismTeam[]>([])
+const year = ref(new Date().getFullYear())
 
 const getPrefixName = (name: string) => {
   const split = String(name).replace(/\s+/g, ' ').trim().split(' ')
@@ -76,9 +86,18 @@ function onFiltered(filteredItems: ISummaryEvangelismTeam[]) {
   currentPage.value = 1
 }
 
-onMounted(async () => {
-  const response = await biEvangelismService.getSumEvangelismByTeams()
+const handleChangeYear = (y: number) => {
+  year.value = y
+  fetchData()
+}
+
+const fetchData = async () => {
+  const response = await biEvangelismService.getSumEvangelismByTeams({ year: year.value })
   teams.value = response.data ?? []
   totalRows.value = teams.value.length
+}
+
+onMounted(async () => {
+  await fetchData()
 })
 </script>
