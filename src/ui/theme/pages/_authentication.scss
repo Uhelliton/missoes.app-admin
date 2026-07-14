@@ -6,7 +6,7 @@
 .auth-box {
     @extend .position-relative;
     @extend .min-vh-100;
-    padding: 50px;
+    padding: 10px;
 
     .card {
         border-radius: 15px;
@@ -14,7 +14,7 @@
     }
 
     .card-body {
-        padding: 50px;
+        padding: 16px;
     }
 }
 
@@ -80,6 +80,11 @@ html[data-bs-theme='dark'] {
 
 // Responsive
 @include media-breakpoint-up(md) {
+    .auth-box {
+      .card-body {
+        padding: 50px;
+      }
+    }
     .auth-box-form {
         min-width: 425px;
         max-width: 475px;
