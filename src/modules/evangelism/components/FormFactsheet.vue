@@ -74,6 +74,7 @@
               tag-pills
               size="lg"
               placeholder=""
+              class="tags-spaced"
             />
           </BFormGroup>
         </BCol>
@@ -336,4 +337,11 @@ const closeModal = () => {
   emit('update:isOpen', false)
   emit('close')
 }
+
 </script>
+
+<style scoped>
+.tags-spaced :deep(.b-form-tags-list) {
+  gap: 0.375rem;
+}
+</style>

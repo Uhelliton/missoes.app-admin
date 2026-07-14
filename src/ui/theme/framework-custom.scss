@@ -378,7 +378,7 @@ $value in $theme-colors {
 
 .multiselect__tags {
     border: $input-border-width solid $input-border-color;
-    height: $input-height;
+    min-height: $input-height;
     background-color: $input-bg;
 }
 
