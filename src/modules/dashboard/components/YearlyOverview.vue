@@ -3,13 +3,20 @@
     <BCardHeader class="justify-content-between">
       <BCardTitle>Visão Geral <span class="text-muted fw-normal fs-base">(Evangelismo)</span></BCardTitle>
       <div>
-        <button
-          v-for="y in [2025, 2026]" :key="y"
-          type="button" class="btn btn-light btn-sm me-1"
-          :class="y === year ? 'active' : ''"
-          @click="handleChangeYear(y)">
-          {{ y }}
-        </button>
+        <BFormSelect
+          v-model="year"
+          class="form-control"
+          placeholder="Selecione uma opção"
+          @change="handleChangeYear($event)"
+        >
+          <option
+            v-for="y in [2025, 2026]"
+            :key="y"
+            :value="y"
+          >
+            {{ y }}
+          </option>
+        </BFormSelect>
       </div>
     </BCardHeader>
 
@@ -175,8 +182,8 @@ const buildOverview = (daily: ISummaryEvangelismDaily[]) => {
   ]
 }
 
-const handleChangeYear = (y: number) => {
-  year.value = y
+const handleChangeYear = (event: any) => {
+  year.value = event.target.value
   fetchData()
 }
 

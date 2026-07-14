@@ -1,6 +1,6 @@
 <template>
-  <BRow>
-    <BCol v-for="(stat, idx) in stats" :key="idx" md="6" xxl="3">
+  <BRow class="position-relative">
+    <BCol v-for="(stat, idx) in stats" :key="idx" md="6" xxl="3" class="position-relative z-10">
       <StatisticWidget :stat="stat" />
     </BCol>
   </BRow>
@@ -14,6 +14,7 @@ import StatisticWidget from './StatisticWidget.vue'
 import type { CrmStatType } from './data.ts'
 import { BiEvangelismService } from '../services/bi-evangelism.service'
 import type { ISummaryData, ISummaryEvangelismDaily } from '../types/bi-evangelism.interface'
+import { BCol, BRow } from 'bootstrap-vue-next'
 
 const biEvangelismService = BiEvangelismService()
 

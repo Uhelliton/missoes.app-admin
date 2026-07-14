@@ -3,13 +3,20 @@
     <BCardHeader class="justify-content-between">
       <BCardTitle>Evangelismo por Bairro</BCardTitle>
       <div>
-        <button
-          v-for="y in [2025, 2026]" :key="y"
-          type="button" class="btn btn-light btn-sm me-1"
-          :class="y === year ? 'active' : ''"
-          @click="handleChangeYear(y)">
-          {{ y }}
-        </button>
+        <BFormSelect
+          v-model="year"
+          class="form-control"
+          placeholder="Selecione uma opção"
+          @change="handleChangeYear($event)"
+        >
+          <option
+            v-for="y in [2025, 2026]"
+            :key="y"
+            :value="y"
+          >
+            {{ y }}
+          </option>
+        </BFormSelect>
       </div>
     </BCardHeader>
 
@@ -42,6 +49,7 @@ import ApexChart from '~/components/wrappers/ApexChart.vue'
 import { getColor } from '~/infra/utils/helpers.ts'
 import { BiEvangelismService } from '../services/bi-evangelism.service'
 import type { ISummaryEvangelismDistrict } from '../types/bi-evangelism.interface'
+import { BCard } from 'bootstrap-vue-next'
 
 const biEvangelismService = BiEvangelismService()
 
@@ -88,8 +96,8 @@ const leadSourceChartOptions = (): ApexOptions => ({
   ],
 })
 
-const handleChangeYear = (y: number) => {
-  year.value = y
+const handleChangeYear = (event: any) => {
+  year.value = event.target.value
   fetchData()
 }
 
