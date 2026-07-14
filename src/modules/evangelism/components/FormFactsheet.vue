@@ -18,7 +18,7 @@
               v-maska="'@@-#######'"
               :class="['text-uppercase', { error: v$.code.$error }]"
               @focusout="handleFocusFieldCode"
-              :readonly="!isFormCreate"
+              :readonly="!isFormCreate && !isAdministrator"
             />
           </BFormGroup>
         </BCol>
