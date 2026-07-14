@@ -242,6 +242,11 @@ watch(
   (value: boolean) => {
     if (value && !isFormCreate.value) {
       setFormData(evangelismRecord.value)
+
+      const team = teams.value.find(({ id }) => id === evangelismRecord.value?.team.id)
+      if (team) {
+        onChangeTeam(team)
+      }
       return
     }
 
@@ -269,7 +274,6 @@ const fetchTeams = async () => {
 }
 
 const onChangeTeam = (option: ITeam) => {
-  console.log(option)
   const team = teams.value.find((team) => team.id === option.id)
   form.membersIds = []
   form.teamId = option.id
