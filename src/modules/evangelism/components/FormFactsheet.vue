@@ -269,6 +269,7 @@ const fetchTeams = async () => {
 }
 
 const onChangeTeam = (option: ITeam) => {
+  console.log(option)
   const team = teams.value.find((team) => team.id === option.id)
   form.membersIds = []
   form.teamId = option.id
@@ -278,7 +279,7 @@ const onChangeTeam = (option: ITeam) => {
 const handleFocusFieldCode = (event: any) => {
   const code = event.target.value
   const [fist, last] = code.split('-')
-  const teamFiltered = teams.value.find((team) => team.name.toLowerCase().includes(fist))
+  const teamFiltered = teams.value.find((team) => team.prefix.toLowerCase().includes(fist))
 
   if (teamFiltered && isAdministrator) {
     const { members: teamMembers, leader, ...team } = teamFiltered

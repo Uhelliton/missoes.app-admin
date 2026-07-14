@@ -37,7 +37,7 @@
       <template #cell(team)="{ item }">
         <div class="d-flex align-items-center">
           <span class="thumb-md justify-content-center d-flex align-items-center bg-purple-subtle text-purple rounded-circle me-1">
-            {{ getPrefixName(item.team) }}
+            {{ item.prefix }}
           </span>
           <h5 class="fs-14 mb-0 fw-normal">{{ item.team }}</h5>
         </div>
@@ -75,11 +75,6 @@ const totalRows = ref(0)
 const teams = ref<ISummaryEvangelismTeam[]>([])
 const year = ref(new Date().getFullYear())
 
-const getPrefixName = (name: string) => {
-  const split = String(name).replace(/\s+/g, ' ').trim().split(' ')
-  const strPart = String(split[1] || split[0] || '').toUpperCase()
-  return (strPart[0] || '') + (strPart[1] || '')
-}
 
 function onFiltered(filteredItems: ISummaryEvangelismTeam[]) {
   totalRows.value = filteredItems.length

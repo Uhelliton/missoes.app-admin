@@ -47,7 +47,7 @@
           <template #cell(name)="{ item }">
             <div class="d-flex align-items-center">
               <span class="thumb-md justify-content-center d-flex align-items-center bg-purple-subtle text-purple rounded-circle me-1">
-                {{ getPrefixName(item.name) }}
+                {{ item.prefix }}
               </span>
               {{ item.name }}
             </div>
@@ -142,12 +142,6 @@ const fields = [
 onMounted(async () => {
   await fetchTeams()
 })
-
-const getPrefixName = (name: string) => {
-  const split = name.replace(/\s+/g, ' ').split(' ')
-  const strPart = String(split[1] || '').toUpperCase()
-  return strPart[0] + strPart[1]
-}
 
 const fetchTeams = async (query: object = {}) => {
   try {

@@ -35,7 +35,7 @@
                     <span
                       class="thumb-md justify-content-center d-flex align-items-center bg-purple-subtle text-purple rounded-circle"
                     >
-                      {{ getPrefixName(item.teamMember.team.name) }}
+                      {{ item.teamMember.team.prefix }}
                     </span>
                   </div>
                 </div>
@@ -202,12 +202,6 @@ const onSubmit = async () => {
 const closeModal = () => {
   emit('update:isOpen', false)
   emit('close')
-}
-
-const getPrefixName = (name: string) => {
-  const split = name.split(' ')
-  const strPart = String(split[1] || '').toUpperCase()
-  return strPart[0] + strPart[1]
 }
 </script>
 

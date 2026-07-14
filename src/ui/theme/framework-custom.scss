@@ -374,6 +374,18 @@ $value in $theme-colors {
     }
 }
 
+// form validation error state
+
+.form-control.error,
+.form-select.error {
+    border-color: var(--#{$prefix}danger);
+
+    &:focus {
+        border-color: var(--#{$prefix}danger);
+        box-shadow: 0 0 0 $input-focus-width rgba(var(--#{$prefix}danger-rgb), 0.25);
+    }
+}
+
 // multi-select
 
 .multiselect__tags {
