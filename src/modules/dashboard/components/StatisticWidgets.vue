@@ -19,6 +19,7 @@ import { BCol, BRow } from 'bootstrap-vue-next'
 const biEvangelismService = BiEvangelismService()
 
 const stats = ref<CrmStatType[]>([])
+const year = ref(new Date().getFullYear())
 
 const makeSparkline = (data: number[], colorKey: string): (() => ApexOptions) => {
   return () => ({
@@ -107,8 +108,8 @@ const buildStats = (summary: ISummaryData, daily: ISummaryEvangelismDaily[]): Cr
 
 onMounted(async () => {
   const [summaryRes, dailyRes] = await Promise.all([
-    biEvangelismService.getSummaryData(),
-    biEvangelismService.getSummaryEvangelismDaily(),
+    biEvangelismService.getSummaryData({ year: year.value }),
+    biEvangelismService.getSummaryEvangelismDaily({ year: year.value }),
   ])
   stats.value = buildStats(summaryRes.data, dailyRes.data ?? [])
 })
