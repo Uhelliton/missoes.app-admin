@@ -13,7 +13,7 @@
     </BCol>
   </BRow>
 
-  <BRow>
+  <BRow v-if="isAdministrator">
     <BCol xl="12">
       <TopPerformers />
     </BCol>
@@ -26,4 +26,9 @@ import StatisticWidgets from '../components/StatisticWidgets.vue'
 import LeadSource from '../components/LeadSource.vue'
 import TopPerformers from '../components/TopPerformers.vue'
 import YearlyOverview from '../components/YearlyOverview.vue'
+import { useAuthStore } from '~/modules/auth/stores/auth.ts'
+import { BRow } from 'bootstrap-vue-next'
+
+const { isAdministrator } = useAuthStore()
+
 </script>
