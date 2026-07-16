@@ -49,6 +49,13 @@
           <h5 class="fs-14 mb-0 fw-normal">{{ item.team }}</h5>
         </div>
       </template>
+      <template #cell(action)="{ item }">
+        <div class="d-flex justify-content-end align-items-center">
+          <BButton variant="light"  @click="exportToPDF(item)">
+            <Icon icon="file-text" class="me-1" />  Relatório
+          </BButton>
+        </div>
+      </template>
     </BTable>
 
     <BCardFooter class="border-0">
@@ -64,6 +71,11 @@ import TablePagination from '~/components/TablePagination.vue'
 import Icon from '~/components/wrappers/Icon.vue'
 import { BiEvangelismService } from '../services/bi-evangelism.service'
 import type { ISummaryEvangelismTeam } from '../types/bi-evangelism.interface'
+import {
+  useTeamPerformersExportData
+} from '~/modules/team/composables/useTeamPerformersExportData.ts'
+import { formatDateToPtBr } from '~/infra/utils/helper.ts'
+import { BCard } from 'bootstrap-vue-next'
 
 const biEvangelismService = BiEvangelismService()
 
@@ -73,6 +85,7 @@ const fields: Exclude<TableFieldRaw<ISummaryEvangelismTeam>, string>[] = [
   { key: 'courses', label: 'Cursos', sortable: true },
   { key: 'cells', label: 'Células', sortable: true },
   { key: 'decision', label: 'Conversões', sortable: true },
+  { key: 'action', label: '', sortable: false },
 ]
 
 const searchQuery = ref('')
@@ -97,6 +110,14 @@ const fetchData = async () => {
   const response = await biEvangelismService.getSumEvangelismByTeams({ year: year.value })
   teams.value = response.data ?? []
   totalRows.value = teams.value.length
+}
+
+
+const exportToPDF = async (data: ISummaryEvangelismTeam) => {
+  const response = await biEvangelismService.getSummaryEvangelismDaily({ year: year.value, teamId: data.teamId })
+
+  const { exportToPDF: generatePDF } = useTeamPerformersExportData(response.data, data.team, data.color, Number(year.value))
+  generatePDF()
 }
 
 onMounted(async () => {

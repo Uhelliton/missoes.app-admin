@@ -1,12 +1,14 @@
 <template>
-  <b-row>
-    <CustomersData />
-    <CustomersGrowth />
-  </b-row>
-  <CustomersDetails />
+  <TeamPerformers />
 </template>
 <script setup lang="ts">
-import CustomersData from '../components/analytics/CustomersData.vue'
-import CustomersGrowth from '../components/analytics/CustomersGrowth.vue'
-import CustomersDetails from '../components/analytics/CustomersDetails.vue'
+import { onMounted } from 'vue'
+import { BiEvangelismService } from '~/modules/dashboard/services/bi-evangelism.service.ts'
+import TeamPerformers from '~/modules/team/components/analytics/TeamPerformers.vue'
+
+const biEvangelismService = BiEvangelismService()
+
+onMounted(async () => {
+  const response = await biEvangelismService.getSummaryEvangelismDaily({ year: 2026, teamId: 23 })
+})
 </script>

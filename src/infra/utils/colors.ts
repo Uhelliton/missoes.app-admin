@@ -1,0 +1,18 @@
+export const teamColors: Record<string, number[]> = {
+  Azul: [0, 121, 191],
+  Amarelo: [255, 223, 0],
+  Bege: [245, 245, 220],
+  Branca: [255, 255, 255],
+  Cinza: [128, 128, 128],
+  Dourada: [212, 175, 55],
+  Laranja: [255, 149, 46],
+  Marrom: [139, 69, 19],
+  Ouro: [255, 215, 0],
+  Preto: [0, 0, 0],
+  Prata: [192, 192, 192],
+  Rosa: [255, 105, 180],
+  Roxo: [128, 0, 128],
+  Verde: [46, 204, 113],
+  Vermelho: [235, 64, 52],
+  Violeta: [143, 0, 255],
+};

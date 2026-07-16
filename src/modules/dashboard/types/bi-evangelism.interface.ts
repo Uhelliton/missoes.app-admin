@@ -16,4 +16,6 @@ export interface ISummaryEvangelismDistrict {
 
 export interface ISummaryEvangelismTeam extends ISummaryData {
   team: string
+  teamId: string
+  color: string
 }
