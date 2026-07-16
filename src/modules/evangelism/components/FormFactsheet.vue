@@ -219,7 +219,7 @@ const evangelismRecordService = EvangelismRecordService()
 
 const { form, setFormData, resetForm, rules } = useFormFactSheet()
 const notify = useToast()
-const { isTenancyTeam, isAdministrator, userAuth } = useAuthStore()
+const { isTenancyTeam, isAdministrator, userAuth, logout } = useAuthStore()
 
 const { isOpen, evangelismRecord } = toRefs(props)
 const teams = ref<Array<ITeam>>([])
@@ -240,6 +240,12 @@ const teamsListCompact = computed(() => teams.value.map(({ members, leader, ...t
 watch(
   () => isOpen.value,
   (value: boolean) => {
+    // todo> ajsutar para /Id do projeto real
+    if (isTenancyTeam && userAuth.team.projectId !== 2) {
+      logout()
+      return
+    }
+
     if (value && !isFormCreate.value) {
       setFormData(evangelismRecord.value)
 
